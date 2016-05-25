@@ -1,46 +1,109 @@
 {embed="includes/.header" page_title="Home" seo_plugin="yes"}
 
 
-<div id="homeheader" class="span-24 fixed-header">
-
+<div class="wrapper">
 
 {exp:channel:entries channel="home" dynamic="no"}
-		
 
-		
+{!-- Staff Picks --}
+<!-- Start trending panel -->
+<h2 class="block-heading pink-bg palm-mb-- palm-pl-- lap-and-up-pl- lap-and-up-mb-">{staff_pick_title_text}</h2>
+<div class="layout layout--rev layout--small">
+  <div class="layout__item layout__item--hidden-palm u-1/3-desk u-1/3-lap">
+    <div class="trending">
+
+			{exp:playa:children field="staff_picks"}
+
+				{if channel_short_name == "features"}
+				<a class="trending__item" href="/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}">
+					{feature_home_page_title}
+				</a>
+				{if:elseif channel_short_name == "calendar_events"}
+				<a class="trending__item" href="/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}">
+					{event_home_title}
+				</a>
+				{if:elseif channel_short_name == "venues"}
+				<a class="trending__item" href="/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}">
+					{venue_home_page_title}
+				</a>
+				{if:elseif channel_short_name == "events"}
+				<a class="trending__item" href="/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}">
+					{event_home_title}
+				</a>
+				{if:elseif channel_short_name == "special_offers"}
+				<a class="trending__item" href="/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}">
+					{so_home_page_title}
+				</a>
+				{if:elseif channel_short_name == "pages" || channel_short_name == "london_lates"}
+				<a class="trending__item" href="/{if url_title=="features-show"}features/show{if:elseif url_title=="free"}venues/free{if:else}{url_title}{/if}">
+					{title}
+				</a>
+{/if}
+				{/exp:playa:children}
+				</div>
+				</div><!--
+			--><div class="layout__item u-2/3-desk u-2/3-lap">
+			<div class="slider js_slider">
+				<div class="frame js_frame">
+					<ul class="slides js_slides palm-p0 lap-and-up-p0">
+			{exp:playa:children field="staff_picks"}
+			<li class="slide">
+				<div class="slide__image--container">
+				{if channel_short_name == 'pages'}
+								<a class="image" href="/{if url_title=="features-show"}features/show{if:elseif url_title=="free"}venues/free{if:else}{url_title}{/if}">
+									<img src="{homepage_image}" width="180" height="180" alt="homepage this week image" />
+								</a>
+							{if:elseif channel_short_name == 'london_lates'}
+								<a class="image" href="/london-lates">
+									<img src="{homepage_image_lates}" width="180" height="180" alt="London lates promo image" />
+								</a>
+							{if:else}
+								{exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
+								<a class="image" href="/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name =="special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}">
+									<img src="{image:url:180x180}" width="180" height="180" alt="homepage this week image" />
+								</a>
+								{/exp:channel_images:images}
+						{/if}
+						{if channel_short_name == "features"}
+						<p><a onClick="ga('send', 'event', 'ThisWeek_{count}', 'click', {'page': '/{channel_short_name}/{url_title}'});" href="/{channel_short_name}/{url_title}">{feature_sub_title}</a></p>
+						{if:elseif channel_short_name == "calendar_events"}
+						<p><a onClick="ga('send', 'event', 'ThisWeek_{count}', 'click', {'page': '/events/{url_title}'});" href="/events/{url_title}">{event_sub_title}</a></p>
+						{if:elseif channel_short_name == "venues"}
+						<p><a onClick="ga('send', 'event', 'ThisWeek_{count}', 'click', {'page': '/{channel_short_name}/{url_title}'});" href="/{channel_short_name}/{url_title}">{venue_sub_title}</a></p>
+						{if:elseif channel_short_name == "events"}
+						<p><a onClick="ga('send', 'event', 'ThisWeek_{count}', 'click', {'page': '/events/{url_title}'});" href="/events/{url_title}">{event_sub_title}</a></p>
+						{if:elseif channel_short_name == "special_offers"}
+						<p><a onClick="ga('send', 'event', 'ThisWeek_{count}', 'click', {'page': '/special-offers/detail/{url_title}'});" href="/special-offers/detail/{url_title}">{special_offers_sub_title}</a></p>
+						{if:elseif channel_short_name == "pages"}
+						{if:else}
+						{/if}
+					</div>
+
+					</li>
+					{/exp:playa:children}
+				</ul>
+				<span class="slides__prev prev">
+										 <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#ffffff" d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"/></g></svg>
+								 </span>
+
+								 <span class="slides__next next">
+										 <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 501.5 501.5"><g><path fill="#ffffff" d="M199.33 410.622l-55.77-55.508L247.425 250.75 143.56 146.384l55.77-55.507L358.44 250.75z"/></g></svg>
+								 </span>
+							 </div>
+	</div>
+	</div>
+	</div>
+
+
+
+
+
+
 {!-- Template 1 --}
 {if template == "Homepage Template 1"}
-<div class="border-wrapper">
-<a onClick="ga('send', 'event', 'Ad_Hotbox', 'click', {'page': '{615x240_link}'});" href="{615x240_link}"><img src="{615x240}" class="left" width="605" height="240" alt="banner ad" /></a>
-</div>
-
-{if '{video_advert}' != ''}
-
-	<div class="border-wrapper right video">
- 		<div id="homepage-vid">
-        	{video_advert}
- 		</div>
- 	</div>
-
-{if:else}
-
-{exp:channel_videos:videos entry_id="{entry_id}" embed_width="320" embed_height="240"}
-		{if video:no_videos}
-			<div class="border-wrapper right">
-				<a onClick="ga('send', 'event', 'Ad_Videobox', 'click', {'page': '{320x240_link}'});" href="{320x240_link}"><img src="{320x240}" class="right" alt="video advertisement box" /></a>
-			</div>
-		{/if}
-			<div class="border-wrapper right video">
-	 		<div id="homepage-vid">
-	        	{video:embed_code}
-	 		</div>
-			</div>
-{/exp:channel_videos:videos}
-
-{/if}
 
 {if text}
-<div class="header_text">{text}</div>
+	{text}
 {/if}
 
 {if:elseif template == "Homepage Template 2" }
@@ -115,9 +178,10 @@
 	<h2>{inspiration_title}</h2>
 		<ul class="home-selections">
 		{exp:playa:children field="inspiration"}
-			
+
 			<li><div class="selection-container">
-			    	
+				{channel_short_name}
+
 			    	{if channel_short_name == 'pages'}
 			    		<a class="image" onClick="ga('send', 'event', 'Inspiration 180x180 link', 'click', {'page': '/{if url_title=="features-show"}features/show{if:elseif url_title=="free"}venues/free{if:else}{url_title}{/if}'});" href="/{if url_title=="features-show"}features/show{if:elseif url_title=="free"}venues/free{if:else}{url_title}{/if}">
 			    			<img src="{homepage_image}" width="180" height="180" alt="homepage inspiration image" />
@@ -133,7 +197,7 @@
 				    	</a>
 				    	{/exp:channel_images:images}
 					{/if}
-			    	
+
 					     <div class="selection-info">
 					     	<h3>
 					     	 {if channel_short_name == "features"}
@@ -158,11 +222,11 @@
 						     	</a>
 							 {if:elseif channel_short_name == "pages" || channel_short_name == "london_lates"}
 							 <a onClick="ga('send', 'event', 'Inspiration_{count}', 'click', {'page': '/{if url_title=="features-show"}features/show{if:elseif url_title=="free"}venues/free{if:else}{url_title}{/if}'});" href="/{if url_title=="features-show"}features/show{if:elseif url_title=="free"}venues/free{if:else}{url_title}{/if}">
-							 		
-							     {title}    
+
+							     {title}
 						     {/if}
 						     </a></h3>
-	
+
 							 {if channel_short_name == "features"}
 						     <p><a onClick="ga('send', 'event', 'Inspiration_{count}', 'click', {'page': '/{channel_short_name}/{url_title}'});" href="/{channel_short_name}/{url_title}">{feature_sub_title}</a></p>
 						     {if:elseif channel_short_name == "calendar_events"}
@@ -174,121 +238,29 @@
 						     {if:elseif channel_short_name == "special_offers"}
 						     <p><a onClick="ga('send', 'event', 'Inspiration_{count}', 'click', {'page': '/special-offers/detail/{url_title}'});" href="/special-offers/detail/{url_title}">{special_offers_sub_title}</a></p>
 						      {if:elseif channel_short_name == "pages"}
-						      
+
 						     {if:else}
 						     {/if}
 					     </div>
 				    </div>
 				     <div class="selection-actions">
 					 		{if free_entry == "Yes"}<a onClick="ga('send', 'event', 'Inspiration free entry tooltip', 'click', {'page': '/{channel_short_name}/{url_title}'});" href="/{channel_short_name}/{url_title}" title="Free Entry!" class="freeentry tooltip"></a>{/if}
-					 
+
 					 {!-- RELATED FEATURES --}
 					 {!-- NEED TO ADD PLAYA FIELD TO VENUES --}
 				     {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" sort="asc"}
 				     <a onClick="ga('send', 'event', 'Inspiration special offers link', 'click', {'page': '/special-offers/detail/{url_title}'});" href="/special-offers/detail/{url_title}" title="Special Offer" class="relspecialoffer tooltip"></a>
 				     {/exp:playa:parents}
-				     
-				  
+
+
 				     </div>
 			    </li>
-			    
+
 		{/exp:playa:children}
 	</ul>
 	</div>
 </div>
 
-
-<br />
-
-{!-- Staff Picks --}
-<div class="border-wrapper-selection">
-	<div class="homepage-selection">
-	<h2>{staff_pick_title_text}</h2>
-		<ul class="home-selections">
-		
-		
-		{exp:playa:children field="staff_picks"}
-			
-			    <li><div class="selection-container">
-			    	
-			    	{if channel_short_name == 'pages'}
-			    		<a class="image" onClick="ga('send', 'event', 'ThisWeek_{count}', 'click', {'page': '/{if url_title=="features-show"}features/show{if:elseif url_title=="free"}venues/free{if:else}{url_title}{/if}'});" href="/{if url_title=="features-show"}features/show{if:elseif url_title=="free"}venues/free{if:else}{url_title}{/if}">
-			    			<img src="{homepage_image}" width="180" height="180" alt="homepage this week image" />
-			    		</a>
-			    	{if:elseif channel_short_name == 'london_lates'}
-			    		<a class="image" onClick="ga('send', 'event', 'ThisWeek_{count}', 'click', {'page': '/london-lates'});" href="/london-lates">
-			    			<img src="{homepage_image_lates}" width="180" height="180" alt="London lates promo image" />
-			    		</a>
-			    	{if:else}
-				    	{exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
-				    	<a class="image" onClick="ga('send', 'event', 'ThisWeek_{count}', 'click', {'page': '/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}'});" href="/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}">
-				    		<img src="{image:url:180x180}" width="180" height="180" alt="homepage this week image" />
-				    	</a>
-				    	{/exp:channel_images:images}
-					{/if}
-			    	
-					     <div class="selection-info">
-					     	<h3>
-					     	 {if channel_short_name == "features"}
-					     	 	<a onClick="ga('send', 'event', 'ThisWeek_{count}', 'click', {'page': '/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}'});" href="/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}">
-					     	 	{feature_home_page_title}
-					     	 	</a>
-						     {if:elseif channel_short_name == "calendar_events"}
-						     	<a onClick="ga('send', 'event', 'ThisWeek_{count}', 'click', {'page': '/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}'});" href="/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}">
-						     	{event_home_title}
-						     	</a>
-						     {if:elseif channel_short_name == "venues"}
-						     	<a onClick="ga('send', 'event', 'ThisWeek_{count}', 'click', {'page': '/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}'});" href="/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}">
-						     	{venue_home_page_title}
-						     	</a>
-						     {if:elseif channel_short_name == "events"}
-						     	<a onClick="ga('send', 'event', 'ThisWeek_{count}', 'click', {'page': '/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}'});" href="/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}">
-						     	{event_home_title}
-						     	</a>
-						     {if:elseif channel_short_name == "special_offers"}
-						     	<a onClick="ga('send', 'event', 'ThisWeek_{count}', 'click', {'page': '/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}'});" href="/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}">
-							     {so_home_page_title}
-						     	</a>
-							 {if:elseif channel_short_name == "pages" || channel_short_name == "london_lates"}
-							 <a onClick="ga('send', 'event', 'ThisWeek_{count}', 'click', {'page': '/{if url_title=="features-show"}features/show{if:elseif url_title=="free"}venues/free{if:else}{url_title}{/if}'});" href="/{if url_title=="features-show"}features/show{if:elseif url_title=="free"}venues/free{if:else}{url_title}{/if}">
-							 		
-							     {title}    
-						     {/if}
-						     </a></h3>
-	
-							 {if channel_short_name == "features"}
-						     <p><a onClick="ga('send', 'event', 'ThisWeek_{count}', 'click', {'page': '/{channel_short_name}/{url_title}'});" href="/{channel_short_name}/{url_title}">{feature_sub_title}</a></p>
-						     {if:elseif channel_short_name == "calendar_events"}
-						     <p><a onClick="ga('send', 'event', 'ThisWeek_{count}', 'click', {'page': '/events/{url_title}'});" href="/events/{url_title}">{event_sub_title}</a></p>
-						     {if:elseif channel_short_name == "venues"}
-						     <p><a onClick="ga('send', 'event', 'ThisWeek_{count}', 'click', {'page': '/{channel_short_name}/{url_title}'});" href="/{channel_short_name}/{url_title}">{venue_sub_title}</a></p>
-						     {if:elseif channel_short_name == "events"}
-						     <p><a onClick="ga('send', 'event', 'ThisWeek_{count}', 'click', {'page': '/events/{url_title}'});" href="/events/{url_title}">{event_sub_title}</a></p>
-						     {if:elseif channel_short_name == "special_offers"}
-						     <p><a onClick="ga('send', 'event', 'ThisWeek_{count}', 'click', {'page': '/special-offers/detail/{url_title}'});" href="/special-offers/detail/{url_title}">{special_offers_sub_title}</a></p>
-						      {if:elseif channel_short_name == "pages"}
-						      
-						     {if:else}
-						     {/if}
-					     </div>
-				    </div>
-				     <div class="selection-actions">
-					 		{if free_entry == "Yes"}<a onClick="ga('send', 'event', 'Staff picks free entry tooltip', 'click', {'page': '/{channel_short_name}/{url_title}'});" href="/{channel_short_name}/{url_title}" title="Free Entry!" class="freeentry tooltip"></a>{/if}
-					 
-					 {!-- RELATED FEATURES --}
-					 {!-- NEED TO ADD PLAYA FIELD TO VENUES --}
-				     {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" sort="asc"}
-				     <a onClick="ga('send', 'event', 'Staff picks offers link', 'click', {'page': '/special-offers/detail/{url_title}'});" href="/special-offers/detail/{url_title}" title="Special Offer" class="relspecialoffer tooltip"></a>
-				     {/exp:playa:parents}
-				     
-				 
-				     </div>
-			    </li>
-			    
-		{/exp:playa:children}
-		</ul>
-	</div>
-</div>
 
 {!-- Most Popular --}
 <div class="border-wrapper-selection">
@@ -296,12 +268,8 @@
 	<h2>{most_popular_title_text}</h2>
 		<ul class="home-selections">
 		{exp:playa:children field="most_popular"}
-			
-
-			
-				
 			    <li><div class="selection-container">
-			    	
+
 			    	{if channel_short_name == 'pages'}
 			    		<a class="image" onClick="ga('send', 'event', 'Top5_{count}', 'click', {'page': '/{if url_title=="features-show"}features/show{if:elseif url_title=="free"}venues/free{if:else}{url_title}{/if}'});" href="/{if url_title=="features-show"}features/show{if:elseif url_title=="free"}venues/free{if:else}{url_title}{/if}">
 			    			<img src="{homepage_image}" width="180" height="180" alt="homepage top 5 image" />
@@ -317,7 +285,7 @@
 				    	</a>
 				    	{/exp:channel_images:images}
 					{/if}
-			    	
+
 					     <div class="selection-info">
 					     	<h3>
 					     	 {if channel_short_name == "features"}
@@ -342,11 +310,11 @@
 						     	</a>
 							 {if:elseif channel_short_name == "pages" || channel_short_name == "london_lates"}
 							 <a onClick="ga('send', 'event', 'Top5_{count}', 'click', {'page': '/{if url_title=="features-show"}features/show{if:elseif url_title=="free"}venues/free{if:else}{url_title}{/if}'});" href="/{if url_title=="features-show"}features/show{if:elseif url_title=="free"}venues/free{if:else}{url_title}{/if}">
-							 		
-							     {title}    
+
+							     {title}
 						     {/if}
 						     </a></h3>
-	
+
 							 {if channel_short_name == "features"}
 						     <p><a onClick="ga('send', 'event', 'Top5_{count}', 'click', {'page': '/{channel_short_name}/{url_title}'});" href="/{channel_short_name}/{url_title}">{feature_sub_title}</a></p>
 						     {if:elseif channel_short_name == "calendar_events"}
@@ -358,30 +326,30 @@
 						     {if:elseif channel_short_name == "special_offers"}
 						     <p><a onClick="ga('send', 'event', 'Top5_{count}', 'click', {'page': '/special-offers/detail/{url_title}'});" href="/special-offers/detail/{url_title}">{special_offers_sub_title}</a></p>
 						      {if:elseif channel_short_name == "pages"}
-						      
+
 						     {if:else}
 						     {/if}
 					     </div>
 				    </div>
 				     <div class="selection-actions">
 					 		{if free_entry == "Yes"}<a onClick="ga('send', 'event', 'Popular free entry tooltip', 'click', {'page': '/{channel_short_name}/{url_title}'});" href="/{channel_short_name}/{url_title}" title="Free Entry!" class="freeentry tooltip"></a>{/if}
-					 
+
 					 {!-- RELATED FEATURES --}
 					 {!-- NEED TO ADD PLAYA FIELD TO VENUES --}
 				     {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" sort="asc"}
 				     <a onClick="ga('send', 'event', 'Popular special offers link', 'click', {'page': '/special-offers/detail/{url_title}'});" href="/special-offers/detail/{url_title}" title="Special Offer" class="relspecialoffer tooltip"></a>
 				     {/exp:playa:parents}
-				  
+
 				     </div>
 			    </li>
-			    
+
 		{/exp:playa:children}
-		
+
 		</ul>
 	</div>
 </div>
 
-<br />
+
 
 {!-- Social and Weather --}
 <div class="border-wrapper-selection">
