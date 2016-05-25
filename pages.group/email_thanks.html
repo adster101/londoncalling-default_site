@@ -1,0 +1,97 @@
+{embed="includes_v2/.header" page_title="Thanks!"}
+
+{if freebie_2 == "registered"}
+
+{exp:channel:entries url_title="registered" limit="1"}
+<div id="homeheader" class="fixed-header">
+
+	<div class="border-wrapper-selection">
+	
+		<div class="homepage-selection">
+
+			<h2>{title}</h2>
+			
+			{page_content}
+
+
+		</div>
+		
+	</div>
+	
+</div>
+{/exp:channel:entries}
+{if:else}
+
+{exp:channel:entries url_title="{freebie_1}" limit="1"}
+
+<script type="text/javascript">
+$(document).ready(function() {
+	var cookie_name = readCookie('ens_name');
+	var cookie_email = readCookie('ens_email');
+	console.log(cookie_name);
+	$('#registration_name').val(cookie_name);
+	$('#registration_email').val(cookie_email);
+	
+	//eraseCookie('ens_name');
+	//eraseCookie('ens_email');
+});	
+	
+</script>
+
+<div id="homeheader" class="fixed-header">
+
+	<div class="border-wrapper-selection">
+	
+		<div class="homepage-selection">
+		
+		
+
+		
+					<h2>{title}</h2>
+					
+			
+		
+			
+			<div class="email-thanks-left">
+			
+				<h3>Extra site features available: Register now!</h3>
+			
+				<p>{page_content}</p>
+				
+				
+				
+				<img class="email-ty-simply" src="/assets/images/v2/template/simply-text.png" alt="Create a password to register!" />
+
+			</div>
+			
+			<div class="email-thanks-right">
+			
+			{exp:simple_registration:form exact_return_url="http://londoncalling.com/email-thank-you/registered"}
+					
+					<input id="first_name" name="first_name" type="text" placeholder="First Name" />
+					<input id="last_name" name="last_name" type="text" placeholder=" Last Name" />
+					<input id="email" name="email" type="text" placeholder="Email Address" />
+					<input id="username" name="username" type="text" placeholder="Username" />
+					<input id="password" name="password" type="password" placeholder="Password" />
+					<input id="postcode" name="postcode" type="text" placeholder="Postcode" />
+					
+					
+					<label id="terms" for="accept_terms">I agree to the <a href="#">Terms &amp; Conditions</a></label><input id="accept_terms" name="accept_terms" type="checkbox" value="y" />
+					<input id="complete_registration" name="submit" type="submit" onClick="_gaq.push(['_trackEvent', 'Buttons', 'Click', 'myLC Create Account']);" value="Complete Registration" />
+			{/exp:simple_registration:form}
+			
+			
+			</div>
+		
+			
+		
+		</div>
+		
+	</div>
+	
+</div>
+{/exp:channel:entries}
+
+
+{/if}
+{embed="includes_v2/.footer"}

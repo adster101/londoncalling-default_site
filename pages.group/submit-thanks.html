@@ -1,0 +1,45 @@
+{embed="includes/.header" page_title="Thanks!"}
+
+{exp:channel:entries limit="1" channel="contact" dynamic="no"}
+
+<script type="text/javascript">
+$(document).ready(function() {
+	var cookie_name = readCookie('ens_name');
+	var cookie_email = readCookie('ens_email');
+	console.log(cookie_name);
+	$('#registration_name').val(cookie_name);
+	$('#registration_email').val(cookie_email);
+	
+	//eraseCookie('ens_name');
+	//eraseCookie('ens_email');
+});	
+	
+</script>
+
+<div id="homeheader" class="fixed-header">
+
+	<div class="border-wrapper-selection">
+	
+		<div class="homepage-selection">
+
+			<h2>Thank you</h2>
+			
+			
+			
+				<p>{thank_you_message}</p>
+				
+			
+				<p><strong>Tel:</strong> {main_office_telep}<br />
+				<strong>Email:</strong> <a href="{main_office_email}">{main_office_email}</a></p>
+				
+				<p><strong>Office hours:</strong> {main_office_hours}</p>
+			
+		
+		</div>
+		
+	</div>
+	
+</div>
+
+{/exp:channel:entries}
+{embed="includes/.footer"}

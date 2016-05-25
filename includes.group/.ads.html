@@ -1,0 +1,62 @@
+{exp:adman:show limit="1" group="{embed:ad_group}" order="RANDOM" size="{embed:size}"}
+	{if is_flash}
+		{if '{embed:size}' == '728x90'}
+			<script type="text/javascript">
+				$(document).ready(function() {
+					var ad_url = '{ad_url}';
+					var ad_url_encoded = ad_url.replace(/&amp;/g, '%26');
+					console.log(ad_url);
+					var clickSrc = '';
+					
+					if(ad_url == 'http://londoncalling.com/?ACT=40&amp;ad_id=151') {
+						
+						clickSrc = '{ad_image}?clickTag='+ad_url_encoded;
+						
+					} else {
+						
+						clickSrc = '{ad_image}?clickTAG='+ad_url_encoded;
+					}
+					
+					jQuery('#display_banner_728x90').flash({
+						src: clickSrc,
+						width: 728,
+						height: 90
+					});
+				});
+			</script>
+
+			<div id="display_banner_728x90" class="flash_content"></div>
+		{if:else}
+			<script type="text/javascript">
+				jQuery(document).ready(function() {
+					var ad_url = '{ad_url}';
+					var ad_url_encoded = ad_url.replace(/&amp;/g, '%26');
+					jQuery('#{embed:ad_group}_display_banner_300x250').flash({
+						src: '{ad_image}?clickTAG='+ad_url_encoded,
+						width: 300,
+						height: 250
+					});
+				});
+			</script>
+
+			<div id="{embed:ad_group}_display_banner_300x250" class="flash_content"></div>
+		{/if}
+	{if:else}
+		{if '{ad_alt}' == 'bf_placeholder_300x250'}
+<script type="text/javascript">
+  aj_server = 'http://bullfrog.rotator.hadj7.adjuggler.net/servlet/ajrotator/'; aj_tagver = '1.0';
+  aj_zone = 'bullfrog'; aj_adspot = '208566'; aj_page = '0'; aj_dim ='129481'; aj_ch = ''; aj_ct = ''; aj_kw = '';
+  aj_pv = true; aj_click = '';
+</script><script type="text/javascript" src="http://cdn.hadj7.adjuggler.net/banners/ajtg.js"></script>
+		{if:elseif '{ad_alt}' == 'bf_placeholder_728x90'}
+<script type="text/javascript">
+  aj_server = 'http://bullfrog.rotator.hadj7.adjuggler.net/servlet/ajrotator/'; aj_tagver = '1.0';
+  aj_zone = 'bullfrog'; aj_adspot = '208565'; aj_page = '0'; aj_dim ='129488'; aj_ch = ''; aj_ct = ''; aj_kw = '';
+  aj_pv = true; aj_click = '';
+</script><script type="text/javascript" src="http://cdn.hadj7.adjuggler.net/banners/ajtg.js"></script>
+		{if:else}
+		<a href="{ad_url}" title="{ad_title}" target="_blank" onclick="ga('send', 'event', 'Ad_Leaderboard', 'click', '{ad_title}');"><img alt="{ad_alt}" src="{ad_image}" /></a>
+
+		{/if}
+	{/if}
+{/exp:adman:show}

@@ -1,0 +1,79 @@
+<div class="span-24 features fixed-header">
+					<h1>{embed:title}{if embed:segment3} - {embed:segment3}{/if}</h1>
+
+				</div>
+				
+				{if embed:page_content}
+					<div class="so_header_text">{embed:page_content}</div>
+				{/if}
+				
+				<div id="event-main" class="span-16">
+				
+				
+				{!--
+				{embed="features/ajax_results" category_id="{embed:category_id}" entry_id="{entry_id}" segment3="{embed:segment3}" segment4="{embed:segment4}"}
+				--}
+				
+				{exp:switchee variable = "{embed:segment3}" parse="inward"}
+
+					{case value="2012|2013|2014|2015|2011"}
+						{switchee variable = "{embed:segment4}" parse="inward"}
+							{case value="January"}
+								{embed="features/ajax_results" infinite_scroll_vars="start_on|stop_before" infinite_scroll_values="{embed:segment3}-01-01 00:01|{embed:segment3}-02-01 00:01"}
+							{/case}
+							{case value="February"}
+								{embed="features/ajax_results" infinite_scroll_vars="start_on|stop_before" infinite_scroll_values="{embed:segment3}-02-01 00:01|{embed:segment3}-03-01 00:01"}
+							{/case}
+							{case value="March"}
+								{embed="features/ajax_results" infinite_scroll_vars="start_on|stop_before" infinite_scroll_values="{embed:segment3}-03-01 00:01|{embed:segment3}-04-01 00:01"}
+							{/case}
+							{case value="April"}
+								{embed="features/ajax_results" infinite_scroll_vars="start_on|stop_before" infinite_scroll_values="{embed:segment3}-04-01 00:01|{embed:segment3}-05-01 00:01"}
+							{/case}
+							{case value="May"}
+								{embed="features/ajax_results" infinite_scroll_vars="start_on|stop_before" infinite_scroll_values="{embed:segment3}-05-01 00:01|{embed:segment3}-06-01 00:01"}
+							{/case}
+							{case value="June"}
+								{embed="features/ajax_results" infinite_scroll_vars="start_on|stop_before" infinite_scroll_values="{embed:segment3}-06-01 00:01|{embed:segment3}-07-01 00:01"}
+							{/case}
+							{case value="July"}
+								{embed="features/ajax_results" infinite_scroll_vars="start_on|stop_before" infinite_scroll_values="{embed:segment3}-07-01 00:01|{embed:segment3}-08-01 00:01"}
+							{/case}
+							{case value="August"}
+								{embed="features/ajax_results" infinite_scroll_vars="start_on|stop_before" infinite_scroll_values="{embed:segment3}-08-01 00:01|{embed:segment3}-09-01 00:01"}
+							{/case}
+							{case value="September"}
+								{embed="features/ajax_results" infinite_scroll_vars="start_on|stop_before" infinite_scroll_values="{embed:segment3}-09-01 00:01|{embed:segment3}-10-01 00:01"}
+							{/case}
+							{case value="October"}
+								{embed="features/ajax_results" infinite_scroll_vars="start_on|stop_before" infinite_scroll_values="{embed:segment3}-10-01 00:01|{embed:segment3}-1-01 00:01"}
+							{/case}
+							{case value="November"}
+								{embed="features/ajax_results" infinite_scroll_vars="start_on|stop_before" infinite_scroll_values="{embed:segment3}-11-01 00:01|{embed:segment3}-12-01 00:01"}
+							{/case}
+							{case value="December"}
+								{embed="features/ajax_results" infinite_scroll_vars="start_on|stop_before" infinite_scroll_values="{embed:segment3}-12-01 00:01|{embed:segment3}-01-01 00:01"}
+							{/case}
+							{case default="yes"}
+								{embed="features/ajax_results" infinite_scroll_vars="start_on|stop_before" infinite_scroll_values="{embed:segment3}-01-01 00:01|{embed:segment3}-12-31 00:01"}
+							{/case}
+						{/switchee}
+						{!--{exp:channel:entries channel="features" orderby="date" sort="desc" show_expired="no" show_future_entries="no" status="open" limit="8" start_on="{embed:segment3}-01-01-00:01"}--}
+					{/case}
+					
+					{case value=""}
+						{embed="features/ajax_results" infinite_scroll_vars="start_on|stop_before" infinite_scroll_values="{current_time format="%%Y"}-01-01 00:01|{current_time format="%Y"}-12-31 00:01"}
+					{/case}
+					
+					{case value="search"}
+						{embed="features/ajax_results" infinite_scroll_vars="start_on|stop_before|search_term" infinite_scroll_values="{current_time format="%%Y"}-01-01 00:01|{current_time format="%Y"}-12-31 00:01|{post:searchterm}\W"}
+					{/case}
+					{case value="Art Architecture Design|Entertainment|Interviews|Top 5|London Life|Literature|Geek Guide|This Week"}
+						{embed="features/ajax_results" infinite_scroll_vars="feature_category" infinite_scroll_values="{embed:segment3}"}
+					{/case}
+					{case default="yes"}
+						  {redirect="404"}
+					{/case}
+				{/exp:switchee}
+					
+</div>

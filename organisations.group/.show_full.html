@@ -1,0 +1,72 @@
+{if '{freebie_3}' == 'category' && '{freebie_4}' != ''}
+	{embed="includes/.header" page_title="Organisations in London &mdash; {exp:freebie:category_name segment='4'}"}
+{if:else}
+	{embed="includes/.header" page_title="Organisations in London"}
+{/if}
+				<div class="span-15 append-bottom">
+					{if '{freebie_3}' == 'category' && '{freebie_4}' != ''}
+						{exp:gwcode_categories cat_id="{embed:cat_id}" style="linear" limit="1"}
+							{if '{parent_id}' == '0'}
+								{embed="venues/.show_full_embed_feature" category_filter="81&{exp:freebie:category_id segment='4'}"}
+
+								{if '{freebie_5}' != ''}
+									{if '{freebie_5}' == 'a-z'}
+										{embed="organisations/.show_full_embed_intro_feature" category_id="{exp:freebie:category_id segment='4'}" category_filter="83&{exp:freebie:category_id segment='4'}" premium_listing_filter="3&{exp:freebie:category_id segment='4'}" paginate_base="organisations/show/category/{freebie_4}/{freebie_5}" sort_base="organisations/show/category/{freebie_4}" order_by="title" sort_by="asc"}
+									{if:elseif '{freebie_5}' == 'z-a'}
+										{embed="organisations/.show_full_embed_intro_feature" category_id="{exp:freebie:category_id segment='4'}" category_filter="83&{exp:freebie:category_id segment='4'}" premium_listing_filter="3&{exp:freebie:category_id segment='4'}" paginate_base="organisations/show/category/{freebie_4}/{freebie_5}" sort_base="organisations/show/category/{freebie_4}" order_by="title" sort_by="desc"}
+									{if:elseif '{freebie_5}' == 'oldest-first'}
+										{embed="organisations/.show_full_embed_intro_feature" category_id="{exp:freebie:category_id segment='4'}" category_filter="83&{exp:freebie:category_id segment='4'}" premium_listing_filter="3&{exp:freebie:category_id segment='4'}" paginate_base="organisations/show/category/{freebie_4}/{freebie_5}" sort_base="organisations/show/category/{freebie_4}" order_by="date" sort_by="asc"}
+									{if:elseif '{freebie_5}' == 'newest-first'}
+										{embed="organisations/.show_full_embed_intro_feature" category_id="{exp:freebie:category_id segment='4'}" category_filter="83&{exp:freebie:category_id segment='4'}" premium_listing_filter="3&{exp:freebie:category_id segment='4'}" paginate_base="organisations/show/category/{freebie_4}/{freebie_5}" sort_base="organisations/show/category/{freebie_4}" order_by="date" sort_by="desc"}
+									{if:elseif '{freebie_5}' == 'most-popular'}
+										{embed="organisations/.show_full_embed_intro_feature" category_id="{exp:freebie:category_id segment='4'}" category_filter="83&{exp:freebie:category_id segment='4'}" premium_listing_filter="3&{exp:freebie:category_id segment='4'}" paginate_base="organisations/show/category/{freebie_4}/{freebie_5}" sort_base="organisations/show/category/{freebie_4}" order_by="view_count_one" sort_by="desc"}
+									{if:else}
+										{embed="organisations/.show_full_embed_intro_feature" category_id="{exp:freebie:category_id segment='4'}" category_filter="83&{exp:freebie:category_id segment='4'}" premium_listing_filter="3&{exp:freebie:category_id segment='4'}" paginate_base="organisations/show/category/{freebie_4}" sort_base="organisations/show/category/{freebie_4}" order_by="date" sort_by="desc"}
+									{/if}
+								{if:else}
+									{embed="organisations/.show_full_embed_intro_feature" category_id="{exp:freebie:category_id segment='4'}" category_filter="83&{exp:freebie:category_id segment='4'}" premium_listing_filter="3&{exp:freebie:category_id segment='4'}" paginate_base="organisations/show/category/{freebie_4}" sort_base="organisations/show/category/{freebie_4}" order_by="date" sort_by="desc"}
+								{/if}
+							{if:else}
+								{embed="venues/.show_full_embed_feature" category_filter="82&{exp:freebie:category_id segment='4'}"}
+
+								{if '{freebie_5}' != ''}
+									{if '{freebie_5}' == 'a-z'}
+										{embed="organisations/.show_full_embed_intro_feature" category_id="{exp:freebie:category_id segment='4'}" category_filter="84&{exp:freebie:category_id segment='4'}" premium_listing_filter="85&{exp:freebie:category_id segment='4'}" paginate_base="organisations/show/category/{freebie_4}/{freebie_5}" sort_base="organisations/show/category/{freebie_4}" order_by="title" sort_by="asc"}
+									{if:elseif '{freebie_5}' == 'z-a'}
+										{embed="organisations/.show_full_embed_intro_feature" category_id="{exp:freebie:category_id segment='4'}" category_filter="84&{exp:freebie:category_id segment='4'}" premium_listing_filter="85&{exp:freebie:category_id segment='4'}" paginate_base="organisations/show/category/{freebie_4}/{freebie_5}" sort_base="organisations/show/category/{freebie_4}" order_by="title" sort_by="desc"}
+									{if:elseif '{freebie_5}' == 'oldest-first'}
+										{embed="organisations/.show_full_embed_intro_feature" category_id="{exp:freebie:category_id segment='4'}" category_filter="84&{exp:freebie:category_id segment='4'}" premium_listing_filter="85&{exp:freebie:category_id segment='4'}" paginate_base="organisations/show/category/{freebie_4}/{freebie_5}" sort_base="organisations/show/category/{freebie_4}" order_by="date" sort_by="asc"}
+									{if:elseif '{freebie_5}' == 'newest-first'}
+										{embed="organisations/.show_full_embed_intro_feature" category_id="{exp:freebie:category_id segment='4'}" category_filter="84&{exp:freebie:category_id segment='4'}" premium_listing_filter="85&{exp:freebie:category_id segment='4'}" paginate_base="organisations/show/category/{freebie_4}/{freebie_5}" sort_base="organisations/show/category/{freebie_4}" order_by="date" sort_by="desc"}
+									{if:elseif '{freebie_5}' == 'most-popular'}
+										{embed="organisations/.show_full_embed_intro_feature" category_id="{exp:freebie:category_id segment='4'}" category_filter="84&{exp:freebie:category_id segment='4'}" premium_listing_filter="85&{exp:freebie:category_id segment='4'}" paginate_base="organisations/show/category/{freebie_4}/{freebie_5}" sort_base="organisations/show/category/{freebie_4}" order_by="view_count_one" sort_by="desc"}
+									{if:else}
+										{embed="organisations/.show_full_embed_intro_feature" category_id="{exp:freebie:category_id segment='4'}" category_filter="84&{exp:freebie:category_id segment='4'}" premium_listing_filter="85&{exp:freebie:category_id segment='4'}" paginate_base="organisations/show/category/{freebie_4}" sort_base="organisations/show/category/{freebie_4}" order_by="date" sort_by="desc"}
+									{/if}
+								{if:else}
+									{embed="organisations/.show_full_embed_intro_feature" category_id="{exp:freebie:category_id segment='4'}" category_filter="84&{exp:freebie:category_id segment='4'}" premium_listing_filter="85&{exp:freebie:category_id segment='4'}" paginate_base="organisations/show/category/{freebie_4}" sort_base="organisations/show/category/{freebie_4}" order_by="date" sort_by="desc"}
+								{/if}
+							{/if}
+						{/exp:gwcode_categories}
+					{if:else}
+						{if '{freebie_3}' != ''}
+							{if '{freebie_3}' == 'a-z'}
+								{embed="organisations/.show_full_embed_intro_feature" category_id="" category_filter="" premium_listing_filter="" paginate_base="organisations/show/{freebie_3}" sort_base="organisations/show" order_by="title" sort_by="asc"}
+							{if:elseif '{freebie_3}' == 'z-a'}
+								{embed="organisations/.show_full_embed_intro_feature" category_id="" category_filter="" premium_listing_filter="" paginate_base="organisations/show/{freebie_3}" sort_base="organisations/show" order_by="title" sort_by="desc"}
+							{if:elseif '{freebie_3}' == 'oldest-first'}
+								{embed="organisations/.show_full_embed_intro_feature" category_id="" category_filter="" premium_listing_filter="" paginate_base="organisations/show/{freebie_3}" sort_base="organisations/show" order_by="date" sort_by="asc"}
+							{if:elseif '{freebie_3}' == 'newest-first'}
+								{embed="organisations/.show_full_embed_intro_feature" category_id="" category_filter="" premium_listing_filter="" paginate_base="organisations/show/{freebie_3}" sort_base="organisations/show" order_by="date" sort_by="desc"}
+							{if:elseif '{freebie_3}' == 'most-popular'}
+								{embed="organisations/.show_full_embed_intro_feature" category_id="" category_filter="" premium_listing_filter="" paginate_base="organisations/show/{freebie_3}" sort_base="organisations/show" order_by="view_count_one" sort_by="desc"}
+							{if:else}
+								{embed="organisations/.show_full_embed_intro_feature" category_id="" category_filter="" premium_listing_filter="" paginate_base="organisations/show" sort_base="organisations/show" order_by="date" sort_by="desc"}
+							{/if}
+						{if:else}
+							{embed="organisations/.show_full_embed_intro_feature" category_id="" category_filter="" premium_listing_filter="" paginate_base="organisations/show" sort_base="organisations/show" order_by="date" sort_by="desc"}
+						{/if}
+					{/if}
+				</div>
+{embed="includes/.sidebar"}
+{embed="includes/.footer"}

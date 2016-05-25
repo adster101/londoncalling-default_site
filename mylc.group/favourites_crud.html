@@ -1,0 +1,7 @@
+{if logged_in}
+	{exp:favorites:save}
+{/if}
+
+{if logged_out}
+	{exp:favorites:save favorites_member_id="{exp:session_variables:get_guest}"}
+{/if}

@@ -1,0 +1,269 @@
+{embed="includes/.header" page_title="Submit an Event"}
+
+<div class="span-24 fixed-header">
+
+	<div class="border-wrapper">
+
+				<div class="span-24 append-bottom contact">
+				
+			
+					{exp:channel:entries limit="1" channel="contact" dynamic="no"}
+			
+					<h1><?php if(isset($_POST['submit2'])) {?>Thank you<?php } else {?>Submit your event to LondonCalling.com<?php }?></h1>
+					
+					<?php if(!isset($_POST['submitevent1']) && !isset($_POST['submitevent2'])) { ?>
+					
+					<div id="submitevent-step1">
+					
+						<div class="leftcol">
+						
+							<p>{submit_event_explanation}</p>
+							
+							<h3>Benefits include:</h3>
+							
+							<ul>
+							
+							{submit_event_benefits}
+							
+							</ul>
+						
+						</div>
+						
+						
+						<div class="rightcol">
+							
+							<h2>Step 1: Your Details</h2>
+							
+							<div id="errormessage" class="error"></div>
+							
+							<form id="submitevent1" method="post" action="/contact/submit-event">
+							
+								
+								<input type="text" id="contact_name" name="name" placeholder="Name" value="" />
+								<input type="text" id="contact_email" name="email" placeholder="Email Address" value="" />
+								<input type="text" id="contact_tel" name="telephone" placeholder="Telephone (optional)" value="" />
+								<input type="text" id="contact_twitter" name="twitter" placeholder="Twitter Name (optional)" value="" />
+								
+								<p>How would you describe your connect to this event?</p>
+								
+								<input type="radio" id="connection_organiser" name="connection" value="Organiser" /><label for="connection_organiser">Organiser</label><br />
+								<input type="radio" id="connection_fan" name="connection" value="Fan" /><label for="connection_fan">Fan</label><br />
+								<input type="radio" id="connection_agency" name="connection" value="Agency/Promoter" /><label for="connection_agency">Agency / Promoter</label><br />
+								<input type="radio" id="connection_other" name="connection" value="Other" /><label for="connection_other">Other</label><br />
+								
+								<textarea name="connection_other" placeholder="If other please give details"></textarea>
+								
+								<input type="hidden" value="submit" name="submitevent1" id="submitevent1" />
+								<input type="submit" value="" name="submit1" id="submit1" />
+							
+							
+							</form>
+							
+						
+						</div>
+						
+					
+					</div>
+					
+					<?php } elseif(isset($_POST['submitevent1']) && !isset($_POST['submitevent2'])) { ?>
+					
+					
+					
+					<div id="submitevent-step2">
+					
+					<div class="leftcol">
+					
+						<h2>Step 2: Event Details</h2>
+						
+						<form id="submitevent2" method="post" action="/assets/php/uploadcontent/submit.php" enctype="multipart/form-data">
+							
+								
+								<span class="e_title"></span><input type="text" name="event_title" placeholder="Event Title" value="" id="event_title" />
+								<span class="e_venue"></span><input type="text" name="event_venue" placeholder="Venue (optional)" value="" />
+								<span class="e_tel"></span><input type="text" name="event_telephone" placeholder="Telephone (optional)" value="" />
+								<span class="e_description"></span><textarea class="description" name="event_description" placeholder="Event Description"></textarea>
+								
+								<label>What makes this event amazing? Why should someone come along?</label>
+								<textarea name="event_amazing" placeholder="Maximum of 140 characters, think of it as a catchy tweet :-)"></textarea>
+								<p><span>Note about images:</span> Pictures are an incredibly important part of the LondonCalling.com website so please upload the biggest, best and most beautiful pictures you can. By uploading you are confirming that you have the right to use this image as part of your submission.</p>
+								<p>Upload a single image or a zip folder containing multiple images</p>
+								
+								<span class="e_images"></span><input type="file" name="event_images"  placeholder="Upload a single image or multiple images in a zip file (jpg, gif, png)" />
+								<div class="clearbar"></div>
+								<span class="e_web"></span><input type="text" name="event_website" placeholder="Website Link (optional)" value="" />
+								<span class="e_fb"></span><input type="text" name="event_facebook" placeholder="Facebook Link (optional)" value="" />
+								<span class="e_tw"></span><input type="text" name="event_twitter" placeholder="Twitter Link (optional)" value="" />
+								<span class="e_yt"></span><input type="text" name="event_youtube_1" placeholder="YouTube Video Link (optional)" value="" />
+								<span class="e_yt"></span><input type="text" name="event_youtube_2" placeholder="YouTube Video Link (optional)" value="" />
+								<span class="e_yt"></span><input type="text" name="event_youtube_3" placeholder="YouTube Video Link (optional)" value="" />
+								
+								
+					</div>
+					
+					
+					
+					<div class="rightcol">
+					
+						<h2>Or Upload a Zip file</h2>
+						
+							<p>You can also upload a single zip file that contains all the required information if you would prefer.</p>
+							
+							<input type="file" name="event_zip" id="event_zip" />
+							
+							<div class="zipfile">
+							
+							<h3>How to make a zip file:</h3>
+							
+							<p>Windows<br />
+							<a href="http://www.youtube.com/watch?v=ahATyKyfRdk" target="_blank">http://www.youtube.com/watch?v=ahATyKyfRdk</a>
+							</p>
+							
+							<p>Mac<br />
+							<a href="http://www.youtube.com/watch?v=ZVTcN2e9VgA" target="_blank">http://www.youtube.com/watch?v=ZVTcN2e9VgA</a>
+							</p>
+							
+						</div>
+						
+						<div class="fancyachat">
+						
+							<h2>Fancy a chat?</h2>
+							
+							<p>{submit_event_fancy_a_chat}</p>
+							
+							<p><strong>Tel:</strong> {main_office_telep}<br />
+							<strong>Email:</strong> <a href="mailto:{main_office_email}">{main_office_email}</a></p>
+							
+							<p><strong>Office hours:</strong> {main_office_hours}</p>
+						
+						</div>
+						
+						<input type="hidden" id="contact_name" name="contact_name" value="<?php if(isset($_POST['name'])) { echo $_POST['name']; } ?>" />
+						<input type="hidden" id="contact_email" name="contact_email" value="<?php if(isset($_POST['email'])) { echo $_POST['email']; } ?>" />
+						<input type="hidden" id="contact_tel" name="telephone" value="<?php if(isset($_POST['telephone'])) { echo $_POST['telephone']; } ?>" />
+						<input type="hidden" id="contact_twitter" name="twitter" value="<?php if(isset($_POST['twitter'])) { echo $_POST['twitter']; } ?>" />
+						<input type="hidden" id="connection_organiser" name="connection" value="<?php if(isset($_POST['connection'])) { echo $_POST['connection']; } ?>" />
+						<input type="hidden" id="connection_other" name="connection_other" value="<?php if(isset($_POST['connection_other'])) { echo $_POST['connection_other']; } ?>" />
+						<input type="hidden" id="template" name="template" />
+						<input type="hidden" value="submit" name="submitevent2" id="submitevent2" />
+						
+						<input type="submit" value="" name="submit2" id="submit2" />
+						<p style="clear:both;font-size:0.8em;">You will receive an email confirming we have received your submission.</p>
+					
+					</form>
+					
+					<div id="errormessage" class="error" style="width:90%;"></div>			
+					
+					</div>
+					
+					
+						<?php } elseif(isset($_POST['submit2']) && !isset($_POST['submit1'])) { ?>
+						
+						<div class="submitevent-thanks">
+						
+							<p>{thank_you_message}</p>
+							
+							<p><strong>Tel:</strong> {main_office_telep}<br />
+							<strong>Email:</strong> {main_office_email}</p>
+							
+							<p><strong>Office hours:</strong> {main_office_hours}</p>
+						
+						</div>
+						
+						<?php } ?>
+
+					{/exp:channel:entries}	
+				</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="/assets/js/jquery/jquery.form.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	$('#submitevent2').ajaxForm({
+		target:        '#output1',   
+        beforeSubmit:  submit2check, 
+        success:       processResponse,
+        dataType: 'json'
+	}); 
+	
+	
+
+	$("#submit1").click(function(e) {
+	  e.preventDefault();
+	  if($('#contact_name').val() != '' && $('#contact_email').val() != '') {
+	  
+	  	$("#submitevent1").submit();
+	  
+	  } else {
+	  
+	  	  var errormsg = '<ul>';
+	  
+		  if($('#contact_name').val() == '') {
+			  errormsg += "<li>Name</li>";
+		  }
+	
+		  if($('#contact_email').val() == '') {
+		  	errormsg += "<li>Email</li>"
+		  }
+		  
+		  
+		  errormsg += '</ul>';
+	  
+		  $("#errormessage").html("The following fields need to be completed:<br />" + errormsg).slideDown('fast');
+	  }
+	
+	});
+	
+	function submit2check() {
+	
+		if($('#event_title').val() != '') {
+
+		$('#submit2').css("background","url(/assets/images/v2/contact/processing.gif) no-repeat 50% 0 #000");
+		
+		// Populate hidden field with event template
+		
+		// Get HTML from template file
+		/*
+		$.get("/assets/php/uploadcontent/thankyou-email.php",
+		   function(data){
+			   $('#template').val(data);
+			   // Now send to email scropt
+				return true;
+		   }, "html");
+		*/
+	  
+	  } else {
+	  
+	  	  var errormsg = '<ul>';
+	  
+		  if($('#event_title').val() == '') {
+			  errormsg += "<li>Event Title</li>";
+		  }
+	
+		  errormsg += '</ul>';
+	  
+		  $("#errormessage").html("The following fields need to be completed:<br />" + errormsg).slideDown('fast');
+		  
+		  return false;
+	  }
+		
+	}
+	
+	function processResponse(data) {
+		if(data['response'] == 'error') {
+			$("#errormessage").html(data['message']).slideDown('fast');	
+		} else {
+			// show thank you page
+			//alert("show thanks page");
+			window.location = "/contact/thanks";
+		}
+	}
+});
+
+</script>
+
+
+
+{embed="includes/.footer"}

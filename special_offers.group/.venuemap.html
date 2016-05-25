@@ -1,0 +1,54 @@
+<p>Map!</p>
+
+{exp:channel:entries show_expired="yes" show_future_entries="yes" channel="special_offers" dynamic="no" status="open" url_title="{freebie_3}" track_views="one" require_entry="yes"}
+
+		{venue_map:map mt_control_style="DROPDOWN_MENU" width="259px" height="240px" id="event-map""}
+
+		<p><a href="/venues/{url_title}">{title}</a>{if venue_address_line_1}, {venue_address_line_1}{/if}{if venue_address_line_2}, {venue_address_line_2}{/if}{if venue_address_line_3}, {venue_address_line_3}{/if}{if venue_town_city}, {venue_town_city}{/if}{if venue_postcode}, {venue_postcode}{/if}</p>
+
+				{if '{venue_url}'}
+
+					<p><span class="event-www"></span><a href="{venue_url}" title="Visit their website" target="_blank">Visit website</a>
+
+				{/if}
+
+
+	{if:elseif event_map}
+
+		{event_map:map mt_control_style="DROPDOWN_MENU" width="259px" height="240px" id="event-map""}
+
+
+	{if:else}
+
+		{exp:playa:children field="event_venue" limit="1"}
+
+			{venue_map:map mt_control_style="DROPDOWN_MENU" width="259px" height="240px" id="event-map""}
+
+		{/exp:playa:children}
+
+	{/if}
+
+
+	{if event_address_line_1 != ''}
+		<p><a href="/events/{url_title}">{title}bob</a>{if event_address_line_2}, {event_address_line_2}{/if}{if event_address_line_3}{event_address_line_3}{/if}{if event_town_city}, {event_town_city}{/if}{if event_postcode}, {event_postcode}{/if}</p>
+
+		{if '{venue_url}'}
+			<p><span class="event-www"></span><a href="{event_url}" title="Visit their website" target="_blank">Visit website</a>
+		{/if}
+
+	{if:else}
+
+			{exp:playa:children field="event_venue" limit="1"}
+				<p><a href="/venues/{url_title}">{title}</a>{if venue_address_line_1}, {venue_address_line_1}{/if}{if venue_address_line_2}, {venue_address_line_2}{/if}{if venue_address_line_3}, {venue_address_line_3}{/if}{if venue_town_city}, {venue_town_city}{/if}{if venue_postcode}, {venue_postcode}{/if}</p>
+
+				{if '{venue_url}'}
+
+					<p><span class="event-www"></span><a href="{venue_url}" title="Visit their website" target="_blank">Visit website</a>
+
+				{/if}
+
+			{/exp:playa:children}
+
+
+
+{/exp:channel:entries}

@@ -1,0 +1,114 @@
+{embed="includes/.header" page_title="Search Results"}
+				<div class="span-15 append-bottom">
+					<h1 class="purple_h1">Location Results</h1>
+					{exp:mx_google_map:form
+						result_page="/search/location"
+						log=""
+						lat=""
+						unit=""
+						backspace="1"
+					}
+					<p>Viewing search results for <strong>{post:address}</strong> within {post:radius} miles. Change radius:
+						<select id="change_radius" name="radius" id="radius">
+							<option value="2">Please select...</option>
+							<option value="1">1 mile</option>
+							<option value="2">2 miles</option>
+							<option value="3">3 miles</option>
+							<option value="5">5 miles</option>
+							<option value="7.5">7.5 miles</option>
+							<option value="10">10 miles</option>
+							<option value="20">20 miles</option>
+							<option value="25">25 miles</option>
+							<option value="50">50 miles</option>
+						</select>
+					</p>
+					<input id="address" name="address" type="hidden" value="{post:address}" />
+					{/exp:mx_google_map:form}
+
+					{exp:mx_google_map:search channel="venues|organisations" reverse_geocoding="true" address="" log="" lat="" unit="" radius="500" prec="2" prefix="" limit="500"}
+						<script type="text/javascript">
+							marker_icons_path = "/themes/third_party/mx_google_map/maps-icons/";
+
+							$(document).ready(function() {
+								$("#my_full_map").mxgoogleMaps({
+									latitude: {center:lat},
+									longitude: {center:long},
+									zoom:  12,
+									markers: [
+										{entries}
+											{venue_map}
+												{
+													marker_id : {point_id},
+													latitude: {latitude},
+													longitude: {longitude},
+													draggable: false,
+													icon: "{icon}",
+													infow:"<a href=\"/venues/{url_title}\" title=\"{title}\">{title}</a><br />{distance} miles from &quot;{post:address}&quot;"
+												},
+											{/venue_map}
+										{/entries}
+									],
+									mapTypeId: google.maps.MapTypeId.ROADMAP,
+									navigationControl: true,
+									scaleControl: true,
+									mapTypeControl: true,
+									mapTypeControlOptions: {
+										style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+									},
+									scrollwheel: false
+								});
+							});
+						</script>
+					{/exp:mx_google_map:search}
+					
+					<div class="span-15 last" style="height: 295px;">
+						<div id="my_full_map" style="height: 100%; width: 100%;"></div>
+					</div>
+
+					<div class="prepend-top span-15 last">
+						{exp:search:simple_form
+							channel="venues|calendar_events|organisations"
+							result_page="search/results"
+							results="10"
+							search_in="titles"
+							show_expired="no"
+							show_future_entries="no"
+							status="open"
+							where="all"
+							form_id="form_search_regular"
+						}
+							<input id="keywords" name="keywords" type="hidden" value="<?php echo substr("{post:address}", 7); ?>" />
+						{/exp:search:simple_form}
+
+						<p class="notice">Not looking for a location based search? <a href="#" id="alt_search">Click here</a> to search Venues, Events and Organisations containing <strong><?php echo substr("{post:address}", 7); ?></strong>.</p>
+					</div>
+
+					{exp:mx_google_map:search
+						channel="venues|organisations"
+						reverse_geocoding="true"
+						address=""
+						log=""
+						lat=""
+						unit=""
+						radius="500"
+						prec="2"
+						prefix=""
+						limit="500"
+					}
+						{entries}
+							<div class="prepend-top span-15 last premium_venue_listing">
+								<div class="span-4">
+									{exp:channel_images:images cover_only="yes" entry_id="{entry_id}"}
+										<a href="/{channel_short_name}/{url_title}" title="Read More"><img alt="{title}" src="{exp:ed_imageresizer image='{image:url:thumbnail_image}' maxWidth='150' href_only='yes'}" width="150" /></a>
+									{/exp:channel_images:images}
+								</div>
+								<div class="span-11 last">
+									<p class="purple_heading"><a href="/{channel_short_name}/{url_title}" title="Read More">{title} {venue_map}({distance} miles){/venue_map}</a></p>
+									<p>{exp:eehive_hacksaw words="45" append="&hellip;"}{venue_description}{/exp:eehive_hacksaw} <a class="purple_link" href="/{channel_short_name}/{url_title}" title="Read More">Read More</a></p>
+								</div>
+							</div>
+						{/entries}
+					{/exp:mx_google_map:search}
+				</div>
+{embed="includes/.sidebar"}
+{embed="includes/.footer"}

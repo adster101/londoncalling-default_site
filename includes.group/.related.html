@@ -1,0 +1,52 @@
+      <div class="span-18 border-wrapper append-bottom features-wrapper">
+        <div class="related-content">
+          <h3>You may also like</h3>
+          {exp:channel:entries limit="10" orderby="date" related_categories_mode="yes" category="{exp:cat2:id category_url_title='{segment_1}'}" custom_fields="yes"}
+          <div class="span-8 related-item">
+            {if '{url_title}' != '{freebie_2}'}
+
+            {exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
+            {if '{channel_short_name}' == 'calendar_events'}
+
+
+            <a href="/events/{url_title}" title="{title}">
+              <img src="{image:url:homepage_image}" width="100" height="90" alt="editors pick feature" />
+            </a>
+            <h4>
+              <a class="featurescolour" href="/events/{url_title}" title="{title}">{title}</a>
+            </h4>
+	    {if event_sub_title}
+		{event_sub_title}
+	    {/if}
+
+            {if:else}
+            {if '{channel_short_name}' == 'special_offers'}
+            	<a href="/special-offers/detail/{url_title}" title="{title}">
+	    {if:else}
+            	<a href="/{channel_short_name}/{url_title}" title="{title}">
+	    {/if}
+              <img src="{image:url:homepage_image}" width="100" height="90" alt="editors pick feature" /></a>
+            <h4>
+            {if '{channel_short_name}' == 'special_offers'}
+              <a class="featurescolour" href="/special-offers/detail/{url_title}" title="{title}">{title}</a>
+	    {if:else}
+              <a class="featurescolour" href="/{channel_short_name}/{url_title}" title="{title}">{title}</a>
+	    {/if}
+
+            </h4>
+            {if feature_excerpt}
+            {feature_excerpt}
+            {/if}
+            {if special_offer_intro_sentence}
+            {special_offer_intro_sentence}
+            {/if}
+            {/if}
+            {/exp:channel_images:images}
+
+            {/if}
+
+          </div>
+          {/exp:channel:entries}
+        </div>
+
+      </div>

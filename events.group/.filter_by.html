@@ -1,0 +1,5 @@
+{exp:cat_info category_id="{embed:cat_id}"}
+	{if cat_info_parent_category_id == '0'}
+		<p>Filter: {exp:gwcode_categories cat_id="{embed:cat_id}" incl_self="no" backspace="2" style="linear"}<a href="/events/show/category/{cat_url_title}" title="{cat_name}">{cat_name}</a> | {/exp:gwcode_categories}</p>
+	{/if}
+{/exp:cat_info}

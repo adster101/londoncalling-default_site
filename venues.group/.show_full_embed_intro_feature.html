@@ -1,0 +1,73 @@
+					{if '{embed:category_id}' != '' && '{embed:premium_listing_filter}' != ''}
+						<div class="span-8 append-bottom">
+							{exp:cat_info category_id="{embed:category_id}"}
+								<p class="purple_heading show_heading">{cat_info_category_name}</p>
+								<p>
+									{if "{cat_info_category_description}" == ""}
+										Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sed nunc sem. Nunc semper euismod lorem in posuere. Cras eu sapien in eros accumsan cursus. Mauris tristique accumsan lacus ut tincidunt. Sed egestas tellus at metus bibendum ac posuere purus aliquam.
+									{if:else}
+										{cat_info_category_description}
+									{/if}
+								</p>
+							{/exp:cat_info}
+						</div>
+						<div id="editors_choice" class="span-7 append-bottom last">
+							<p class="blue_heading">Editor's Choice</p>
+							{exp:channel:entries category="{embed:category_filter}" channel="features" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
+								{if no_results}
+									<p>There are currently no featured articles for this category. Please check back soon or <a class="blue_link" href="/features/show/all" title="Features">view the full list of articles here</a>.</p>
+								{/if}
+								{exp:channel_images:images cover_only="yes" entry_id="{entry_id}"}
+								<p><img alt="{author}" height="80" src="{image:url:editors_choice}" width="80" /><a class="blue_link" href="/{channel_short_name}/{url_title}" title="{title}">{title}</a><br />{exp:eehive_hacksaw words="45" append="&hellip;"}{feature_excerpt}{/exp:eehive_hacksaw} <a class="blue_link" href="/{channel_short_name}/{url_title}" title="Read More">Read More</a></p>
+								{/exp:channel_images:images}
+							{/exp:channel:entries}
+						</div>
+						{exp:channel:entries category="{embed:premium_listing_filter}" channel="venues|organisations" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="2" orderby="random"}
+							<div class="span-15 append-bottom last premium_venue_listing paid_ad">
+								<div class="span-4">
+									{exp:channel_images:images cover_only="yes" entry_id="{entry_id}"}
+										<a href="/{channel_short_name}/{url_title}" title="Read More"><img alt="{title}" src="{exp:ed_imageresizer image='{image:url:thumbnail_image}' maxWidth='150' href_only='yes'}" width="150" /></a>
+									{/exp:channel_images:images}
+								</div>
+								<div class="span-11 last">
+									<p class="purple_heading"><a href="/{channel_short_name}/{url_title}" title="Read More">{title}</a></p>
+									<p>{exp:eehive_hacksaw words="45" append="&hellip;"}{venue_description}{/exp:eehive_hacksaw} <a class="purple_link" href="/{channel_short_name}/{url_title}" title="Read More">Read More</a></p>
+								</div>
+							</div>
+						{/exp:channel:entries}
+					{if:else}
+						<div class="span-15 append-bottom last">
+							<p class="purple_heading show_heading">Venues in London</p>
+						</div>
+					{/if}
+					<div class="span-15 append-bottom last">
+						<div class="span-15 last">
+							<p>Sort: <a href="/{embed:sort_base}/a-z" title="A-Z">A-Z</a> | <a href="/{embed:sort_base}/z-a" title="Z-A">Z-A</a> | <a href="/{embed:sort_base}/newest-first" title="Newest First">Newest First</a> | <a href="/{embed:sort_base}/oldest-first" title="Oldest First">Oldest First</a> | <a href="/{embed:sort_base}/most-popular" title="Most Popular">Most Popular</a></p>
+						</div>
+						{exp:channel:entries channel="venues|organisations" show_expired="no" show_future_entries="no" status="open" orderby="{embed:order_by}" sort="{embed:sort_by}" limit="10" paginate_base="{embed:paginate_base}"}
+							<div class="span-15 last standard_venue_listing venue_separator">
+								<div class="span-2">
+									{exp:channel_images:images cover_only="yes" entry_id="{entry_id}"}
+										{if image:no_images}
+											<p style="margin-top: 36px; margin-bottom: 36px; font-size: 11px; text-align: center;"><em>Awaiting Image</em></p>
+										{/if}
+										<a href="/{channel_short_name}/{url_title}" title="{title}"><img alt="{title}" src="{exp:ed_imageresizer image='{image:url:thumbnail_image}' maxWidth='70' href_only='yes'}" width="70" style="margin-top: 36px; margin-bottom: 36px;" /></a>
+									{/exp:channel_images:images}
+								</div>
+								<div class="span-13 last">
+									<p class="purple_heading"><a href="/{channel_short_name}/{url_title}" title="{title}">{title}</a></p>
+									<p>{exp:eehive_hacksaw words="45" append="&hellip;"}{venue_description}{/exp:eehive_hacksaw}<br /><a class="purple_link" href="/{channel_short_name}/{url_title}" title="Read More">Read More</a></p>
+								</div>
+							</div>
+							{paginate}
+								{if {total_pages} > 1}
+									<div class="prepend-top span-15 last">
+										<p>Page {current_page} of {total_pages} pages {pagination_links}</p>
+									</div>
+								{/if}
+							{/paginate}
+						{/exp:channel:entries}
+						<div class="span-15 last">
+							<p>Sort: <a href="/{embed:sort_base}/a-z" title="A-Z">A-Z</a> | <a href="/{embed:sort_base}/z-a" title="Z-A">Z-A</a> | <a href="/{embed:sort_base}/newest-first" title="Newest First">Newest First</a> | <a href="/{embed:sort_base}/oldest-first" title="Oldest First">Oldest First</a> | <a href="/{embed:sort_base}/most-popular" title="Most Popular">Most Popular</a></p>
+						</div>
+					</div>

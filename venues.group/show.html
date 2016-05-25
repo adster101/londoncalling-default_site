@@ -1,0 +1,314 @@
+{exp:channel:entries dynamic="no" channel="pages" limit="1" url_title="{freebie_1}-{freebie_2}-{freebie_3}-{freebie_4}" disable="pagination|member_data|categories"}
+
+{if no_results}
+  {redirect="404"}
+{/if}
+
+{if '{freebie_3}' == 'category' && '{freebie_4}' != ''}
+	{embed="includes/.header" seo_plugin="yes" entry_id="{entry_id}"}
+{if:else}
+	{embed="includes/.header" page_title="What's On in London"}
+{/if}
+				<div class="span-24 append-bottom category fixed-header">
+
+				<h1 class="header-{freebie_4}">{title}</h1>
+
+				<div class="gridlist">
+					<a id="grid-icon" class="grid-icon-{freebie_4} tooltip" href="{homepage}venues/show/category/{freebie_4}" title="Grid Format"></a><a id="list-icon" class="list-icon-{freebie_4} tooltip" href="{homepage}venues/show/category/{freebie_4}" title="List Format"></a>
+				</div>
+
+				<div id="totalresult"></div>
+
+
+					{if '{freebie_3}' == 'category' && '{freebie_4}' != ''}
+
+						<div id="category-search" class="span-24 category-search-{freebie_4}">
+
+						<form method="post" action="{current_url}" id="catfilter">
+
+							<div class="search-options">
+
+
+
+								<input type="text" name="keywords" id="keywords" class="keywords" {if post:keywords}value="{post:keywords}"{/if} placeholder="Keyword" /><input type="text" name="startdate" id="startdate" placeholder="Start Date" class="date datepicker" {if post:startdate}value="{post:startdate}"{/if}/><input type="text" name="enddate" id="enddate" placeholder="End Date" class="date datepicker" {if post:enddate}value="{post:enddate}"{/if} />
+
+								<div class="event-options">
+
+									{if freebie_4 == 'attractions'}
+
+										<input type="checkbox" name="free" id="free" value="free" {if post:free == 'free'}checked="checked"{/if} /><label for="free">Free</label>
+
+										<input type="checkbox" name="subcat[]" id="outsidelondon" value="17" <?php if (isset($_POST['subcat']) && in_array("17", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="outsidelondon">Out of London</label>
+
+
+									{if:elseif freebie_4 == 'art'}
+
+										<input type="checkbox" name="free" id="free" value="free" {if post:free == 'free'}checked="checked"{/if} /><label for="free">Free</label>
+
+										<input type="checkbox" name="subcat[]" id="outsidelondon" value="27" <?php if (isset($_POST['subcat']) && in_array("27", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="outsidelondon">Out of London</label>
+
+									{if:elseif freebie_4 == 'entertainment'}
+
+										<input type="checkbox" name="free" id="free" value="free" {if post:free == 'free'}checked="checked"{/if} /><label for="free">Free</label>
+
+										<input type="checkbox" name="subcat[]" id="outsidelondon" value="34" <?php if (isset($_POST['subcat']) && in_array("34", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="outsidelondon">Out of London</label>
+
+									{if:elseif freebie_4 == 'families'}
+
+										<input type="checkbox" name="subcat[]" id="museumgalleries" value="36" <?php if (isset($_POST['subcat']) && in_array("36", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="museumgalleries">Museums</label>
+										<input type="checkbox" name="subcat[]" id="theatre" value="39" <?php if (isset($_POST['subcat']) && in_array("39", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="theatre">Theatre</label>
+										<input type="checkbox" name="subcat[]" id="outsidelondon" value="41" <?php if (isset($_POST['subcat']) && in_array("41", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="outsidelondon">Out of London</label>
+
+									{if:elseif freebie_4 == 'museums'}
+
+										<input type="checkbox" name="free" id="free" value="free" {if post:free == 'free'}checked="checked"{/if} /><label for="free">Free</label>
+
+										<input type="checkbox" name="subcat[]" id="outsidelondon" value="50" <?php if (isset($_POST['subcat']) && in_array("50", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="outsidelondon">Out of London</label>
+
+									{if:elseif freebie_4 == 'music'}
+
+										<input type="checkbox" name="subcat[]" id="popcontemp" value="54" <?php if (isset($_POST['subcat']) && in_array("54", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="popcontemp">Contemporary</label>
+										<input type="checkbox" name="subcat[]" id="classicopera" value="53" /<?php if (isset($_POST['subcat']) && in_array("53", $_POST['subcat'])) {echo 'checked="checked"';}?> ><label for="classicopera">Classical</label>
+										<input type="checkbox" name="free" id="free" value="free" {if post:free == 'free'}checked="checked"{/if} /><label for="free">Free</label>
+										<input type="checkbox" name="subcat[]" id="outsidelondon" value="58" <?php if (isset($_POST['subcat']) && in_array("58", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="outsidelondon">Out of London</label>
+
+									{if:elseif freebie_4 == 'theatre'}
+
+										<input type="checkbox" name="subcat[]" id="westend" value="108" <?php if (isset($_POST['subcat']) && in_array("108", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="westend">West End Stage</label>
+										<input type="checkbox" name="subcat[]" id="offwestend" value="106" <?php if (isset($_POST['subcat']) && in_array("106", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="offwestend">Off-West End</label>
+										<input type="checkbox" name="subcat[]" id="families" value="64" <?php if (isset($_POST['subcat']) && in_array("64", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="families">Family</label>
+										<input type="checkbox" name="subcat[]" id="outsidelondon" value="70" <?php if (isset($_POST['subcat']) && in_array("70", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="outsidelondon">Out of London</label>
+
+									{if:elseif freebie_4 == 'festivals'}
+
+										<input type="checkbox" name="free" id="free" value="free" {if post:free == 'free'}checked="checked"{/if} /><label for="free">Free</label>
+										<input type="checkbox" name="subcat[]" id="families" value="101" <?php if (isset($_POST['subcat']) && in_array("101", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="families">Families</label>
+										<input type="checkbox" name="subcat[]" id="entertainment" value="110" <?php if (isset($_POST['subcat']) && in_array("110", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="entertainment">Entertainment</label>
+										<input type="checkbox" name="subcat[]" id="fooddrink" value="100" <?php if (isset($_POST['subcat']) && in_array("100", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="fooddrink">Food &amp; Drink</label>
+
+
+									{/if}
+
+								</div>
+
+							</div>
+							<input type="hidden" id="noresults" name="noresults" value="{if post:noresults}{post:noresults}{/if}" />
+							<input type="hidden" id="postmark" name="postmark" value="postmark" />
+							<input type="submit" id="refinecatresults" value="Refine results" name="refinecatresults" onclick="ga('send', 'event', '{exp:freebie:category_name segment='4'}_RefineResults', 'click');" />
+								</form>
+
+						</div>
+					{/if}	
+						{if page_content}
+							<div class="event-page-content">
+							{page_content}
+							</div>
+						{/if}
+
+						<div id="cat-results">
+
+
+						<div id="resultcontainer">
+
+							<select id="noresultsselect" name="noresults">
+								<option value="" disabled="disabled" selected="selected">Results per page</option>
+								<option value="8" {if post:noresults == "8"}selected="selected"{/if}>8</option>
+								<option value="16" {if post:noresults == "16"}selected="selected"{/if}>16</option>
+								<option value="32" {if post:noresults == "32"}selected="selected"{/if}>32</option>
+								<option value="64" {if post:noresults == "64"}selected="selected"{/if}>64</option>
+								<option value="96" {if post:noresults == "96"}selected="selected"{/if}>96</option>
+							</select>
+							<script type="text/javascript" src="/assets/js/jquery.selectbox-0.2.js"></script>
+							<script type="text/javascript">
+								$('#noresultsselect').selectbox({
+									onChange: function (val,inst) {
+										$('#noresults').val($('#noresultsselect').val());
+									$('#catfilter').submit();
+									}
+								})
+							</script>
+						</div>
+
+						</div>
+
+
+
+					<?php
+$today = date('Ymd');
+$todaytotime = strtotime('now');
+
+if(isset($_POST['startdate']) && $_POST['startdate'] != '') {
+	$startdate = explode('/',$_POST['startdate']);
+	$startdate = $startdate[2].$startdate[1].$startdate[0];
+} else if(isset($_POST['keywords']) && $_POST['keywords'] != '') {
+	$startdate = $today;
+} else {
+	//$startdate = $today;
+	$startdate = '20110101';
+}
+
+if(isset($_POST['enddate']) && $_POST['enddate'] != '') {
+	$enddate = explode('/',$_POST['enddate']);
+	$enddate = $enddate[2].$enddate[1].$enddate[0];
+} elseif(isset($_POST['endingsoon']) && $_POST['endingsoon'] != '') {
+    $futuredate = strtotime('+14 days'); // 5 days from today
+    $enddate = date('Ymd',$futuredate);
+} else {
+	//$enddate = $today;
+	$futuredate = strtotime('+4 month'); // 4 months from today
+    $enddate = date('Ymd',$futuredate);
+}
+
+
+if(isset($_POST['newdate'])) {
+   $entrydate = strtotime('-7 days'); // with last 7 days
+} else {
+    $entrydate = '';
+}
+
+
+
+if(isset($_POST['subcat'])) {
+
+	$subcats = '';
+	$subcats = implode(',',$_POST['subcat']);
+
+
+} else {
+
+    switch('{freebie_4}') {
+        case "attractions":
+        $subcats = '4';
+        break;
+        case "art":
+        $subcats = '5';
+        break;
+        case "entertainment":
+        $subcats = "6";
+        break;
+        case "families":
+        $subcats = "7";
+        break;
+        case "museums":
+        $subcats = "8";
+        break;
+        case "music":
+        $subcats = "9";
+        break;
+        case "theatre":
+        $subcats = "10";
+        break;
+        case "festivals":
+        $subcats = "94";
+        break;
+        case "film":
+        $subcats = "111";
+        break;
+        case "food-and-drink":
+        $subcats = "100";
+        break;
+        default:
+        $subcats = "";
+        break;
+    }
+
+
+}
+$keywords = '';
+if(isset($_POST['keywords'])) {
+	$keywords = str_replace('"','',$_POST['keywords']);
+	$keywords = str_replace("'","",$keywords);
+	$keywords = addslashes($keywords);
+} else {
+    $keywords = '';
+}
+
+if(isset($_POST['free'])) {
+
+	$free = 'Yes';
+} else {
+	$free = '';
+}
+
+if(isset($_POST['specialoffer'])) {
+	$special = 'yes';
+} else {
+	$special = 'no';
+}
+
+if(isset($_POST['endingsoon'])) {
+	$endingsoon = 'yes';
+} else {
+	$endingsoon = 'no';
+}
+
+$noofresults = '8';
+
+?>
+
+
+<?php
+
+
+switch('{segment_4}') {
+	case "attractions":
+	$field = 'field_id_189';
+	break;
+	case "art":
+	$field = 'field_id_190';
+	break;
+	case "entertainment":
+	$field = 'field_id_191';
+	break;
+	case "families":
+	$field = 'field_id_192';
+	break;
+	case "museums":
+	$field = 'field_id_193';
+	break;
+	case "music":
+	$field = 'field_id_194';
+	break;
+	case "theatre":
+	$field = 'field_id_195';
+	break;
+	case "festivals":
+	$field = 'field_id_196';
+	break;
+	case "film":
+	$field = 'field_id_196';
+	break;
+}
+
+$query = ee()->db->select($field)
+    ->from('exp_channel_data d')
+    ->where(array(
+        'd.entry_id' => '3735'
+    ))
+    ->get();
+    $pl = $query->row($field);
+    if($pl == '') {
+    	$noofresults = '16';
+    }
+?>
+
+
+				{embed="venues/cat_ajax_embed_grid"
+					noofresults="{if post:noresults}{post:noresults}{if:else}<?php echo $noofresults;?>{/if}"
+					wherevalue="(<?php echo $subcats; ?>)"
+					start_date="<?php echo $startdate;?>"
+					end_date="<?php echo $enddate; ?>"
+					today="<?php echo $today; ?>"
+					keywords="<?php echo $keywords; ?>"
+					free="<?php echo $free;?>"
+					special="<?php echo $special;?>"
+					entry_date="<?php echo $entrydate;?>"
+					todaytotime="<?php echo $todaytotime; ?>"
+					endingsoon="<?php echo $endingsoon; ?>"
+					category="{exp:freebie:category_name segment='4'}"
+				}
+
+
+				</div>
+{embed="includes/.footer"}
+{/exp:channel:entries}

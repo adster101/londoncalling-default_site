@@ -1,0 +1,103 @@
+{embed="includes/.header" page_title="{structure:page:title}"}
+				<div class="span-15 append-bottom">
+					<p class="mylc_links"><a href="/my-visit" title="About myLC">About myLC</a> &nbsp;|&nbsp; <a href="/mylc/favourites" title="Favourites">Favourites</a> &nbsp;|&nbsp; <a href="/mylc/planner" title="Plan a Trip">Plan a Trip</a> &nbsp;|&nbsp; <a href="/mylc/my-details" title="My Details">My Details</a> &nbsp;|&nbsp; <a href="/mylc/saved-trips" title="Saved Trips">Saved Trips</a>{if logged_in} &nbsp;|&nbsp; <a href="{path='LOGOUT'}" title="Logout">Logout</a>{/if}</p>
+					<h1 class="purple_h1">myLC - Saved Trips</h1>
+
+					{exp:session_variables:set name="member_id" value="{logged_in_member_id}"}
+
+					<?php
+						@session_start();
+
+						$member_id = $_SESSION['member_id'];
+
+						$link = mysql_connect('localhost', 'londonca_user', 'FlK!oNHQly?^p.-');
+
+						if ( ! $link)
+							die('Could not connect to MySQL');
+
+						$db_selected = mysql_select_db('londonca_expressionengine');
+
+						if ( ! $db_selected)
+							die('Cound not connect to the database');
+
+						$result = mysql_query("SELECT * FROM `exp_trips` WHERE `member_id` = '{$member_id}'");
+
+						if (mysql_num_rows($result) > 0)
+						{
+							$row = mysql_fetch_assoc($result);
+
+							$_SESSION['trips'] = unserialize(base64_decode($row['data']));
+						}
+						else
+						{
+							$_SESSION['trips'] = array();
+						}
+
+						if (isset($_SESSION['trips']) && ! empty($_SESSION['trips']))
+						{
+					?>
+							<p>Welcome to your <strong>Saved Trips</strong>. Please choose one of your saved trips from the list below to view your itinerary:</p>
+							<p><strong>Choose trip:</strong> <select id="choose_save_trip" name="choose_save_trip">
+									<?php
+										foreach ($_SESSION['trips'] as $key => $trip)
+										{
+											echo '<option value="'.$key.'">'.$trip['trip_name'].' (Saved on '.date("D jS M Y, g:ia", $trip['saved']).')</option>';
+										}
+									?>
+							</select> <input id="view_itinerary" name="view_itinerary" value="View Itinerary" type="button" /></p>
+
+							<div id="itinerary_planner" class="span-15 last" style="display: none;">
+								<div class="span-15 last">
+									<p>Please make any changes to your itinerary and press the following button: <input id="saved_trip_key" name="saved_trip_key" type="hidden" value="" /><input id="overwrite_trip" name="overwrite_trip" value="Save Changes" type="button" /></p>
+									<p>To print your itinerary, press the following button: <input id="print_itinerary" name="print_itinerary" value="Print" type="button" /></p>
+								</div>
+								<div class="span-15 last">
+									<ul id="trash" class="sortable"></ul>
+								</div>
+								<div class="span-15 last">
+									<div style="float: left; width: 280px !important;">
+										<div id="itinerary_container" style="width: 280px !important;">
+											<!-- Placeholder -->
+										</div>
+									</div>
+									<div style="float: left; margin-left: 30px; width: 280px !important;">
+										{exp:favorites:entries favorites_count="yes"}
+											<p style="display: none;">You have favourited <strong><span id="favourites_count">{favorites_count}</span></strong> venue(s).</p>
+										{/exp:favorites:entries}
+
+										<img alt="Attractions" src="/assets/images/backgrounds/mylc_headers/attractions.png" /><br />
+										{embed="mylc/.embed_favourites" cat_ids="4|12|13|14|15|16|17"}
+
+										<img alt="Art" src="/assets/images/backgrounds/mylc_headers/art.png" /><br />
+										{embed="mylc/.embed_favourites" cat_ids="5|19|20|21|22|23|24|25|26|27"}
+
+										<img alt="Entertainment" src="/assets/images/backgrounds/mylc_headers/entertainment.png" /><br />
+										{embed="mylc/.embed_favourites" cat_ids="6|29|30|31|32|33|34"}
+
+										<img alt="Families" src="/assets/images/backgrounds/mylc_headers/families.png" /><br />
+										{embed="mylc/.embed_favourites" cat_ids="7|36|37|38|39|40|41"}
+
+										<img alt="Museums" src="/assets/images/backgrounds/mylc_headers/museums.png" /><br />
+										{embed="mylc/.embed_favourites" cat_ids="8|43|44|45|46|47|48|49|50|51"}
+
+										<img alt="Music" src="/assets/images/backgrounds/mylc_headers/music.png" /><br />
+										{embed="mylc/.embed_favourites" cat_ids="9|53|54|86|55|56|57|58"}
+
+										<img alt="Stage" src="/assets/images/backgrounds/mylc_headers/stage.png" /><br />
+										{embed="mylc/.embed_favourites" cat_ids="10|60|61|62|63|64|65|66|67|68|69|70"}
+
+										<img alt="Venues" src="/assets/images/backgrounds/mylc_headers/venues.png" /><br />
+										{embed="mylc/.embed_favourites" cat_ids="11|72|73|74|87|75|76"}
+									</div>
+								</div>
+							</div>
+					<?php
+						}
+						else
+						{
+							echo '<p>You do not have any trips saved!</p>';
+						}
+					?>
+				</div>
+{embed="includes/.sidebar"}
+{embed="includes/.footer"}

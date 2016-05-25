@@ -1,0 +1,95 @@
+{embed="includes/.header" page_title="{exp:channel:entries channel="features" show_future_entries="yes" limit="1" track_views="one"}{title}{/exp:channel:entries}"}
+				<div class="span-15 append-bottom">
+					<h1 class="h1_feature">{exp:channel:entries channel="features" show_future_entries="yes" limit="1"}{title}{/exp:channel:entries}</h1>
+
+					{exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
+						{if feature_excerpt}
+							<div class="prepend-top span-15 append-bottom last feature_excerpt">
+								<p>{feature_excerpt}</p>
+							</div>
+						{/if}
+					{/exp:channel:entries}
+						<!--<p class="author">{entry_date format="%D %j%S %M %Y"}</p>-->
+
+						{exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
+							{exp:channel_images:images entry_id="{entry_id}"}
+								{if image:no_images}
+									<script type="text/javascript">
+										$(document).ready(function() {
+											$('#feature').css('display', 'none');
+										});
+									</script>
+								{/if}
+							{/exp:channel_images:images}
+						{/exp:channel:entries}
+
+						<div id="feature" class="span-15 append-bottom last">
+							<div id="feature_images" class="slideshow">
+								{exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
+									{exp:channel_images:images entry_id="{entry_id}"}
+										<div class="slide">
+											<div class="slide_img">
+												<img alt="{title}" height="198" src="{image:url:slideshow_image}" width="590" />
+											</div>
+											<!--
+											<div class="slide_caption">
+												<p>
+													{if image:description == ''}
+														{exp:eehive_hacksaw words="15" append="&hellip;"}
+															{title}
+														{/exp:eehive_hacksaw}
+													{if:else}
+														{exp:eehive_hacksaw words="15" append="&hellip;"}
+															{image:description}
+														{/exp:eehive_hacksaw}
+													{/if}
+												</p>
+											</div>
+											-->
+										</div>
+									{/exp:channel_images:images}
+								{/exp:channel:entries}
+							</div>
+						</div>
+
+						{exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
+						<p>{feature_body}</p>
+
+						<p class="author">
+						{if '{author_avatar}' != ''}
+							<img alt="" src="{author_avatar}" width="80" /><br />
+						{/if}
+						{if feature_author}
+							Author: {feature_author}
+						{if:else}
+							Author: {author}
+						{/if}
+						</p>
+						{/exp:channel:entries}
+						
+						<div class="span-15 append-bottom last related">
+							<p class="related_heading">You may also be interested in...</p>
+
+							<div class="related_container">
+								{exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
+									{if '{exp:playa:child_ids field="feature_interested_in" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="4" orderby="date" sort="desc"}' == ''}
+										<p>There are currently no related Venues/Events.</p>
+									{if:else}
+										{exp:playa:children field="feature_interested_in" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="4" orderby="date" sort="desc"}
+											{exp:channel_images:images cover_only="yes" entry_id="{entry_id}"}
+												<div class="venue_related">
+													{if '{channel_short_name}' == 'calendar_events'}
+														<p><a href="/events/{url_title}" title="{title}"><img alt="{title}" src="{exp:ed_imageresizer image='{image:url:thumbnail_image}' maxWidth='110' href_only='yes'}" width="110" /></a><br /><a href="/events/{url_title}" title="{title}">{title}</a></p>
+													{if:else}
+														<p><a href="/{channel_short_name}/{url_title}" title="{title}"><img alt="{title}" src="{exp:ed_imageresizer image='{image:url:thumbnail_image}' maxWidth='110' href_only='yes'}" width="110" /></a><br /><a href="/{channel_short_name}/{url_title}" title="{title}">{title}</a></p>
+													{/if}
+												</div>
+											{/exp:channel_images:images}
+										{/exp:playa:children}
+									{/if}
+								{/exp:channel:entries}
+							</div>
+						</div>
+				</div>
+{embed="includes/.sidebar_test"}
+{embed="includes/.footer"}

@@ -1,0 +1,99 @@
+	{embed="includes/.header" page_title="{exp:channel:entries channel="authors" show_future_entries="yes" limit="1" track_views="one"}{title}{/exp:channel:entries}"}
+				<div class="span-24 append-bottom features fixed-header">
+					<h1>Features</h1>
+				</div>
+				
+				
+				<div id="event-main" class="span-16">
+				
+					<div class="span-18 border-wrapper append-bottom features-wrapper">
+				
+						<div class="features-content">
+				
+							{exp:channel:entries channel="authors" show_future_entries="yes" limit="1" track_views="one"}
+							
+							
+							{if author_image}
+								{exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
+									<div class="author-image">
+										<img alt="{title}" height="240" src="{image:url:320x240}" width="320" />
+									</div>
+								{/exp:channel_images:images}
+							{/if}
+							
+							<h2 class="author-title">{title}</h2>
+							
+							<div class="author-bio">
+							{author_bio}
+							</div>
+							
+							<h3 class="author-articles">Articles</h3>
+							
+							<ul class="author-article-list">
+							{reverse_related_entries channel="features" orderby="entry_date" sort="desc" limit="500"}
+							{if current_time > entry_date}
+							<li data-date="{entry_date format="%Y-%m-%d"}"><a href="/features/{url_title}">{title}</a> - {entry_date format="%j %F %Y"}</li>
+							{/if}
+							{/reverse_related_entries}
+							</ul>
+							
+							<a href="#" class="authors-more">More</a>
+							<br />
+							
+							<!-- po.st begin -->
+										<div class="pw-widget pw-counter-show  pw-size-large">
+											<a class="pw-button-twitter"></a>
+			 								<a class="pw-button-facebook"></a>
+			  								<a class="pw-button-email"></a>
+			  								<a class="pw-button-print"></a>
+											<a class="pw-button-post"></a>
+										</div> 
+										<script src="http://i.po.st/share/script/post-widget.js#publisherKey=9ebhofj2b8lse7eqsksc" type="text/javascript" charset="utf-8"></script>
+									<!-- po.st END -->
+							
+							
+							{/exp:channel:entries}
+							
+							
+						</div>
+				
+					</div>
+				
+				</div>
+<script type="text/javascript">
+$(document).ready(function(e) {
+	/*
+	var today_date = new Date();
+	var six_months = addMonths(new Date(), -6);
+	*/
+	$('.author-article-list li').each(function(i) {
+		//var entry_date = new Date($(this).data('date').replace(/-/g,'/'));
+		//var entry_date = $(this).data('date').replace(/-/g,'/');
+		//if(entry_date < six_months) {
+		if(i > 4) {
+			$(this).hide();
+		}
+	})
+	
+	$('.authors-more').click(function(e) {
+		e.preventDefault();
+		if($('.author-article-list li:hidden').size() > 0) {
+			$('.author-article-list li').each(function() {
+				$(this).show();
+				console.log('show');
+			})
+			$('.authors-more').hide();
+		} else {
+			alert('There are no more entries to display');
+		}
+	})
+})
+function addMonths(date, months) {
+  date.setMonth(date.getMonth() + months);
+  return date;
+}
+</script>
+						
+{embed="features/.sidebar"}
+						
+{embed="includes/.footer"}

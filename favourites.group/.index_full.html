@@ -1,0 +1,143 @@
+{embed="includes/.header" page_title="Favourites" seo_plugin="yes"}
+
+<div class="span-24 border-wrapper favourites fixed-header">
+	<h1>{if freebie_2}Shared {/if}Favourite London Attractions</h1>
+</div>
+
+<div class="span-24 append-bottom favourites-content">
+
+{if '{exp:shortlist:item_count}' ==0}
+
+<div class="favourites-error"><img src="/assets/images/v2/favourites/favourites-bubble.png" alt="You have no favourites added" /></div>
+
+{/if}
+
+{exp:shortlist:view}
+{if count==1}
+	<div class="span-12">
+		<p>Now that you haves discovered some fantastic things in and around London, email, print or share your favourites and plan your visit today.</p>
+		<p class="note"><strong>Please note</strong> that your favourites will not be saved after closing the browser window.</p>
+	</div>
+	
+	<div class="span-10 right">
+	
+		<div class="fav-buttons">
+
+		{if is_owner}
+			<a onClick="ga('send', 'event', 'Favourites_Save_Login_Required', 'click', {'page': '/login'});" class="fav-share-button" id="fav-save" href="/login">Save</a>
+			<a class="fav-share-button" id="fav-email" href="#" onclick="ga('send', 'event', 'Favourites_Email','click');">Email</a>
+			<a class="fav-share-button" id="fav-print" href="#" onclick="ga('send', 'event', 'Favourites_Print','click');">Print</a>
+			<a class="fav-share-button" id="fav-share" href="#" onclick="ga('send', 'event', 'Favourites_Share','click');">Share</a>
+		{/if}
+		</div>
+		
+		<form id="emailfavs">
+		<label>Email Address</label><br />
+		<input type="text" id="emailfavs-email" name="emailfavs-email" /> <button id="emailfavs-send">send</button><button id="emailfavs-cancel">cancel</button>
+		</form>
+		
+		<div id="sharefavs">
+		
+			<ul id="sharefavs-list">
+
+					<li><a class="pw-button-facebook" pw:size="small" pw:url="{site_url}favourites/{list_id}" pw:title="Check out my favourite things in London:"></a><span class="sharefavs-fb">Share on Facebook<span></li>
+					<li><a class="pw-button-twitter" pw:size="small" pw:url="{site_url}favourites/{list_id}" pw:title="Check out my favourite things in London:"></a><span class="sharefavs-tw" pw:twitter-via="LondCallingUK">Post to Twitter</span></li>
+					<li><a href="{site_url}favourites/{list_id}" class="sharefavs-gtl" href="#">Get the link</a></li>
+
+			</ul>
+		
+			<button id="sharefavs-cancel">cancel</button>
+		
+		</div>
+			{if is_owner}
+				<a href="{exp:shortlist:clear}" class="fav-remove-all" id="fav-remove-all">Remove all favourites</a>
+			{/if}
+	</div>
+	{/if}
+{/exp:shortlist:view}
+	
+
+
+{exp:shortlist:view {if freebie_2 != ''}list_id="{freebie_2}"{/if}}
+
+						<div class="border-wrapper span-24 favourites-results-wrapper">
+
+						{exp:channel:entries dynamic="no" show_expired="yes" show_future="yes" entry_id="{entry_id}"}
+
+						
+							<div class="favourites-results">
+							
+								<div class="favourites-list-image">
+
+									{exp:channel_images:images cover_only="no" entry_id="{entry_id}"}
+									<a class="image" href="/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}"><img alt="{title}" src="{image:url:180x180}" /></a>
+									{/exp:channel_images:images}
+											
+												
+								</div>
+								
+									<!-- po.st begin -->
+									<div class="pw-widget pw-counter-show  pw-size-large" pw:url="http://londoncalling.com/events/{url_title}" pw:title="{title}">
+										<a class="pw-button-twitter"></a>
+		 								<a class="pw-button-facebook"></a>
+		  								<a class="pw-button-email"></a>
+		  								<a class="pw-button-print"></a>
+										<a class="pw-button-post"></a>
+									</div> 
+									
+									<div class="favourites-right">
+									{if is_owner}
+									<a class="fav-remove-all fav-remove" href="{remove_url}">X Remove</a>
+									{/if}
+									</div>
+								<!-- po.st END -->
+								
+								<div class="span-18 last favourites-entry">
+									
+									<h3 class="favourites-title">{title}</h3>
+									{!--{exp:eehive_hacksaw words="50" append="..."}--}
+										{if channel_title == "Events"}
+											<p>{event_sub_title}</p>
+										{if:elseif channel_title == "Features"}
+											<p>{feature_excerpt}</p>
+										{if:elseif channel_title == "Venues"}
+											<p>{venue_sub_title}</p>
+										{if:elseif channel_title == "Special Offers"}
+											{special_offer_intro_sentence}
+										{/if}
+									{!--{/exp:eehive_hacksaw}--}
+									<div class="favourites-details">
+									
+									<p>
+									{if event_address_line_1}
+										<span>Address:</span>{event_address_line_1}{if event_address_line_2}, {event_address_line_2}{/if}{if event_address_line_3}, {event_address_line_3}{/if}{if event_town_city}, {event_town_city}{/if}{if event_postcode}, {event_postcode}{/if}
+									{if:elseif venue_address_line_1}
+										{exp:playa:children field="event_venue" limit="1"}
+											<span>Address:</span>{title}, {venue_address_line_1}{if venue_address_line_2}, {venue_address_line_2}{/if}{if venue_address_line_3}, {venue_address_line_3}{/if}{if venue_town_city}, {venue_town_city}{/if}{if venue_postcode}, {venue_postcode}{/if}
+										{/exp:playa:children}
+									{/if}
+									</p>
+									
+									{if event_email_address}<p><span>Email:</span> <a href="mailto:{event_email_address}">{event_email_address}</a></p>{/if}
+									{if event_url}<p><span>Website:</span> <a href="{event_url}">{event_url}</a></p>{/if}
+									
+									</div>
+									
+									 {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
+								     	<a href="/special-offers/detail/{url_title}" title="Special Offer" class="fav-remove-all favourites-so">special offer</a>
+								     {/exp:playa:parents}
+								</div>
+							
+							</div>
+						{/exp:channel:entries}
+						</div>
+	
+{/exp:shortlist:view}
+
+</div>	
+
+
+
+{embed="includes/.footer"}
+
+

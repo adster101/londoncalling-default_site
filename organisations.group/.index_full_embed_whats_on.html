@@ -1,0 +1,6 @@
+{exp:calendar:cal calendar="calendar_events" dynamic="no" show_expired="no" show_future_entries="no" status="open" event_limit="2" orderby="event_start_date" sort="asc" event_id="{embed:event_ids}" date_range_start="today @ now" pad_short_weeks="n" show_years="2" first_day_of_week="1"}
+	{if no_results}
+		<p>There are currently no events listed for this venue.</p>
+	{/if}
+	<p><strong>{event_start_date format="%l %j%S %F %Y, %g:%i%a"}</strong><br /><a class="purple_link" href="/events/{event_url_title}" title="{event_title}" style="text-transform: none;">{event_title}</a><br />{exp:eehive_hacksaw words="20" append="&hellip;"}{event_description}{/exp:eehive_hacksaw}<br /><a class="purple_link" href="/events/{event_url_title}" title="Read More">Read More</a></p>
+{/exp:calendar:cal}

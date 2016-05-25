@@ -1,0 +1,496 @@
+{embed="includes/.header" seo_plugin="yes"}
+{if freebie_3 == '2-4-1-ticket-offer-for-marilyn-monroe-season' || freebie_3 == '20-off-tickets-to-burda-concert-at-the-barbican'}
+<style>
+  #so-form {
+    display:none;
+  }
+</style>
+{/if}
+<script src="/assets/js/third_party/jquery.imagetick.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('.special_checkbox').imageTick({
+      tick_image_path: "/images/special-offers/tick-box.png",
+      no_tick_image_path: "/images/special-offers/unchecked-box.png"
+    });
+
+    $('#offer_submit').click(function (e) {
+      e.preventDefault();
+
+      if ($('#offer_action').val() == 'Oxo Tower Wharf - Win a Christmas Hamper by the Oxo designers worth over £600!') {
+        if ($('#offer_first_name').val() == 'First Name' || $('#offer_last_name').val() == 'Last Name' || $('#offer_email').val() == 'Email Address' || $('#offer_postcode').val() == 'Postcode' || $('#offer_postcode').val() == '') {
+          alert('Please ensure all fields have been completed');
+          return false;
+        }
+      }
+
+      $('#form_success, #form_error').css('display', 'none');
+
+      $.post('/assets/php/special-offers.php', $('#main_form').serialize(), function (data) {
+        if (data.result == 'success') {
+          $('#main_form').fadeOut('fast', function () {
+            $('.speech-wrapper').append(data.share);
+            $('#form_success').fadeIn('slow');
+          })
+        } else if (data.result == 'already') {
+          $('#form_error').html('Unfortunately you have already entered this competition!').fadeIn('slow');
+        } else if (data.result == 'alreadyRPO') {
+          $('#form_error').html('You have already entered today, come back tomorrow for another chance to win!').fadeIn('slow');
+        } else if (data.result == 'notadult') {
+          $('#form_error').html('You must be over 18 and in the UK to enter this competition.').fadeIn('slow');
+        } else if (data.result == 'captchaFail') {
+          $('#form_error').html('Please confirm you are not a robot!').fadeIn('slow');
+        } else {
+          $('#form_error').html('Unfortunately an error occurred. Please check that you have filled in all required fields.').fadeIn('slow');
+        }
+      }, 'json');
+    });
+  });
+</script>
+
+{exp:channel:entries show_expired="yes" show_future_entries="yes" channel="special_offers" dynamic="no" status="open" url_title="{freebie_3}" track_views="one" require_entry="yes"}
+
+{if no_results}
+
+{redirect="404"}
+
+{/if}
+
+<div class="span-24 category fixed-header">
+  <h1 class="header-so">{special_offer_place} - {title}</h1>
+
+  <h2 class="so-subtitle">{if special_offer_type == 'Competition'}Competition{if:elseif special_offer_type == 'Survey'}Survey{if:else}Offer{/if} Ends: {expiration_date format="%d/%m/%Y"}</h2>
+</div>
+
+{if expiration_date > 0}
+
+{if '{expiration_date format="%Y%m%d"}' < '{current_time format="%Y%m%d"}'}
+<div class="span-24 last error">This offer has expired.</div>
+{/if}
+{/if}
+
+<div id="event-main" class="span-16">
+  <div class="span-16 append-bottom border-wrapper event-content-wrapper">
+    <div class="event-content">
+
+
+
+
+      {if special_offer_template == "Template 2"}
+
+      {exp:channel_images:images skip_cover="yes" entry_id="{entry_id}" limit="2"}
+      <a rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}">
+        <img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}" height="240" src="{image:url:320x240}" width="320" />
+      </a>
+      {/exp:channel_images:images}
+
+
+      {if:else}
+
+      {exp:channel_images:images skip_cover="yes" entry_id="{entry_id}" limit="1"}
+
+      <a class="{if special_offer_template == 'Template 3'}cboxElement-template-1{/if}"rel="venue_gallery" href="{if entry_id == '7984'}{image:url}{if:else}{image:url:gallery_image}{/if}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}">
+
+
+        {if special_offer_template == "Template 3"}
+
+        {if entry_id == '7984'}
+
+        <img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}" src="{image:url}" width="320" />
+
+        {if:else}
+
+        <img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}" height="240" src="{image:url:320x240}" width="320" />
+
+        {/if}
+
+        {if:elseif special_offer_template == "Template 1" }
+
+        <img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}" height="240" src="{image:url:647x240}" width="647" />
+
+
+        {/if}
+
+      </a>
+
+      {/exp:channel_images:images}
+      {/if}
+
+      <div style="display: none;">
+        {if special_offer_template == "Template 2"}
+
+        {exp:channel_images:images entry_id="{entry_id}" offset="2"}
+        <a rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}">{image:url:gallery_image}</a>
+        {/exp:channel_images:images}
+
+        {if:else}
+
+        {exp:channel_images:images entry_id="{entry_id}" offset="1"}
+        <a rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}">{image:url:gallery_image}</a>
+        {/exp:channel_images:images}
+
+        {/if}
+      </div>
+
+      <div class="event-dates {if special_offer_template == 'Template 3'}event-dates-template-1{/if}">
+
+        {if special_offer_template == "Template 2"}
+
+        <div class="feature_imagecredit">
+
+          {exp:channel_images:images entry_id="{entry_id}" skip_cover="yes" limit="1"}
+          {if image:field:1 != ''}
+          <div class="f_ic_left">Image credit: {image:field:1}</div>
+          {/if}
+          {/exp:channel_images:images}
+
+          {exp:channel_images:images entry_id="{entry_id}" skip_cover="yes" offset="1" limit="1"}
+          {if '{image:field:1}' != ''}
+          <div class="f_ic_right">Image credit: {image:field:1}</div>
+          {/if}
+          {/exp:channel_images:images}
+        </div>
+
+        {if:else}
+        {exp:channel_images:images entry_id="{entry_id}" skip_cover="yes" limit="1"}
+
+
+
+        {if image:field:1 != ''}
+        <div class="f_ic_left">Image credit: {image:field:1}</div>
+        {/if}
+        {/exp:channel_images:images}
+
+
+        {/if}
+
+        <div class="selection-actions event-actions {if special_offer_template == 'Template 3'}event-actions-template-1{/if}">
+          {if '{event_prices:total_rows}' > 0}
+          {event_prices}
+          {if price_band == "Free"}<a href="/{channel_short_name}/{url_title}" title="Free Entry!" class="freeentry"></a>{/if}
+          {/event_prices}
+          {/if}
+          {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
+          <a href="/special-offers/detail/{url_title}" title="Special Offer" class="relspecialoffer tooltip-top"></a>
+          {/exp:playa:parents}
+          {exp:playa:children field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" sort="desc"}
+
+          {embed="special_offers/.features" entry_id="{exp:playa:child_ids field="related_features"}"}
+
+          {/exp:playa:children}
+          <a class="imagegallery tooltip" href="#" title="Gallery"></a>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="span-16 append-bottom event-description {if special_offer_template == 'Template 3'}event-description-template-1{/if}">
+
+        <!-- po.st begin -->
+        <div class="pw-widget pw-counter-show  pw-size-large">
+          <a class="pw-button-twitter"></a>
+          <a class="pw-button-facebook"></a>
+          <a class="pw-button-email"></a>
+          <a class="pw-button-print"></a>
+          <a class="pw-button-post"></a>
+        </div>
+        <script src="http://i.po.st/share/script/post-widget.js#publisherKey=9ebhofj2b8lse7eqsksc" type="text/javascript" charset="utf-8"></script>
+        <!-- po.st END -->
+
+        <p>{special_offer_details}</p>
+
+
+        <!-- po.st begin -->
+        <div class="pw-widget pw-counter-show  pw-size-large">
+          <a class="pw-button-twitter"></a>
+          <a class="pw-button-facebook"></a>
+          <a class="pw-button-email"></a>
+          <a class="pw-button-print"></a>
+          <a class="pw-button-post"></a>
+        </div>
+        <script src="http://i.po.st/share/script/post-widget.js#publisherKey=9ebhofj2b8lse7eqsksc" type="text/javascript" charset="utf-8"></script>
+        <!-- po.st END -->
+
+      </div>
+
+    </div>
+  </div>
+
+  <div id="so-form" {if freebie_3 == 'save-over-40-off-tickets-to-the-baby-show'}style="display:none;"{/if}>
+
+       {if special_offer_type == 'Survey'}
+       <div id="form_success" class="success" style="display: none;">Thank you for leaving your details.<br />&nbsp;<br /><a href="{survey_url}" target="_blank"><img src="/images/special-offers/survey-button.png" alt="survey button" /></a></p>
+      <p id="form_error" class="error" style="display: none;"></p>
+
+      {if:else}
+
+      {if freebie_3 == 'RPO-bluebeard-competition'}
+
+      {if '{current_time format="%Y-%m-%d %H:%i:%s"}' <= '2014-10-30 23:59:59'}
+
+      <div id="form_success" class="alt" style="display: none;"><img alt="thank you" src="/images/special-offers/RPO-Thankyou-1.png" /></div>
+      {if:else}
+      <div id="form_success" class="alt" style="display: none;"><img alt="thank you" src="/images/special-offers/RPO-Thankyou-2.png" /></div>
+      {/if}
+      <p id="form_error" class="error" style="display: none;">Unfortunately an error occurred. Please check that you have filled in all required fields.
+
+        {if:else}
+
+      <div id="form_success" style="display: none;"><div class="speech-wrapper" style="background: url('/assets/images/v2/template/speech-bubble.png') no-repeat 0 0; width: 630px; height: 330px; padding:20px; position: relative;"><h2 class="speech-header">You're in with a chance to win {twitter_share_link}</h2>{competition_successfully_entered}</div></div>
+      <p id="form_error" class="error" style="display: none;">Unfortunately an error occurred. Please check that you have filled in all required fields.</p>
+
+      {/if}
+      {/if}
+      {if {current_time format="%Y%m%d"} <= {expiration_date format="%Y%m%d"}}
+
+      {if freebie_3 == 'Win-a-Christmas-Hamper-by-the-Oxo-designers-worth-over-600'}
+
+      <form action="/" method="post" id="main_form">
+
+        <div class="append-bottom" style="background: url('/assets/images/v2/template/speech-bubble.png') no-repeat 0 0; width: 590px; height: 436px; position: relative;">
+
+          <input id="offer_first_name" class="default_value" type="text" name="offer_first_name" style="position: absolute; top: 57px; left: 173px; height: 34px; width: 390px; margin: 0; padding: 0 5px 0 5px; border: 0;" value="First Name" />
+          <input id="offer_last_name" class="default_value" type="text" name="offer_last_name" style="position: absolute; top: 97px; left: 173px; height: 34px; width: 390px; margin: 0; padding: 0 5px 0 5px; border: 0;" value="Last Name" />
+          <input id="offer_email_address" class="default_value required email" type="text" name="offer_email_address" style="position: absolute; top: 138px; left: 172px; height: 34px; width: 390px; margin: 0; padding: 0 5px 0 5px; border: 0;" value="Email Address" />
+          <select id="offer_age" name="offer_age" style="width:400px;position:absolute;left:172px;top:175px;" class="default_value required">
+            <option value="Under 20">Under 20</option>
+            <option value="21-30">21-30</option>
+            <option value="31-40">31-40</option>
+            <option value="41-50">41-50</option>
+            <option value="51-60">51-60</option>
+            <option value="61+">61+</option>
+          </select>
+          <input id="offer_postcode" class="default_value required" type="text" name="offer_postcode" style="position: absolute; top: 223px; left: 172px; height: 34px; width: 390px; margin: 0; padding: 0 5px 0 5px; border: 0;" value="Postcode" />
+          <select id="offer_heard" name="offer_heard" style="width: 210px;position: absolute;left: 360px;top: 267px;" class="default_value required">
+            <option value="Email">Email</option>
+            <option value="Website">Website</option>
+            <option value="Postcard">Postcard</option>
+            <option value="Facebook">Facebook</option>
+            <option value="Twitter">Twitter</option>
+            <option value="Other">Other (please specify)</option>
+          </select>
+          <input id="offer_other" class="default_value required" type="text" name="offer_other" style="position: absolute; top: 307px; left: 172px; height: 34px; width: 390px; margin: 0; padding: 0 5px 0 5px; border: 0;" value="" />
+
+          <input type="hidden" name="so_refer" id="so_refer" value="{segment_1}/{segment_2}/{freebie_3}" />
+          <a style="position: absolute; top: 355px; left: 359px; height: 33px; width: 215px; display: block;" href="#" id="offer_submit"><span style="display: none;">Go</span></a>
+        </div>
+        <p><input class="special_checkbox" id="offer_subscribe" type="checkbox" name="offer_subscribe" value="1" checked="checked" /> {if future_mailing_wording}  {future_mailing_wording}  {if:else}Please tick here if you would like to receive news and offers from London Calling.{/if}</p>
+        <input type="hidden" name="action" id="offer_action" value="{special_offer_place} - {title}" />
+        <input type="hidden" name="email_subject" value="{email_subject}" />
+        {exp:channel_images:images entry_id="{entry_id}" skip_cover="yes" limit="1"}
+        <input type="hidden" name="email_image" value="{image:url:568x225}" />
+        <input type="hidden" name="username" value="" />
+        {/exp:channel_images:images}
+        <input type="hidden" name="offer_url" value="{freebie_3}" />
+
+        <input type="hidden" name="email_attachment" value="{special_offer_email_attachment}{if filename != ''}{filename}.{extension}{/if}{/special_offer_email_attachment}" />
+        <textarea name="email_text" rows="5" cols="5" style="display: none;">{special_offer_email}</textarea>
+      </form>
+
+      {if:else}
+
+      <form action="/" method="post" id="main_form">
+
+        {if freebie_3 == 'RPO-bluebeard-competition'}
+
+        <div class="span-16 append-bottom border-wrapper event-content-wrapper">
+
+          <div class="event-content" style="background:#fff">
+
+            <p style="padding-left:5px;"><em>Old is this castle,<br />
+                Old is the tale enclosed by its walls.<br />
+                Observe carefully</em></p>
+
+            <p style="padding-left:5px;">Bluebeard brings his new wife Judith to visit his castle. Darkness prevails throughout the castle, so Judith requests to let the light in. Seven doors remain firmly locked, guarded by Bluebeard. Curious Judith insists on discovering what lies behind each and every door as she fights to let the light in...</p>
+
+            <div id="RPO-content"></div>
+            <script>
+$("#RPO-content").load("/assets/php/RPO-bluebeard-competition/")
+            </script>
+
+            <div class="append-bottom" style="width: 590px; height: 125px; position: relative;">
+              {if '{current_time format="%Y-%m-%d %H:%i:%s"}' <= '2014-10-30 23:59:59'}
+              <input id="offer_first_name" class="default_value" type="text" name="offer_first_name" style="position: absolute; top: 20px; left: 8px; height: 34px; width: 265px; margin: 0; padding: 0 5px 0 5px; border: 1px solid #000;" value="First Name" />
+              <input id="offer_last_name" class="default_value" type="text" name="offer_last_name" style="position: absolute; top: 20px; left: 298px; height: 34px; width: 265px; margin: 0; padding: 0 5px 0 5px; border: 1px solid #000;" value="Last Name" />
+              <input id="offer_email_address" class="default_value required email" type="text" name="offer_email_address" style="position: absolute; top: 75px; left: 8px; height: 34px; width: 322px; margin: 0; padding: 0 5px 0 5px; border: 1px solid #000;" value="Email Address" />
+              <input type="hidden" name="so_refer" id="so_refer" value="{segment_1}/{segment_2}/{freebie_3}" />
+              <a style="position: absolute; top: 75px; left: 360px; height: 36px; line-height:36px;width: 214px; display: block;background:#000;color:#fff;text-decoration:none;text-align: center;" href="#" id="offer_submit"><span>Enter competition</span></a>
+              {if:else}
+              <h2 style="color:#ff6a92;font-weight:bold;font-size:1em;margin-left:10px;margin-top:20px;">This competition has ended. Winners will be announced on Halloween! Good luck!</h2>
+
+
+              {/if}
+            </div>
+
+          </div>
+
+        </div>
+
+        {if:else}
+
+        {if freebie_3 != 'win-a-mr-turner-experience-weekend-for-two-in-margate'}
+
+        {if special_offer_type == 'Competition'}
+        <div class="append-bottom" id="hidenocomp" style="background: url('/assets/images/v2/template/speech-bubble.png') no-repeat 0 0; width: 630px; height: 330px; padding:20px; position: relative;">
+          {if:elseif special_offer_type == 'Survey'}
+          <div class="append-bottom" id="hidenocomp" style="background: url('/assets/images/v2/template/speech-bubble.png') no-repeat 0 0; width: 630px; height: 330px; padding:20px; position: relative;">
+            <input type="hidden" name="no_email" value="1" />
+            {if:else}
+
+            {if freebie_3 == 'sign-up-to-our-twelve-days-of-christmas-treats'}
+            <div class="append-bottom" id="hidenocomp" style="background: url('/assets/images/v2/template/12-day-pink-bubble.png') no-repeat 0 0; width: 590px; height: 204px; position: relative;">
+              {if:else}
+
+              <div class="append-bottom" id="hidenocomp" style="background: url('/assets/images/v2/template/speech-bubble.png') no-repeat 0 0; width: 630px; height: 330px; padding:20px; position: relative;">
+                {/if}
+                {/if}
+
+                {if special_offer_type == 'Competition'}
+
+                <h2 class="speech-header">Simply enter your name and address below to enter this competition</h2>
+
+                <input id="offer_first_name" class="default_value" type="text" name="offer_first_name" style="position: absolute; top: 115px; height: 45px; width: 300px; margin: 0; padding: 0 5px 0 5px;" placeholder="First Name" />
+                <input id="offer_last_name" class="default_value" type="text" name="offer_last_name" style="position: absolute; top: 115px; left: 340px; height: 45px; width: 300px; margin: 0; padding: 0 5px 0 5px; ;" placeholder="Last Name" />
+                <input id="offer_email_address" class="default_value required email" type="text" name="offer_email_address" style="position: absolute; top: 175px; left: 19px; height: 45px; width: 620px; margin: 0; padding: 0 5px 0 5px; ;" placeholder="Email Address" />
+                <input type="hidden" name="so_refer" id="so_refer" value="{segment_1}/{segment_2}/{freebie_3}" />
+                <div class="g-recaptcha" style="position: absolute;top: 240px;left: 20px;" data-sitekey="6LfsSP8SAAAAAK9tAPgigwLuxeLUEM2Ko2EXy60O"></div>
+
+                <a style="position: absolute; top: 240px; left: 340px; height: 75px; width: 311px; display: block;background:#ec008c;color:#fff;font-size:2em;text-align: center;line-height:72px;text-decoration: none;" href="#" id="offer_submit">ENTER</a>
+                {if:elseif special_offer_type == 'Survey'}{if:else}
+                <style type="text/css">
+                  #hidenocomp {
+                    display:none;
+                  }
+                </style>
+                {/if}
+
+              </div>
+
+              {/if}
+
+              {/if}
+
+              {if freebie_3 == 'win-six-months-of-cocktails-and-thousands-of-5-vouchers'}
+              <p><input class="special_checkbox" id="shaken" type="checkbox" name="shaken" value="1" checked="checked" /> Tick here to get your £5 voucher and join the Shaken mailing list.</p>
+              <p><input class="special_checkbox" id="over_18" type="checkbox" name="over_18" value="0" /> Tick here to indicate you’re over 18 and in the UK. You can’t enter the draw otherwise.</p>
+              {/if}
+              {if freebie_3 == 'win-a-crate-of-old-speckled-hen-ale'}
+              <p><input class="special_checkbox" id="over_18" type="checkbox" name="over_18" value="0" /> Tick here to indicate you’re over 18 and in the UK. ID will be required.</p>
+              {/if}
+              {if freebie_3 != 'sign-up-to-our-twelve-days-of-christmas-treats'}
+              {if freebie_3 != 'win-a-mr-turner-experience-weekend-for-two-in-margate'}
+              <p><input class="special_checkbox" id="offer_subscribe" type="checkbox" name="offer_subscribe" {if freebie_3 == 'win-six-months-of-cocktails-and-thousands-of-5-vouchers'}value="0"{if:else}value="1" checked="checked"{/if} /> {if future_mailing_wording}  {future_mailing_wording}  {if:else}Please tick here if you would like to receive news and offers from London Calling.{/if}</p>
+              {/if}
+              {/if}
+              <input type="hidden" name="action" value="{special_offer_place} - {title}" />
+              <input type="hidden" name="email_subject" value="{email_subject}" />
+              {exp:channel_images:images entry_id="{entry_id}" skip_cover="yes" limit="1"}
+              <input type="hidden" name="email_image" value="{image:url:568x225}" />
+              <input type="hidden" name="username" value="" />
+              {if newsletter_groups}
+              {newsletter_groups}
+              <input type="hidden" name="{item}" value="yes" />
+              {/newsletter_groups}
+
+              {/if}
+              {/exp:channel_images:images}
+              <input type="hidden" name="offer_url" value="{freebie_3}" />
+              <input type="hidden" name="incentive_code" value="{freebie_4}" />
+              <input type="hidden" name="email_attachment" value="{special_offer_email_attachment}{if filename != ''}{filename}.{extension}{/if}{/special_offer_email_attachment}" />
+              <textarea name="email_text" rows="5" cols="5" style="display: none;">{special_offer_email}</textarea>
+
+              {if "{twitter_share_link}" != ''}
+              <textarea name="twitter_share" style="display: none;">{if special_offer_type == 'Competition'}I just entered this competition to win{if:else}I have just signed up to this offer for{/if} {twitter_share_link}</textarea>
+              {/if}
+              </form>
+
+              {/if}
+
+              {/if}
+
+              <p style="font-size: 11px;"><strong>Terms and conditions:</strong><br />{special_offer_terms}</p>
+
+            </div>
+
+            <div id="comments" class="span-16 append-bottom border-wrapper event-content-wrapper">
+
+              <div class="event-comments">
+
+                <h2>Tell us what you think...</h2>
+
+                <div class="fb-comments" data-href="http://londoncalling.com/special-offers/detail/{url_title}" data-num-posts="20" data-width="647"></div>
+              </div>
+
+            </div>
+
+          </div>
+          {/exp:channel:entries}
+          {exp:channel:entries show_expired="yes" show_future_entries="yes" channel="special_offers" dynamic="no" status="open" url_title="{freebie_3}" track_views="one" require_entry="yes"}          {if special_offer_map}
+            {if special_offer_map}
+              <div id="event-sidebar" class="span-7">
+                <div class="span-7 border-wrapper event-sidebar-wrapper">
+                  <div class="event-sidebar">
+                    {special_offer_map:map mt_control_style="DROPDOWN_MENU" width="259px" height="240px" id="event-map"}
+                  </div>
+                </div>
+              </div>
+            {/if}
+            {/if}
+          {/exp:channel:entries}
+          <div class="span-16 append-bottom border-wrapper event-content-wrapper">
+            <div class="related-content">
+              <h3>You may also like</h3>
+              {exp:channel:entries channel="special_offers|features|calendar_events" limit="10" dynamic="no" show_expired="no" show_future_entries="no" status="open" orderby="date" sort="desc"}
+
+              <div class="related-item">
+
+                {exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
+                {if '{channel_short_name}' == 'calendar_events'}
+
+
+                <a href="/events/{url_title}" title="{title}">
+                  <img src="{image:url:homepage_image}" width="100" height="90" alt="editors pick feature" />
+                </a>
+                <h4>
+                  <a class="featurescolour" href="/events/{url_title}" title="{title}">{title}</a>
+                </h4>
+                {if event_sub_title}
+                {event_sub_title}
+                {/if}
+
+                {if:else}
+                {if '{channel_short_name}' == 'special_offers'}
+                <a href="/special-offers/detail/{url_title}" title="{title}">
+                  {if:else}
+                  <a href="/{channel_short_name}/{url_title}" title="{title}">
+                    {/if}
+                    <img src="{image:url:homepage_image}" width="100" height="90" alt="editors pick feature" /></a>
+                  <h4>
+            {if '{channel_short_name}' == 'special_offers'}
+              <a class="" href="/special-offers/detail/{url_title}" title="{title}">{title}</a>
+	    {if:else}
+              <a class="" href="/{channel_short_name}/{url_title}" title="{title}">{title}</a>
+	    {/if}
+                  </h4>
+                  {if feature_excerpt}
+                  {feature_excerpt}
+                  {/if}
+                  {if special_offer_intro_sentence}
+                  {special_offer_intro_sentence}
+                  {/if}
+                  {/if}
+                  {/exp:channel_images:images}
+
+
+
+              </div>
+              {/exp:channel:entries}
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+    {embed="includes/.footer"}

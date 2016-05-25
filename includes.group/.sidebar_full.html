@@ -1,0 +1,126 @@
+				<div id="sidebar" class="span-9 append-bottom last">
+					<div id="mylc_speech_bubble">
+						<a id="mylc_speech_bubble_login" class="mylc_speech_bubble_links" href="{site_url}register-login" title="Login"><span class="display_none">Login</span></a>
+						<a id="mylc_speech_bubble_register_now" class="mylc_speech_bubble_links" href="{site_url}register-login" title="Register Now"><span class="display_none">Register Now</span></a>
+						<a id="mylc_speech_bubble_learn_more" class="mylc_speech_bubble_links" href="{site_url}mylc/about" title="Learn More"><span class="display_none">Learn More</span></a>
+					</div>
+					<div id="search_form">
+						<input id="search_keywords" class="default_value" name="search_keywords" type="text" value="attraction, event, postcode, etc" />
+						<a id="button_search" href="#" title="Search"><span class="display_none">Search</span></a>
+
+						{exp:search:simple_form
+							channel="venues|calendar_events|organisations"
+							result_page="search/results"
+							results="10"
+							search_in="titles"
+							show_expired="no"
+							show_future_entries="no"
+							status="open"
+							where="all"
+							form_id="form_search_regular"
+						}
+							<input class="regular_search_keywords" id="keywords" name="keywords" type="hidden" />
+						{/exp:search:simple_form}
+
+						{exp:mx_google_map:form
+							result_page="/search/location"
+							log=""
+							lat=""
+							unit=""
+							backspace="1"
+						}
+							<input id="radius" name="radius" type="hidden" value="2" />
+							<input class="location_search_keywords" id="address" name="address" type="hidden" />
+						{/exp:mx_google_map:form}
+					</div>
+					<div id="addthis">
+						<!-- po.st begin -->
+							<div class="pw-widget pw-counter-show  pw-size-large">
+								<a class="pw-button-twitter"></a>
+ 								<a class="pw-button-facebook"></a>
+  								<a class="pw-button-email"></a>
+  								<a class="pw-button-print"></a>
+								<a class="pw-button-post"></a>
+							</div> 
+							<script src="http://i.po.st/share/script/post-widget.js#publisherKey=9ebhofj2b8lse7eqsksc" type="text/javascript" charset="utf-8"></script>
+						<!-- po.st END -->
+					</div>
+					<div id="banner_300x250_right">
+						{exp:switchee variable="{freebie_1}" parse="inward"}
+							{case value="venues"}
+								{if freebie_4}
+									{embed="includes/.ads_venues" cat_id="{exp:freebie:category_id segment="4"}" size="300x250"}
+								{if:else}
+									{embed="includes/.ads_venues" cat_id="11" size="300x250"}
+								{/if}
+							{/case}
+
+							{case value="special-offers|win-one-years-free-va-membership"}
+								{embed="includes/.ads" ad_group="special-offers-300x250" size="300x250"}
+							{/case}
+
+							{case value="features"}
+								{embed="includes/.ads" ad_group="features-300x250" size="300x250"}
+							{/case}
+
+							{case value="events"}
+								{embed="includes/.ads" ad_group="whats-on-300x250" size="300x250"}
+							{/case}
+
+							{case value="mylc|my-visit"}
+								{embed="includes/.ads" ad_group="mylc-300x250" size="300x250"}
+							{/case}
+
+							{case default="Yes"}
+								{if freebie_1}
+									{embed="includes/.ads" ad_group="other-300x250" size="300x250"}
+								{if:else}
+									{embed="includes/.ads" ad_group="home-300x250" size="300x250"}
+								{/if}
+							{/case}
+						{/exp:switchee}
+					</div>
+					<!--<div id="banner_web_app">
+						<a id="register_interest_web_app" href="#newsletter" title="Ad"><img alt="Ad" height="250" src="/assets/images/ads/web_app.png" width="300" /></a>
+					</div>-->
+					<div id="banner_web_app">
+						{exp:ad_rotator:size_300x250}
+					</div>
+					{if '{embed:load_fbc}' != 'yes'}
+						<div id="facebook_like_box">
+							<fb:like-box header="true" href="http://www.facebook.com/{lv_facebook_id}" show_faces="true" stream="false" width="300" ></fb:like-box>
+						</div>
+					{/if}
+					<div id="twitter_feed">
+						<script type="text/javascript">
+							new TWTR.Widget({
+								version: 2,
+								type: 'profile',
+								rpp: 4,
+								interval: 6000,
+								width: 300,
+								height: 250,
+								theme: {
+									shell: {
+										background: '#FDE8EC',
+										color: '#ED0579'
+									},
+									tweets: {
+										background: '#FFFFFF',
+										color: '#090909',
+										links: '#ED0579'
+									}
+								},
+								features: {
+									scrollbar: false,
+									loop: false,
+									live: true,
+									hashtags: true,
+									timestamp: true,
+									avatars: false,
+									behavior: 'all'
+								}
+							}).render().setUser('{lv_twitter_id}').start();
+						</script>
+					</div>
+				</div>

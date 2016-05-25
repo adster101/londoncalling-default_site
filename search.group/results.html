@@ -1,0 +1,170 @@
+{embed="includes/.header" page_title="Search Results"}
+
+<div class="span-24 append-bottom search fixed-header">
+				
+					<h1 class="header">Search Results</h1>
+					<h2 id="totalsearchresult">{if post:search_keywords} for {post:search_keywords}{/if}</h2>
+</div>
+
+
+
+<?php
+$today = date('Ymd');
+
+if(isset($_POST['startdate']) && $_POST['startdate'] != '') {
+	$startdate = explode('/',$_POST['startdate']);
+	$startdate = $startdate[2].$startdate[1].$startdate[0];
+} else {
+	//$startdate = $today;
+	$startdate = '20110101';
+}
+
+if(isset($_POST['enddate']) && $_POST['enddate'] != '') {
+	$enddate = explode('/',$_POST['startdate']);
+	$enddate = $enddate[2].$enddate[1].$enddate[0];
+} else {
+	$enddate = $today;
+}
+
+if(isset($_POST['as_category'])) {
+
+	$subcats = '';
+	$subcats = implode(',',$_POST['as_category']);
+
+	
+} else {
+
+	$subcats = '4,5,6,7,8,9,10,11,94';
+
+}
+
+if(isset($_POST['search_keywords'])) {
+	
+	// Remove commas
+	$keywords = str_replace('"','',$_POST['search_keywords']);
+	$keywords = str_replace("'","",$keywords);
+	
+	// List of blocked words
+	$blocked_words = array(
+	' a ',
+	'an',
+	'am',
+	'and',
+	'as',
+	'at',
+	'be',
+	'been',
+	'by',
+	'but',
+	"c's",
+	'can',
+	'com',
+	'co',
+	'do',
+	'edu',
+	'eg',
+	'et',
+	'ex',
+	'for',
+	'get',
+	'gets',
+	'go',
+	'got',
+	'had',
+	'has',
+	'have',
+	'he',
+	'her',
+	'hi',
+	'howbeit',
+	'ie',
+	'if',
+	'in',
+	'inasmuch',
+	'is',
+	'it',
+	'ltd',
+	'nd',
+	'no',
+	'non',
+	'not',
+	'nor',
+	'now',
+	'of',
+	'off',
+	'oh',
+	'ok',
+	'okay',
+	'on',
+	'onto',
+	'or',
+	'per',
+	'que',
+	'qv',
+	'rd',
+	're',
+	'she',
+	'so',
+	'sub',
+	'sup',
+	'th',
+	'thanx',
+	'the',
+	'thru',
+	'thus',
+	'to',
+	'too',
+	'un',
+	'unto',
+	'up',
+	'us',
+	'via',
+	'viz',
+	'vs',
+	'was',
+	'vs'
+	);
+	
+	// Convert keyword string into array
+	$search_terms = explode(' ',strtolower($keywords));
+	
+	// Remove any keywords that are in both arrays
+	$cleansed_keywords = array_diff($search_terms, $blocked_words);
+	
+	// Convert new search terms array back into a string
+	// Addslashes for mysql in embedded files.
+	$filtered_keywords = addslashes(implode(' ',$cleansed_keywords));
+	
+	
+	
+}
+
+if(isset($_POST['free'])) {
+	
+	$free = 'Yes';
+} else {
+	$free = '';
+}
+
+if(isset($_POST['specialoffer'])) {
+	$special = 'yes';
+} else {
+	$special = 'no';
+}
+
+?>
+
+
+				{embed="search/cat_ajax_embed_grid"
+					noofresults="8"
+					wherevalue="(<?php echo $subcats; ?>)"
+					start_date="<?php echo $startdate;?>"
+					end_date="<?php echo $enddate; ?>"
+					today="<?php echo $today; ?>"
+					keywords="<?php echo $keywords; ?>"
+					filtered_keywords="<?php echo $filtered_keywords; ?>"
+					free="<?php echo $free;?>"
+					special="<?php echo $special;?>"
+				}
+
+{embed="includes/.footer"}

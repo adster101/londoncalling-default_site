@@ -1,0 +1,5 @@
+{if embed:entry_id != ''}
+{exp:channel:entries entry_id="{embed:entry_id}" limit="1"}
+														<a href="/features/{url_title}" title="{title}" class="features tooltip"></a>
+											{/exp:channel:entries}
+{/if}

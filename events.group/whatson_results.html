@@ -1,0 +1,220 @@
+{exp:infinite_scroll:wrapper
+	ajax_container="ajax-container"
+	embed_template_url="{homepage}events/whatson_results"
+	process_indicator="process_indicator"
+	next_chunk_link="morelink" 
+	parse="inward"
+	infinite_scroll_vars="{embed:infinite_scroll_vars}" 
+	infinite_scroll_values="{embed:infinite_scroll_values}" parse="inward"
+}
+
+{infinite_scroll_embed_category_id}
+
+{infinite_scroll_container_top}
+<div id="ajax-container">
+{/infinite_scroll_container_top}
+{infinite_scroll_embed_category_id}
+<?php
+
+//get variables if ajax
+if(isset($_POST['ajax_pagination_values'])) {
+$ajax = explode('|',$_POST['ajax_pagination_values']);
+$noofresults = $ajax[0];
+$wherevalue = $ajax[1];
+$start_date = $ajax[2];
+$end_date = $ajax[3];
+$today = $ajax[4];
+$keywords = $ajax[5];
+$free = $ajax[6];
+$special = $ajax[7];
+$entrydate = $ajax[8];
+$todaytime = $ajax[9];
+$endingsoon = $ajax[10];
+}
+?>
+
+{exp:query paginate="bottom" limit="{infinite_scroll_embed_noofresults}" sql="
+SELECT * FROM ( 
+		SELECT exp_channel_titles.entry_id AS title_entry_id, exp_channel_titles.status AS status, exp_channel_titles.view_count_one AS views, exp_channel_data.entry_id AS channel_entry_id, exp_channel_data.field_id_188 AS free_entry, exp_calendar_events.start_date, IF(recurs = 'n', exp_calendar_events.end_date, IF(exp_calendar_events.last_date != '', exp_calendar_events.last_date, from_unixtime(exp_channel_titles.expiration_date,'%Y%m%d'))) AS generic_end_date, exp_calendar_events.entry_id as event_entry_id, exp_calendar_events.recurs AS recurs,exp_channel_titles.channel_id as channel_id, from_unixtime(exp_channel_titles.entry_date,'%Y%m%d') as entry_date, exp_categories.cat_id AS cat_id
+			<?php if(isset($_POST['keywords']) || (isset($keywords) && $keywords != '')) { ?>
+			,
+			IF (MATCH(exp_channel_titles.title) AGAINST ('|{infinite_scroll_embed_keywords}|' IN BOOLEAN MODE), 20,
+				IF(MATCH(exp_channel_titles.title) AGAINST ('{infinite_scroll_embed_keywords}'), 10, 0)
+			)
+			AS title_weight,
+			IF (MATCH(exp_tagger.tag_name) AGAINST ('|{infinite_scroll_embed_keywords}|' IN BOOLEAN MODE), 15,
+				IF(MATCH(exp_tagger.tag_name) AGAINST ('{infinite_scroll_embed_keywords}'), 5, 0)
+			)
+			AS tag_weight
+			<?php } ?>
+		FROM exp_channel_titles
+		JOIN exp_channel_data ON exp_channel_titles.entry_id = exp_channel_data.entry_id
+		INNER JOIN exp_category_posts ON exp_category_posts.entry_id = exp_channel_titles.entry_id
+		INNER JOIN exp_categories ON exp_categories.cat_id = exp_category_posts.cat_id
+		LEFT JOIN exp_calendar_events ON exp_calendar_events.entry_id = exp_channel_titles.entry_id
+		LEFT JOIN exp_tagger_links ON exp_tagger_links.entry_id = exp_channel_titles.entry_id
+		LEFT JOIN exp_tagger ON exp_tagger_links.tag_id = exp_tagger.tag_id
+		WHERE
+		<?php if(isset($_POST['free']) || (isset($free) && $free == 'Yes')) { ?>
+			exp_channel_data.field_id_188 = 'Yes' AND 
+		<?php } ?>
+		(exp_categories.cat_id IN {infinite_scroll_embed_wherevalue})
+		<?php if((isset($_POST['keywords']) && $_POST['keywords'] != '') || (isset($keywords) && $keywords != '')) { ?>
+		AND (MATCH (exp_channel_titles.title) AGAINST('|{infinite_scroll_embed_keywords}|' IN BOOLEAN MODE) OR MATCH (exp_channel_titles.title) AGAINST('{infinite_scroll_embed_keywords}') OR MATCH (exp_tagger.tag_name) AGAINST ('|{infinite_scroll_embed_keywords}|' IN BOOLEAN MODE) OR MATCH (exp_tagger.tag_name) AGAINST ('{infinite_scroll_embed_keywords}'))
+		<?php } ?>
+		AND exp_tagger_links.entry_id = exp_channel_titles.entry_id AND exp_tagger_links.entry_id = exp_channel_titles.entry_id OR (exp_channel_titles.entry_id IS null)
+		<?php if((isset($_POST['keywords']) && $_POST['keywords'] != '') || (isset($keywords) && $keywords != '')) { ?>
+		ORDER BY title_weight+tag_weight DESC
+		<?php } else { ?> 
+		ORDER BY title_entry_id DESC		
+		<?php } ?>
+		) a 
+<?php if((isset($_POST['endingsoon']) && $_POST['endingsoon'] == 'endingsoon') || (isset($endingsoon) && $endingsoon == 'yes')) { ?>
+
+WHERE a.channel_id NOT IN (13,11,1,3) AND a.entry_date <= {infinite_scroll_embed_today} AND a.status = 'open' AND cat_id NOT IN ('3,11') AND ((a.generic_end_date <= {infinite_scroll_embed_end_date} AND a.generic_end_date >= {infinite_scroll_embed_today}))
+
+<?php } elseif(isset($_POST['newdate'])) { ?>
+
+WHERE a.channel_id NOT IN (13,11,1,3) AND a.entry_date <= {infinite_scroll_embed_today} AND a.status = 'open' AND cat_id NOT IN ('3,11') AND (a.entry_date >= {infinite_scroll_embed_entry_date} AND a.entry_date <= {infinite_scroll_embed_todaytotime})
+
+<?php } else { ?>
+WHERE a.channel_id NOT IN (13,11,1,3) AND a.entry_date <= {infinite_scroll_embed_today} AND a.status = 'open' AND cat_id NOT IN ('3,11')
+<?php } ?>
+					<?php if(isset($_POST['specialoffer']) || (isset($special) && $special == 'yes')) { ?>
+					AND a.title_entry_id IN (  SELECT child_entry_id FROM exp_playa_relationships
+						JOIN exp_channel_titles ON exp_channel_titles.entry_id = exp_playa_relationships.parent_entry_id
+						WHERE parent_field_id = '87' AND exp_channel_titles.expiration_date >= unix_timestamp({infinite_scroll_embed_today})
+			)
+		
+					<?php } ?>
+GROUP BY a.title_entry_id
+<?php if(isset($_POST['keywords']) && $_POST['keywords'] != '' || (isset($keywords) && $keywords != '')) { ?>
+	ORDER BY a.title_weight+a.tag_weight DESC
+	<?php } elseif(isset($_POST['mostpopular'])) { ?>
+	   ORDER BY a.views DESC	
+	<?php } elseif((isset($_POST['endingsoon']) && $_POST['endingsoon'] == 'endingsoon') || (isset($endingsoon) && $endingsoon == 'yes')) { ?>
+		ORDER BY a.generic_end_date ASC	
+	<?php } else { ?>
+		ORDER BY title_entry_id DESC	
+	<?php } ?>
+
+"}
+{if no_results}{/if}
+
+{if no_results}
+
+<div class="error span-24" style="width:935px;">
+	<p>No events match your selections. Please try again!</p>
+</div>
+{/if}
+																	
+							{exp:channel:entries entry_id="{title_entry_id}" dynamic="no" show_expired="yes" show_future_entries="yes"}
+						
+						<div class="border-wrapper span-24 category-results-wrapper">
+							<div class="category-results">
+							
+								<div class="feature-list-image">
+
+												{embed="events/.embed_images" imageid="{entry_id}" url="events/{url_title}"}
+											
+												
+											</div>
+											<div class="span-19 last whatsonentry">
+												<h3 class="whatsontitle"><a href="/events/{url_title}" title="{title}">{title}</a></h3>
+												
+												<div class="event-dates">
+												{if event_book_until_date}
+								
+													Booking until {event_book_until_date format="%j %F %Y"}
+												
+												{if:else}
+													{exp:calendar:occurrences event_id="{entry_id}" date_range_end="2 years" occurrences_limit="1"}
+													
+														{if occurrence_total != '1'} 
+
+															{if '{current_time format="%Y"}' != '{occurrence_start_date format="%Y"}'}
+																{event_start_date format="%j %F %Y"}
+															{if:else}
+																{event_start_date format="%j %F"}
+															{/if}
+														
+															{if '{event_last_date}'}
+																	{if '{event_last_date}' != '{event_start_date}'}
+																	    - {event_last_date format="%j %F %Y"}
+																	{if:else}
+																	    until further notice
+																	{/if}
+																
+															{if:else}
+															
+																{if '{occurence_last_date}' != '{event_start_date}'}
+																    - {event_last_date format="%j %F %Y"}
+																{if:else}
+																    until further notice
+																{/if}
+															{/if}
+														
+														{if:else}
+														
+															  {if '{occurrence_start_date format="%j %F %Y"}' == '{event_last_date format="%j %F %Y"}'}
+															      {event_last_date format="%j %F %Y"}
+															  {if:else}
+																{if '{current_time format="%Y"}' != '{occurrence_start_date format="%Y"}'}
+																	{occurrence_start_date format="%j %F %Y"}
+																{if:else}
+																	{occurrence_start_date format="%j %F"}
+																{/if}
+															- 
+																{event_last_date format="%j %F %Y"}
+															{/if}
+														{/if}
+													
+															
+					
+													{/exp:calendar:occurrences}
+												
+												{/if}
+												</div>
+												
+												<div class="event-description elisting">
+												<p>{exp:eehive_hacksaw words="55" append="&hellip;"}{event_description}{/exp:eehive_hacksaw}<br /><a class="readmore" href="/events/{url_title}" title="Read More">Read More</a></p>
+												</div>
+												
+												<div class="selection-actions whatsonactions">
+												 		{if free_entry == "Yes"}<a href="/events/{url_title}" title="Free Entry!" class="freeentry tooltip-cat"></a>{/if}
+												 
+												 {exp:playa:children field="related_features" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" sort="desc"}
+											     <a href="/features/{url_title}" title="{title}" class="features tooltip"></a>
+											     {/exp:playa:children}
+												
+											     {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="yes" status="open" limit="1" orderby="date" sort="desc"}
+											     <a href="/special-offers/detail/{url_title}" title="Special Offer" class="relspecialoffer tooltip"></a>
+											     {/exp:playa:parents}
+			     
+				
+									
+											    </div>
+												
+											</div>
+							
+							</div>
+						</div>
+						
+						{/exp:channel:entries}
+						
+					
+							    	{paginate}{exp:infinite_scroll:next_chunk_link}{if next_page}<div class="morelink"><a href="{auto_path}" class="next_chunk_link">More</a></div>{/if}{/exp:infinite_scroll:next_chunk_link}{/paginate}
+							    	
+							    	<div class="process_indicator"></div>
+					
+							    	
+									{/exp:query}
+									
+									
+									
+
+{infinite_scroll_container_bottom}
+</div><!-- End of #ajax_container -->
+{/infinite_scroll_container_bottom}
+
+{/exp:infinite_scroll:wrapper}

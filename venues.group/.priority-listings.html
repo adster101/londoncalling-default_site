@@ -1,0 +1,107 @@
+{exp:channel:entries channel="more_inspiration" limit="1" show_expired="yes"}
+
+{if {segment_4}_pl != ''}
+
+								
+								{exp:playa:children field="{freebie_4}" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="8" sort="asc"}
+
+								
+								
+								
+										{if '{cookie:cat_view}' == "list"}
+								
+								
+										{exp:channel_images:images entry_id="{entry_id}" cover_only="no"}
+									 	<div class="border-wrapper span-24 category-results-wrapper">
+										<div class="category-results">
+										
+											<div class="feature-list-image">
+												<a href="/{if channel_short_name == "calendar_events"}events{if:else}{channel_short_name}{/if}/{url_title}"> <img src="{image:url:170x170}" width="170" height="170" alt="feature list image" /></a>
+											</div>
+											
+											<div class="span-19 last whatsonentry">
+		
+												<h3 class="whatsontitle {freebie_4}-title"><a href="/events/{url_title}" title="{title}">{title}</a></h3>
+												
+												{if channel_short_name == "calendar_events"}
+											     <p>{event_sub_title}</p>
+        									     <p><a class="{freebie_4}-title readmore" href="/events/{url_title}" title="Read More">Read More</a></p>
+        									     {if:elseif channel_short_name == "venues"}
+        									     <p>{venue_sub_title}</p>
+        									     <p><a class="{freebie_4}-title readmore" href="/venues/{url_title}" title="Read More">Read More</a></p>
+        									     {if:elseif channel_short_name == "features"}
+        									     <p><a class="{freebie_4}-title readmore" href="/features/{url_title}">{exp:eehive_hacksaw}{feature_sub_title}{/exp:eehive_hacksaw}</a></p>
+        									     {if:else}
+											     {/if}
+												
+												 <div class="selection-actions whatsonactions">
+										     {if '{event_prices:total_rows}' > 0}
+											 	{event_prices}
+											 		{if price_band == "Free"}<a href="/{if channel_short_name == "calendar_events"}events{if:else}{channel_short_name}{/if}/{url_title}" title="Free Entry!" class="freeentry tooltip-cat"></a>{/if}
+											 	{/event_prices}
+											 {/if}
+										     {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
+										     <a href="/special-offers/detail/{url_title}" title="{title}" class="relspecialoffer tooltip-cat"></a>
+										     {/exp:playa:parents}
+										     			
+															
+											</div>
+										
+										</div>
+									</div>
+									</div>
+									  {/exp:channel_images:images}
+									    
+									    
+										{if:else}
+										
+										
+											{exp:channel_images:images entry_id="{entry_id}" cover_only="no"}
+											     <li><div class="selection-container"><a href="/{if channel_short_name == "calendar_events"}events{if:else}{channel_short_name}{/if}/{url_title}"> <img src="{image:url:230x230}" width="230" height="230" alt="featured image" /></a>
+													     <div class="selection-info"><h3><a href="/{if channel_short_name == "calendar_events"}events{if:else}{channel_short_name}{/if}/{url_title}">
+    													     
+    													     {if channel_short_name == "features"}
+                                    				     	 	{if feature_home_page_title != ''}{feature_home_page_title}{if:else}{title}{/if}
+                                    					     {if:elseif channel_short_name == "calendar_events"}
+                                    					     	{if event_home_title != ''}{event_home_title}{if:else}{title}{/if}
+                                    					     {if:elseif channel_short_name == "venues"}
+                                    					     	{if venue_home_page_title != ''}{venue_home_page_title}{if:else}{title}{/if}
+                                    					     {if:elseif channel_short_name == "events"}
+                                    					     	{if event_home_title != ''}{event_home_title}{if:else}{title}{/if}
+                                    					     {if:elseif channel_short_name == "special_offers"}
+                                    						     {if so_home_page_title != ''}{so_home_page_title}{if:else}{title}{/if}
+                                    					     {/if}
+    													     
+													     </a></h3>
+													     {if channel_short_name == "calendar_events"}
+													     <p><a href="/events/{url_title}">{exp:eehive_hacksaw}{event_sub_title}{/exp:eehive_hacksaw}</a></p>
+													     {if:elseif channel_short_name == "venues"}
+													     <p><a href="/venues/{url_title}">{exp:eehive_hacksaw}{venue_sub_title}{/exp:eehive_hacksaw}</a></p>
+													     {if:elseif channel_short_name == "features"}
+													     <p><a href="/venues/{url_title}">{exp:eehive_hacksaw}{feature_sub_title}{/exp:eehive_hacksaw}</a></p>
+													     {if:else}
+													     {/if}
+													     </div>
+												    </div>
+												     <div class="selection-actions">
+												     {if '{event_prices:total_rows}' > 0}
+													 	{event_prices}
+													 		{if price_band == "Free"}<a href="/{if channel_short_name == "calendar_events"}events{if:else}{channel_short_name}{/if}/{url_title}" title="Free Entry!" class="freeentry tooltip-cat"></a>{/if}
+													 	{/event_prices}
+													 {/if}
+												     {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
+												     <a href="/special-offers/detail/{url_title}" title="{title}" class="relspecialoffer tooltip-cat"></a>
+												     {/exp:playa:parents}
+												     					
+				
+											    </li>
+											  {/exp:channel_images:images}
+										
+										
+										
+										{/if}
+										
+										
+									     {/exp:playa:children}
+{/if}
+						{/exp:channel:entries}

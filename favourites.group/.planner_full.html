@@ -1,0 +1,75 @@
+{embed="includes/.header" page_title="{structure:page:title}"}
+				<div class="span-15 append-bottom">
+					<p class="mylc_links"><a href="/my-visit" title="About myLC">About myLC</a> &nbsp;|&nbsp; <a href="/mylc/favourites" title="Favourites">Favourites</a> &nbsp;|&nbsp; <a href="/mylc/planner" title="Plan a Trip">Plan a Trip</a> &nbsp;|&nbsp; <a href="/mylc/my-details" title="My Details">My Details</a> &nbsp;|&nbsp; <a href="/mylc/saved-trips" title="Saved Trips">Saved Trips</a>{if logged_in} &nbsp;|&nbsp; <a href="{path='LOGOUT'}" title="Logout">Logout</a>{/if}</p>
+					<h1 class="purple_h1">myLC - Plan a Trip</h1>
+					<p>Welcome to the <strong>Trip Planner</strong>. On the right hand side, you will see a list of your favourite places to go. Simply choose the dates of your trip from the calendar and drag items across to the left to create your itinerary.</p>
+					<p><strong>Choose dates:</strong><br />From: <input id="from" name="from" type="text" /> To: <input id="to" name="to" type="text" /> <input id="create_trip" name="create_trip" value="Create Trip" type="button" /></p>
+
+					{if logged_in}
+						{exp:session_variables:set name="member_id" value="{logged_in_member_id}"}
+					{if:else}
+						{exp:session_variables:set name="member_id" value="{exp:session_variables:get_guest}"}
+					{/if}
+
+					<div id="itinerary_planner" class="span-15 last" style="display: none;">
+						<div class="span-15 last">
+							<p>Trip Name: <input id="trip_name" name="trip_name" type="text" /> <input id="save_trip" name="save_trip" value="Save Trip" type="button" /></p>
+							{if logged_in}
+								<p>To print your itinerary, press the following button: <input id="print_itinerary" name="print_itinerary" value="Print" type="button" /></p>
+							{/if}
+
+							{if logged_out}
+								<p><strong>To print your trip, you must be a registered user!</strong> Please save your trip first, <a href="/mylc" title="Create an account">then create an account here</a>.</p>
+							{/if}
+						</div>
+						<div class="span-15 last">
+							<ul id="trash" class="sortable"></ul>
+						</div>
+						<div class="span-15 last">
+							<div style="float: left; width: 280px !important;">
+								<div id="itinerary_container" style="width: 280px !important;">
+									<!-- Placeholder -->
+								</div>
+							</div>
+							<div style="float: left; margin-left: 30px; width: 280px !important;">
+								{if logged_in}
+									{exp:favorites:entries favorites_count="yes"}
+										<p style="display: none;">You have favourited <strong><span id="favourites_count">{favorites_count}</span></strong> venue(s).</p>
+									{/exp:favorites:entries}
+								{/if}
+
+								{if logged_out}
+									{exp:favorites:entries favorites_count="yes" favorites_member_id="{exp:session_variables:get_guest}"}
+										<p style="display: none;">You have favourited <strong><span id="favourites_count">{favorites_count}</span></strong> venue(s).</p>
+									{/exp:favorites:entries}
+								{/if}
+
+								<img alt="Attractions" src="/assets/images/backgrounds/mylc_headers/attractions.png" /><br />
+								{embed="mylc/.embed_favourites" cat_ids="4|12|13|14|15|16|17"}
+
+								<img alt="Art" src="/assets/images/backgrounds/mylc_headers/art.png" /><br />
+								{embed="mylc/.embed_favourites" cat_ids="5|19|20|21|22|23|24|25|26|27"}
+
+								<img alt="Entertainment" src="/assets/images/backgrounds/mylc_headers/entertainment.png" /><br />
+								{embed="mylc/.embed_favourites" cat_ids="6|29|30|31|32|33|34"}
+
+								<img alt="Families" src="/assets/images/backgrounds/mylc_headers/families.png" /><br />
+								{embed="mylc/.embed_favourites" cat_ids="7|36|37|38|39|40|41"}
+
+								<img alt="Museums" src="/assets/images/backgrounds/mylc_headers/museums.png" /><br />
+								{embed="mylc/.embed_favourites" cat_ids="8|43|44|45|46|47|48|49|50|51"}
+
+								<img alt="Music" src="/assets/images/backgrounds/mylc_headers/music.png" /><br />
+								{embed="mylc/.embed_favourites" cat_ids="9|53|54|86|55|56|57|58"}
+
+								<img alt="Stage" src="/assets/images/backgrounds/mylc_headers/stage.png" /><br />
+								{embed="mylc/.embed_favourites" cat_ids="10|60|61|62|63|64|65|66|67|68|69|70"}
+
+								<img alt="Venues" src="/assets/images/backgrounds/mylc_headers/venues.png" /><br />
+								{embed="mylc/.embed_favourites" cat_ids="11|72|73|74|87|75|76"}
+							</div>
+						</div>
+					</div>
+				</div>
+{embed="includes/.sidebar"}
+{embed="includes/.footer"}

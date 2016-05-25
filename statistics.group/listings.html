@@ -1,0 +1,70 @@
+{embed="statistics/.header"}
+			<div class="span-24 prepend-top append-bottom">
+				<h1>Listings Report</h1>
+				<hr />
+
+				<h2><a id="homepage-premium"></a>Homepage Premium Listings</h2>
+				{embed="statistics/.listings" category="1"}
+				<hr />
+
+				<h2><a id="homepage-standard"></a>Homepage Standard Listings</h2>
+				{embed="statistics/.listings" category="2"}
+				<hr />
+
+				<h2><a id="cat-premium"></a>Category & Subcategory Premium Listings</h2>
+				{exp:gwcode_categories group_id="2" style="linear"}
+					{if '{depth}' == '1'}
+						<h3 class="prepend-1"><strong>{cat_name}</strong></h3>
+						{embed="statistics/.listings" category="3&{cat_id}"}
+					{if:else}
+						<h4 class="prepend-2"><strong>{cat_name}</strong></h4>
+						{embed="statistics/.listings" category="85&{cat_id}"}
+					{/if}
+				{/exp:gwcode_categories}
+				<hr />
+
+				<h2><a id="not-assigned"></a>Venues/Events/Organisations not assigned to a category</h2>
+				{embed="statistics/.listings" category="not"}
+				<hr />
+
+				<h2<a id="expired"></a>Expired Venues/Events/Organisations</h2>
+				{exp:query sql="SELECT * FROM `exp_channel_titles` WHERE `channel_id` IN(1, 9, 13) AND `expiration_date` > 0 AND `expiration_date` <= UNIX_TIMESTAMP(NOW()) ORDER BY `expiration_date` DESC LIMIT 0, 250"}
+					{if no_results}
+						<p class="prepend-3">No results found...</p>
+					{/if}
+
+					<p class="prepend-3"><strong>Expired {expiration_date format="%d/%m/%Y, %H:%i"}</strong> &mdash; <a href="/lcmin/index.php?D=cp&C=content_publish&M=entry_form&channel_id={channel_id}&entry_id={entry_id}" title="Edit {title}" target="_blank">{title}</a></p>
+				{/exp:query}
+				<hr />
+
+				<h2><a id="videos"></a>Venues/Events/Organisations without any videos</h2>
+				{exp:query sql="SELECT * FROM `exp_channel_titles` WHERE `channel_id` IN(1, 9, 13) AND `entry_id` NOT IN (SELECT `entry_id` FROM `exp_channel_videos`) ORDER BY `entry_date` DESC"}
+					{if no_results}
+						<p class="prepend-3">No results found...</p>
+					{/if}
+
+					<p class="prepend-3"><a href="/lcmin/index.php?D=cp&C=content_publish&M=entry_form&channel_id={channel_id}&entry_id={entry_id}" title="Edit {title}" target="_blank">{title}</a></p>
+				{/exp:query}
+				<hr />
+
+				<h2><a id="no-events"></a>Venues without any events attached to them</h2>
+				{exp:query sql="SELECT * FROM `exp_channel_titles` WHERE `channel_id` = '1' AND `status` = 'open' AND `entry_id` NOT IN (SELECT `child_entry_id` FROM `exp_playa_relationships` WHERE `parent_field_id` = '54') ORDER BY `entry_id` DESC LIMIT 0, 250"}
+					{if no_results}
+						<p class="prepend-3">No results found...</p>
+					{/if}
+
+					<p class="prepend-3"><a href="/lcmin/index.php?D=cp&C=content_publish&M=entry_form&channel_id={channel_id}&entry_id={entry_id}" title="Edit {title}" target="_blank">{title}</a></p>
+				{/exp:query}
+				<hr />
+
+				<h2><a id="no-related"></a>Venues without any related items</h2>
+				{exp:query sql="SELECT * FROM `exp_channel_titles` WHERE `channel_id` = '1' AND `status` = 'open' AND `entry_id` NOT IN (SELECT `parent_entry_id` FROM `exp_playa_relationships` WHERE `parent_field_id` = '30') ORDER BY `entry_id` DESC LIMIT 0, 250"}
+					{if no_results}
+						<p class="prepend-3">No results found...</p>
+					{/if}
+
+					<p class="prepend-3"><a href="/lcmin/index.php?D=cp&C=content_publish&M=entry_form&channel_id={channel_id}&entry_id={entry_id}" title="Edit {title}" target="_blank">{title}</a></p>
+				{/exp:query}
+				<hr />
+			</div>
+{embed="statistics/.footer"}

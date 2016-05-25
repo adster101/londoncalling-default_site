@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html
+	xml:lang="en"
+	lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:fb="http://www.facebook.com/2008/fbml">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta property="fb:app_id" content="410780328976610"/>
+		<meta property="twitter:account_id" content="4503599627499914" />
+
+		<meta name="apple-itunes-app" content="app-id=632004717, app-argument={exp:current_url:full_url}">
+
+		{if '{embed:google_news_keywords}' != ''}
+		<meta name="news_keywords" content="{embed:google_news_keywords}">
+		{/if}
+
+		{if '{freebie_1}' == 'special-offers' AND '{freebie_2}' == 'detail'}
+
+			{exp:channel:entries show_expired="yes" show_future_entries="yes" channel="special_offers" dynamic="no" status="open" url_title="{freebie_3}" track_views="one" require_entry="yes"}
+
+				{exp:seo_lite entry_id="{entry_id}"}
+
+				{if facebook_share_link}
+
+					{if special_offer_type == 'Competition'}
+
+						<meta name="og:description" content="I just entered this competition to win {facebook_share_link}" />
+
+					{if:else}
+
+						<meta name="og:description" content="I have just signed up to this offer for {facebook_share_link}" />
+
+					{/if}
+
+				{/if}
+
+			{/exp:channel:entries}
+
+
+		{if:else}
+
+			{if embed:seo_plugin == 'yes'}
+
+				{if '{freebie_1}' != ''}
+
+					{if '{freebie_1}' == 'features' && '{freebie_2}' == 'show'}
+
+						{exp:channel:entries entry_id = '20' dynamic="no"}
+
+							{exp:seo_lite entry_id="{entry_id}"}
+
+						{/exp:channel:entries}
+
+
+					{if:elseif '{freebie_1}' == 'venues' && '{freebie_2}' == 'show'}
+
+						{exp:seo_lite entry_id="{embed:entry_id}"}
+
+					{if:else}
+
+						{exp:seo_lite use_last_segment="yes"}
+
+					{/if}
+
+				{if:else}
+
+					{exp:channel:entries channel="home" dynamic="no"}
+
+						{exp:seo_lite entry_id="{entry_id}"}
+
+					{/exp:channel:entries}
+
+
+
+				{/if}
+
+			{if:else}
+
+			<meta name="description" content="Recommendations for the best of art, theatre and culture in London" />
+			<title>{embed:page_title} &mdash; LondonCalling.com</title>
+			{/if}
+
+		{/if}
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" />
+		<link rel="apple-touch-startup-image" href="/assets/images/apple-touch-startup-image.png" />
+
+		{if embed:google_standout == 'Yes'}
+		<link rel="standout" href="http://londoncalling.com/{embed:url_title}" />
+		{/if}
+
+		<!--<link media="print" rel="stylesheet" type="text/css" href="/assets/css/blueprint/v1.0/print.css" />-->
+		<!--[if lt IE 8]>
+			<link media="screen, projection" rel="stylesheet" type="text/css" href="/assets/css/blueprint/v1.0/ie.css" />
+		<![endif]-->
+
+		{exp:minimee:css}
+
+		<link media="screen, projection, print" rel="stylesheet" type="text/css" href="/assets/css/blueprint/v1.0/screen2.css" />
+
+		<link media="screen, projection, print" rel="stylesheet" type="text/css" href="/assets/css/jquery-ui/lc-pink/jquery-ui-1.9.1.custom.css" />
+
+		<link media="screen, projection, print" rel="stylesheet" type="text/css" href="/assets/css/jquery.selectbox.css" />
+
+		<link media="screen, projection, print" rel="stylesheet" type="text/css" href="/assets/css/tipTip.css" />
+
+		<link media="screen, projection, print" rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+
+		<link media="screen, projection" rel="stylesheet" type="text/css" href="/assets/js/min/jquery/plugins/colorbox/colorbox.css" />
+		<link media="screen, projection" rel="stylesheet" type="text/css" href="/themes/solspace_themes/calendar/templates/mini.css" />
+
+		{/exp:minimee:css}
+
+		{if embed:page_title}
+			<link media="print" rel="stylesheet" type="text/css" href="/assets/css/print-favourites.css" />
+		{/if}
+
+		{exp:minimee:js}
+
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+
+		{/exp:minimee:js}
+
+		<script type="text/javascript" src="/themes/third_party/mx_google_map/mxgooglemap.js"></script>
+
+		<!-- Use this for critical path CSS -->
+		<style type="text/css">
+
+		</style>
+
+		{lv_ga_code}
+
+		{if '{freebie_3}' == 'win-a-signed-copy-of-nod-by-adrian-barnes'}
+
+			<script type="text/javascript">
+			var fb_param = {};
+			fb_param.pixel_id = '6009461069197';
+			fb_param.value = '0.00';
+			fb_param.currency = 'GBP';
+			(function(){
+			  var fpw = document.createElement('script');
+			  fpw.async = true;
+			  fpw.src = '//connect.facebook.net/en_US/fp.js';
+			  var ref = document.getElementsByTagName('script')[0];
+			  ref.parentNode.insertBefore(fpw, ref);
+			})();
+			</script>
+			<noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/offsite_event.php?id=6009461069197&amp;value=0&amp;currency=GBP" /></noscript>
+
+		{/if}
+
+		{if '{freebie_1}' == 'special-offers'}
+		<script src='https://www.google.com/recaptcha/api.js' async defer></script>
+		{/if}
+
+		</head>
+	<body>
+	<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1&appId=410780328976610";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+		{!--{exp:session_variables:set_guest member_id="{logged_in_member_id}"}--}
+
+		<div id="wrap" class="fixed-wrap">
+			<div id="main" class="container">
+				<div id="header-container">
+
+					<div id="header" class="span-24">
+
+						<a id="logo" onClick="ga('send', 'event', 'LondonCallingLogo', 'click', {'page': '/'});" href="/" title="Home"><img alt="London Calling - Connecting Culture" src="/assets/images/logo.png" /></a>
+
+
+						<div id="banner_728x90">
+							{exp:switchee variable="{freebie_1}" parse="inward"}
+								{case value="venues"}
+									{if freebie_4}
+										{embed="includes/.ads_venues" cat_id="{exp:freebie:category_id segment="4"}" size="728x90"}
+									{if:else}
+										{embed="includes/.ads_venues" cat_id="11" size="728x90"}
+									{/if}
+								{/case}
+
+								{case value="special-offers|affordable-art-fair-offer"}
+									{embed="includes/.ads" ad_group="special-offers-728x90" size="728x90"}
+								{/case}
+
+								{case value="features"}
+									{embed="includes/.ads" ad_group="features-728x90" size="728x90"}
+								{/case}
+
+								{case value="events"}
+									{embed="includes/.ads" ad_group="whats-on-728x90" size="728x90"}
+								{/case}
+
+								{case value="mylc|my-visit"}
+									{embed="includes/.ads" ad_group="mylc-728x90" size="728x90"}
+								{/case}
+
+								{case default="Yes"}
+									{if freebie_1}
+										{embed="includes/.ads" ad_group="other-728x90" size="728x90"}
+									{if:else}
+										{embed="includes/.ads" ad_group="home-728x90" size="728x90"}
+									{/if}
+								{/case}
+							{/exp:switchee}
+						</div>
+
+					</div>
+					<div id="navigation" class="span-24">
+						{exp:since_last_visit:set_cookie expire="1"}
+
+						{exp:since_last_visit:stats channel_id="3"}
+							<span id="notification_special_offers" class="notifications">{new_entry_total}</span>
+						{/exp:since_last_visit:stats}
+
+						{exp:since_last_visit:stats channel_id="11"}
+							<span id="notification_features" class="notifications">{new_entry_total}</span>
+						{/exp:since_last_visit:stats}
+						<ul>
+							<li class="home"><a onClick="ga('send', 'event', 'Menu - Home', 'click', {'page': '/'});" href="/" title="Home"></a></li>
+							<li><a onClick="ga('send', 'event', 'Menu - Whats On', 'click', {'page': '/events/show'});" href="/whats-on-in-london" title="What's On">What's On</a>
+								<ul class="submenu">
+									<li><a onClick="ga('send', 'event', 'Menu - Attractions', 'click', {'page': '/venues/show/category/attractions'});" href="/venues/show/category/attractions" title="Attractions">Attractions</a></li>
+									<li><a onClick="ga('send', 'event', 'Menu - Art', 'click', {'page': '/venues/show/category/art'});" href="/venues/show/category/art" title="Art">Art</a></li>
+									<li><a onClick="ga('send', 'event', 'Menu - Entertainment', 'click', {'page': '/venues/show/category/entertainment'});" href="/venues/show/category/entertainment" title="Entertainment">Entertainment</a></li>
+									<li><a onClick="ga('send', 'event', 'Menu - Families', 'click', {'page': '/venues/show/category/families'});" href="/venues/show/category/families" title="Families">Families</a></li>
+									<li><a onClick="ga('send', 'event', 'Menu - Film', 'click', {'page': '/venues/show/category/film'});" href="/venues/show/category/film" title="Families">Film</a></li>
+									<li><a onClick="ga('send', 'event', 'Menu - Food and Drink', 'click', {'page': '/venues/show/category/food-and-drink'});" href="/venues/show/category/food-and-drink" title="Families">Food &amp; Drink</a></li>
+									<li><a onClick="ga('send', 'event', 'Menu - Museums', 'click', {'page': '/venues/show/category/museums'});" href="/venues/show/category/museums" title="Museums">Museums</a></li>
+									<li><a onClick="ga('send', 'event', 'Menu - Music', 'click', {'page': '/venues/show/category/music'});" href="/venues/show/category/music" title="Music">Music</a></li>
+									<li><a onClick="ga('send', 'event', 'Menu - Theatre', 'click', {'page': '/venues/show/category/theatre'});" href="/venues/show/category/theatre" title="Theatre">Theatre</a></li>
+									<li><a onClick="ga('send', 'event', 'Menu - Festivals', 'click', {'page': '/venues/show/category/festivals'});" href="/venues/show/category/festivals" title="Festivals">Festivals</a></li>
+									<li><a onClick="ga('send', 'event', 'Menu - Free', 'click', {'page': '/venues/free'});" href="/venues/free" title="Free">Free</a></li>
+								</ul>
+							</li>
+							<li><a onClick="ga('send', 'event', 'Menu - Features', 'click', {'page': '/features/show'});" href="/features/show" title="Features">Features</a></li>
+							<li><a onClick="ga('send', 'event', 'Menu - Special Offers', 'click', {'page': '/special-offers'});" href="/special-offers" title="Special Offers">Special Offers</a></li>
+							<li><a onClick="ga('send', 'event', 'Menu - Contact Us', 'click', {'page': '/contact'});" href="/contact" title="Contact">Contact</a></li>
+							<li><a onClick="ga('send', 'event', 'Menu - Sign Up', 'click', {'page': '/newsletter'});" href="/newsletter" title="Sign Up">Sign Up</a>
+							</li>
+
+
+						</ul>
+
+
+
+						<div id="search_form">
+							<!--<form id="form_search_regular" method="post" action="/search/results">
+							<input id="search_keywords" class="default_value" name="search_keywords" type="text" />
+							<a id="button_search" href="#" title="Search"></a>
+							</form>-->
+							<script>
+								(function() {
+									var cx = '009921287453065183620:pxi8nolhpcg';
+									var gcse = document.createElement('script');
+									gcse.type = 'text/javascript';
+									gcse.async = true;
+									gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+									'//cse.google.com/cse.js?cx=' + cx;
+									var s = document.getElementsByTagName('script')[0];
+									s.parentNode.insertBefore(gcse, s);
+								})();
+							</script>
+							<gcse:search></gcse:search>
+							{!--
+							{exp:search:simple_form
+								channel="venues|calendar_events|organisations"
+								result_page="search/results"
+								results="10"
+								search_in="titles"
+								show_expired="no"
+								show_future_entries="no"
+								status="open"
+								where="all"
+								form_id="form_search_regular"
+							}
+								<input class="regular_search_keywords" id="keywords" name="keywords" type="hidden" />
+							{/exp:search:simple_form}
+
+							{exp:mx_google_map:form
+								result_page="/search/location"
+								log=""
+								lat=""
+								unit=""
+								backspace="1"
+							}
+								<input id="radius" name="radius" type="hidden" value="2" />
+								<input class="location_search_keywords" id="address" name="address" type="hidden" />
+							{/exp:mx_google_map:form}
+							--}
+						</div>
+
+					</div>
+
+					<div id="sm_block" class="span-24">
+
+						<a onClick="ga('send', 'event', 'Menu - Twitter', 'click', {'page': 'http://twitter.com/LondonCallingUK'});" href="http://twitter.com/LondonCallingUK" id="twitter-icon" target="_blank"></a>
+
+						<a onClick="ga('send', 'event', 'Menu - Facebook', 'click', {'page': 'http://www.facebook.com/LondonCallingUK'});" href="http://www.facebook.com/LondonCallingUK" id="fb-icon" target="_blank"></a>
+
+						<a onClick="ga('send', 'event', 'Menu - Newsletter', 'click', {'page': '/newsletter'});" href="/newsletter" id="email-newsletter" class="side_tooltip" title="Email Newsletter"><span></span>Email Newsletter</a>
+
+					</div>
+
+					<div id="search_error">
+					<div class="search_error_arrow"></div>
+					<span id="search_error_content"></span>
+				</div>
+
+				<div id="advancedsearch-form">
+
+					<div id="as-close"></div>
+
+					<form id="advancedsearchform" method="post" action="/search/results">
+
+					<input type="checkbox" name="as_category[]" value="4" id="as_attractions" /><label for="as_attractions">Attractions</label>
+					<input type="checkbox" name="as_category[]" value="5" id="as_art" /><label for="as_art">Art</label>
+					<input type="checkbox" name="as_category[]" value="6" id="as_entertainment" /><label for="as_entertainment">Entertainment</label>
+					<div class="clear"></div>
+					<input type="checkbox" name="as_category[]" value="7" id="as_families" /><label for="as_families">Families</label>
+					<input type="checkbox" name="as_category[]" value="8" id="as_museums" /><label for="as_museums">Museums</label>
+					<input type="checkbox" name="as_category[]" value="9" id="as_music" /><label for="as_music">Music</label>
+					<div class="clear"></div>
+					<input type="checkbox" name="as_category[]" value="10" id="as_theatre" /><label for="as_theatre">Theatre</label>
+					<input type="checkbox" name="specialoffer" value="specialoffers" id="as_so" /><label for="as_so">Special Offers</label>
+					<input type="checkbox" name="free" value="free" id="as_free" /><label for="as_free">Free</label>
+					<div class="clear"></div>
+					<input type="text" class="date" placeholder="from" name="startdate" id="as_datefrom" /><a class="datesel datepicker" id="as_datefrom_sel"></a>
+					<input type="text" class="date" placeholder="until" name="enddate" id="as_dateto" /><a class="datesel datepicker" id="as_dateto_sel"></a>
+
+					<input id="keywords" class="default_value" name="search_keywords" type="text" />
+					<a id="advanced_button_search" href="#" title="Search">Search</a>
+
+					</form>
+
+				</div>
+				</div>

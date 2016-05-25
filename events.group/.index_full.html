@@ -1,0 +1,267 @@
+ {embed="includes/.header" page_title="{exp:channel:entries channel="calendar_events" limit="1" track_views="one"}{title}{/exp:channel:entries}" seo_plugin="yes"}
+				<div class="span-24 append-bottom event-header fixed-header">
+					{exp:channel:entries show_expired="yes" show_future_entries="yes" channel="calendar_events" limit="1"}
+						
+					{if expiration_date > 0}
+						{if expiration_date < current_time}
+						<div class="span-24 last error full">This event has expired!</div>
+						{/if}
+					{/if}
+					{/exp:channel:entries}
+					<div class="span-24 last">
+					
+						{exp:channel:entries show_expired="yes" show_future_entries="yes" channel="calendar_events" limit="1"}
+						<h1 class="event_title">{title}</h1>
+						<h2 class="event_subtitle">{event_sub_title}</h2>
+						{/exp:channel:entries}
+						
+					</div>
+
+					{exp:channel:entries show_expired="yes" show_future_entries="yes" channel="calendar_events" limit="1" require_entry="yes"}
+					
+					{if no_results}
+
+				        {redirect="404"}
+				
+				    {/if}
+				    
+					<div id="event-main" class="span-16">
+						<div class="span-16 append-bottom border-wrapper event-content-wrapper">
+							<div class="event-content">
+							
+							{if event_template == "Template 1 - 2 x 320x240 images"}	
+							
+								{exp:channel_images:images entry_id="{entry_id}" limit="2"}
+									<a rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}"><img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}" height="240" src="{image:url:events_320}" width="320" /></a>
+								{/exp:channel_images:images}
+							
+							
+							{if:else}
+							
+								{exp:channel_images:images entry_id="{entry_id}" limit="1"}
+								
+									<a class="{if event_template == 'Template 3 - 1 x 320x240 image'}cboxElement-template-1{/if}"rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}">
+									
+									{if event_template == "Template 3 - 1 x 320x240 image"}	
+									
+										<img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}" height="240" src="{image:url:events_320}" width="320" />
+									
+									{if:elseif event_template == "Template 2 - 1 x 647x240 image" }
+									
+										<img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}" height="240" src="{image:url:events_647}" width="647" />
+										
+									{/if}
+									
+									</a>
+									
+								{/exp:channel_images:images}
+							{/if}
+
+							<div class="event-dates {if event_template == 'Template 3 - 1 x 320x240 image'}event-dates-template-1{/if}">
+							
+							{if event_book_until_date}
+									
+									Booking until {event_book_until_date format="%j %F %Y"}
+								
+								{if:else}
+									{exp:calendar:occurrences event_id="{entry_id}" show_future_entries="yes" date_range_end="2 years" occurrences_limit="1"}
+											{if calendar_no_results}
+													There are no dates/times listed for this event
+											{/if}
+											
+											{if occurrence_total != '1'} 
+											
+												{if '{current_time format="%Y"}' != '{occurrence_start_date format="%Y"}'}
+													{occurrence_start_date format="%j %F %Y"}
+												{if:else}
+													{occurrence_start_date format="%j %F"}
+												{/if}
+												 
+													{if '{event_last_date}' != '{occurrence_start_date}'}
+													    - {event_last_date format="%j %F %Y"}
+													{if:else}
+													    until further notice
+													{/if}
+											
+											{if:else}
+											
+											      {if '{occurrence_start_date format="%j %F %Y"}' == '{event_last_date format="%j %F %Y"}'}
+											          {event_last_date format="%j %F %Y"}
+											      {if:else}
+												{if '{current_time format="%Y"}' != '{occurrence_start_date format="%Y"}'}
+													{occurrence_start_date format="%j %F %Y"}
+												{if:else}
+													{occurrence_start_date format="%j %F %Y"}
+												{/if}
+												- 
+													{event_last_date format="%j %F %Y"}
+												{/if}
+											{/if}
+	
+										{/exp:calendar:occurrences}
+								
+								{/if}
+							
+								<div class="selection-actions event-actions {if event_template == 'Template 3 - 1 x 320x240 image'}event-actions-template-1{/if}">
+									 		{if free_entry == "Yes"}<a href="/{channel_short_name}/{url_title}" title="Free Entry!" class="freeentry tooltip"></a>{/if}
+
+								     {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
+								     <a href="/special-offers/detail/{url_title}" title="Special Offer" class="relspecialoffer tooltip"></a>
+								     {/exp:playa:parents}
+								     
+								     {exp:playa:children field="related_features" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" sort="desc"}
+								     <a href="/features/{url_title}" title="{title}" class="features tooltip"></a>
+								     {/exp:playa:children}
+								     
+
+								     {exp:channel_images:images entry_id="{entry_id}" limit="1"}
+								     		<a class="imagegallery tooltip" href="#" title="Gallery"></a>
+								     {/exp:channel_images:images}
+								     
+								     
+								     {exp:channel_videos:videos entry_id="{entry_id}"}
+										{if '{video:count}' == '1'}
+											<a class="videogallery tooltip" href="#" title="Video"></a>
+										{/if}
+									{/exp:channel_videos:videos}
+							     </div>
+
+							</div>
+							
+							<div style="display: none;">
+							{if event_template == "Template 1 - 2 x 320x240 images"}
+								{exp:channel_images:images entry_id="{entry_id}" offset="2"}
+									<a rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}">{image:url:gallery_image}</a>
+								{/exp:channel_images:images}
+								
+							{if:else}
+								{exp:channel_images:images entry_id="{entry_id}" offset="1"}
+									<a rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}">{image:url:gallery_image}</a>
+								{/exp:channel_images:images}
+							{/if}
+							</div>
+							
+							
+							<div style="display: none;">
+								{exp:channel_videos:videos entry_id="{entry_id}"}
+									{if '{video:service}' == 'youtube'}
+										<a rel="venue_video_gallery" href="http://www.youtube.com/v/{video:service_id}" title="{video:title}"></a>
+									{if:else}
+										<a rel="venue_video_gallery" href="http://player.vimeo.com/video/{video:service_id}" title="{video:title}"></a>
+									{/if}
+								{/exp:channel_videos:videos}
+							</div>
+						
+					<div class="span-16 append-bottom event-description {if event_template == 'Template 3 - 1 x 320x240 image'}event-description-template-1{/if}">
+						<!-- po.st begin -->
+						<div class="pw-widget pw-counter-show  pw-size-large">
+							<a class="pw-button-twitter"></a>
+							<a class="pw-button-facebook"></a>
+							<a class="pw-button-email"></a>
+							<a class="pw-button-print"></a>
+							<a class="pw-button-post"></a>
+						</div>
+						<script src="http://i.po.st/share/script/post-widget.js#publisherKey=9ebhofj2b8lse7eqsksc" type="text/javascript" charset="utf-8"></script>
+						<!-- po.st END -->
+						<br />
+
+						{exp:channel:entries show_expired="yes" show_future_entries="yes" channel="calendar_events" limit="1"}
+							{event_description}
+						{/exp:channel:entries}
+						
+						<!-- po.st begin -->
+							<div class="pw-widget pw-counter-show  pw-size-large">
+								<a class="pw-button-twitter"></a>
+ 								<a class="pw-button-facebook"></a>
+  								<a class="pw-button-email"></a>
+  								<a class="pw-button-print"></a>
+								<a class="pw-button-post"></a>
+							</div> 
+							<script src="http://i.po.st/share/script/post-widget.js#publisherKey=9ebhofj2b8lse7eqsksc" type="text/javascript" charset="utf-8"></script>
+						<!-- po.st END -->
+						
+					</div>
+					
+							</div>
+						</div>
+						
+						<div id="comments" class="span-16 append-bottom border-wrapper event-content-wrapper">
+						
+							<div class="event-comments">
+					
+								<h2>Tell us what you think...</h2>
+								
+								<div class="fb-comments" data-href="{exp:channel:entries show_expired="yes" channel="calendar_events" limit="1"}http://londoncalling.com/events/{url_title}{/exp:channel:entries}" data-num-posts="20" data-width="647"></div>
+							</div>
+					
+						</div>
+
+{embed="includes/.related"}
+						
+					</div>
+						
+					<div id="event-sidebar" class="span-7">
+						<div class="span-7 border-wrapper event-sidebar-wrapper">
+							<div class="event-sidebar">
+								{exp:channel:entries show_expired="yes" show_future_entries="yes" channel="calendar_events" limit="1"}
+									{if event_map}
+										{event_map:map mt_control_style="DROPDOWN_MENU" width="259px" height="240px" id="event-map"}
+									{if:else}
+										{exp:playa:children field="event_venue" limit="1"}
+											{venue_map:map mt_control_style="DROPDOWN_MENU" width="259px" height="240px" id="event-map""}
+										{/exp:playa:children}
+									{/if}
+								{/exp:channel:entries}
+								
+								{exp:channel:entries show_expired="yes" show_future_entries="yes" channel="calendar_events" limit="1"}
+									{if event_address_line_1}
+										<p>
+    										{event_address_line_1}{if event_address_line_2}, {event_address_line_2}{/if}{if event_address_line_3}, {event_address_line_3}{/if}{if event_town_city}, {event_town_city}{/if}{if event_postcode} {event_postcode}{/if}
+										</p>
+									{if:else}
+										{exp:playa:children field="event_venue" limit="1"}
+											<p>
+												<a onclick="ga('send', 'event', 'Venue_Title', 'click');" href="/venues/{url_title}">{title}</a><br />{venue_address_line_1}{if venue_address_line_2}, {venue_address_line_2}{/if}{if venue_address_line_3}, {venue_address_line_3}{/if}{if venue_town_city}, {venue_town_city}{/if}{if venue_postcode} {venue_postcode}{/if}
+											</p>
+										{/exp:playa:children}
+									{/if}
+		
+									{exp:channel:entries show_expired="yes" show_future_entries="yes" channel="calendar_events" limit="1"}
+										{if see_website_for_details == 'Yes'}
+												<p>Please <a href="{if event_url != ''}{event_url}{if:else}{event_book_tickets_url}{/if}" target="_blank">see the website</a> for full details.</p>
+										{if:else}
+											{opening_hours_and_prices}
+										{/if}
+									{/exp:channel:entries}
+
+		
+									<p>{if event_url}
+												<span class="event-www"></span><a onclick="ga('send', 'event', 'Venue_VisitWebsite', 'click');" href="{event_url}" title="Visit their website" target="_blank">Visit website</a>
+											{/if}
+		
+											{if event_book_tickets_url}
+												<br /><span class="event-book"></span><a onclick="ga('send', 'event', 'Venue_BookTickets', 'click');" href="{event_book_tickets_url}" title="Click here to book tickets" target="_blank">Book tickets</a>
+											{/if}
+									</p>
+								{/exp:channel:entries}
+								
+							</div>
+						</div>
+
+					
+					<div id="inspiration" class="span-7 border-wrapper event-sidebar-wrapper">
+						
+						<div class="event-sidebar">
+						
+							<h3>More inspiration...</h3>
+	
+							{embed="events/.priority-listings-sidebar" entry_id="{entry_id}"}
+							
+							
+						</div>
+					</div>
+					
+						</div>
+					
+				</div>
+{embed="includes/.footer"}

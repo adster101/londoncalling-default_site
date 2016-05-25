@@ -1,0 +1,132 @@
+{exp:channel:entries channel="london_lates" limit="1"}
+
+
+{embed="includes/.header" seo_plugin="yes"}
+
+<div id="homeheader" class="span-24 fixed-header">
+
+
+<div class="border-wrapper fullimage">
+
+	<img src="{page_header}" class="left" width="946" height="239" alt="London lates header image" />
+
+</div>
+
+
+{!-- Weekend --}
+<div class="border-wrapper span-24 category-results-wrapper">
+
+<div class="category-results">
+
+	<h1>{title}</h1>
+
+	<div class="readmore">
+		<div class="more">
+			{content}
+		</div>
+	</div>
+
+<ul class="cat-selections" id="ajax-container">
+		{exp:playa:children field="events" limit="8" show_expired="no"}
+		
+			{exp:channel_images:images entry_id="{entry_id}" cover_only="no"}
+							     <li><div class="selection-container"><a class="image" href="{if channel_short_name == "features"}
+            				     	 /features/{url_title}
+            					     {if:elseif channel_short_name == "calendar_events"}
+													/events/{url_title}
+            					     {if:elseif channel_short_name == "venues"}
+													/venues/{url_title}
+            					     {if:elseif channel_short_name == "special_offers"}
+													/special-offers/detail/{url_title}
+            					     {/if}"> <img src="{image:url:230x230}" width="230" height="230" alt="London lates image link" /></a>
+									     <div class="selection-info"><h3>
+
+    									     {if channel_short_name == "features"}
+            				     	 <a href="/features/{url_title}">
+															{if feature_home_page_title != ''}{feature_home_page_title}{if:else}{title}{/if}
+														</a>
+            					     {if:elseif channel_short_name == "calendar_events"}
+													<a href="/events/{url_title}">
+            					     	{if event_home_title != ''}{event_home_title}{if:else}{title}{/if}
+													</a>
+            					     {if:elseif channel_short_name == "venues"}
+													<a href="/venues/{url_title}">
+            					     	{if venue_home_page_title != ''}{venue_home_page_title}{if:else}{title}{/if}
+													</a>
+            					     {if:elseif channel_short_name == "special_offers"}
+													<a href="/special-offers/detail/{url_title}">
+            						     {if so_home_page_title != ''}{so_home_page_title}{if:else}{title}{/if}
+													</a>
+            					     {/if}
+												</h3>
+									     {if channel_short_name == "calendar_events"}
+									     <p><a href="/events/{url_title}">{event_sub_title}</a></p>
+									     {if:elseif channel_short_name == "venues"}
+									     <p><a href="/venues/{url_title}">{venue_sub_title}</a></p>
+									     {if:elseif channel_short_name == "features"}
+									     <p><a href="/features/{url_title}">{exp:eehive_hacksaw}{feature_sub_title}{/exp:eehive_hacksaw}</a></p>
+									     {if:elseif channel_short_name == "special_offers"}
+												<p><a href="/special-offers/detail/{url_title}">{exp:eehive_hacksaw}{special_offers_sub_title}{/exp:eehive_hacksaw}</a></p>
+												{if:else}
+									     {/if}
+									     </div>
+								    </div>
+								     <div class="selection-actions">
+								     {if '{event_prices:total_rows}' > 0}
+									 	{event_prices}
+									 		{if price_band == "Free"}<a href="/{if channel_short_name == "calendar_events"}events{if:else}{channel_short_name}{/if}/{url_title}" title="Free Entry!" class="freeentry tooltip-cat"></a>{/if}
+									 	{/event_prices}
+									 {/if}
+
+									 {embed="pages/.weekend-features" entry_id="{entry_id}"}
+
+
+								     {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="yes" status="open" limit="1" orderby="date" sort="desc"}
+								     <a href="/special-offers/detail/{url_title}" title="Special Offer" class="relspecialoffer tooltip"></a>
+								     {/exp:playa:parents}
+
+									
+
+							    </li>
+							  {/exp:channel_images:images}
+		{/exp:playa:children}
+	</ul>
+	</div>
+</div>
+
+
+<div class="your-weekend-msg">{footer_message}</div>
+
+<a class="your-weekend-subscribe" href="/newsletter"></a>
+
+<script>
+jQuery(function(){
+
+// The height of the content block when it's not expanded
+var adjustheight = 65;
+// Sets the .more-block div to the specified height and hides any content that overflows
+jQuery(".readmore .more").css('height', adjustheight).css('overflow', 'hidden');
+
+// The section added to the bottom of the "more-less" div
+jQuery(".readmore").append(' <a href="#" class="adjust">Read More</a>');
+
+jQuery(".adjust").toggle(function() {
+		jQuery(this).parents("div:first").find(".more").css('height', 'auto').css('overflow', 'visible');
+		jQuery(this).parents("div:first").find("p.continued").css('display', 'none');
+		//jQuery(".adjust").remove();
+		jQuery(".readmore .more p:last-child").append(jQuery(".adjust"));
+		jQuery('.adjust').text('Less').addClass('readless');
+	}, function() {
+		//console.log(jQuery(this).parents());
+		jQuery(this).parent().parent().parent().find('.more').css('height', adjustheight).css('overflow', 'hidden');
+		jQuery(this).parent().find("p.continued").css('display', 'block');
+		jQuery(".readmore").append(jQuery(".adjust"));
+		jQuery('.adjust').text('Read More').removeClass('readless');
+});
+});
+</script>
+
+
+{/exp:channel:entries}
+
+{embed="includes/.footer"}

@@ -1,0 +1,87 @@
+{embed="includes/.header" page_title="{structure:page:title}" load_fbc="yes"}
+
+<div class="span-24 fixed-header">
+
+	<div class="border-wrapper">
+
+				<div class="span-24 append-bottom register-login">
+				
+			
+					<h1 class="header-so">Register</h1>
+
+					{if logged_in AND '{freebie_3}' != 'sync'}
+						{redirect="/"}
+					{if:else}
+						
+
+						
+						<div class="span-24 last">
+							{if '{freebie_2}' == 'facebook-connect'}
+								<h3>Connect with Facebook</h3>
+
+								{if '{freebie_3}' == 'sync'}
+									{exp:fbc:account_sync_form return_when_synced="register-login" return_when_sync_fails="register-login/error"}
+										<p><input name="sync" type="checkbox" value="yes" /> Sync my Facebook account with <strong>myLC</strong></p>
+										<p><input name="submit" type="submit" value="Sync" /></p>
+									{/exp:fbc:account_sync_form}
+								{if:else}
+									{exp:simple_registration:form}
+										<input id="username" name="username" type="text" placeholder="Username" />
+										<input id="password" name="password" type="password" placeholder="Password" />
+										<input id="first_name" name="first_name" type="text" placeholder="First Name" />
+										<input id="last_name" name="last_name" type="text" placeholder=" Last Name" />
+										<input id="email" name="email" type="text" placeholder="Email Address" />
+										<input id="postcode" name="postcode" type="text" placeholder="Postcode" />
+										<label id="terms" for="accept_terms">I agree to the <a href="#">Terms &amp; Conditions</a></label><input id="accept_terms" name="accept_terms" type="checkbox" value="y" />
+
+										<input id="register" name="submit" type="submit" onClick="_gaq.push(['_trackEvent', 'Buttons', 'Click', 'myLC Create Account']);" value="Complete Regisration" />
+									{/exp:simple_registration:form}
+								<div class="reg">Already registered? <a href="/login">Log in</a></div>
+								{/if}
+								
+								{if '{freebie_3}' == 'sync'}
+									<p>Last but not least, please confirm the syncing of your Facebook account with <strong>myLC</strong>.</p>
+								{if:else}
+									<p>You're almost there! We just need you to fill in the form opposite so we can &quot;sync&quot; your Facebook account with <strong>myLC</strong>.</p>
+									<p>This means that in the future, whenever you are logged in to Facebook, you'll automatically be logged in to <strong>myLC</strong>.</p>
+								{/if}
+								
+							{if:else}
+								{exp:simple_registration:form}
+										<input id="username" name="username" type="text" placeholder="Username" />
+										<input id="password" name="password" type="password" placeholder="Password" /><br />
+										<input id="first_name" name="first_name" type="text" placeholder="First Name" />
+										<input id="last_name" name="last_name" type="text" placeholder=" Last Name" />
+										<input id="email" name="email" type="text" placeholder="Email Address" />
+										<input id="postcode" name="postcode" type="text" placeholder="Postcode" />
+										
+										{if '{freebie_2}' != 'facebook-connect'}
+										<div class="span-24 append-bottom fbconnect">
+											<h2>or</h2>
+											{exp:fbc:login_button button_version="2" button_label="Connect with Facebook" button_size="large" return_on_failure="register/error" return_to_register="register/facebook-connect" return_when_logged_in="register"}
+												{if fbc_logged_out == 'y'}
+													{fbc_login_button}
+												{/if}
+											{/exp:fbc:login_button}
+										</div>
+									{/if}
+										
+										
+										<label id="terms" for="accept_terms">I agree to the <a href="#">Terms &amp; Conditions</a></label><input id="accept_terms" name="accept_terms" type="checkbox" value="y" />
+										<input name="RET" type="hidden" value="{site_url}/register" />
+										<input id="register" name="submit" type="submit" onClick="_gaq.push(['_trackEvent', 'Buttons', 'Click', 'myLC Create Account']);" value="Complete Registration" />
+								{/exp:simple_registration:form}
+								<div class="reg">Already registered? <a href="/login">Log in</a></div>
+							{/if}
+
+						</div>
+						
+
+						
+						
+					{/if}
+
+					
+				</div>
+				</div>
+{embed="includes/.footer" load_fbc="yes"}

@@ -1,0 +1,124 @@
+{embed="includes/.header" page_title="{structure:page:title}"}
+				<div class="span-15 append-bottom">
+					<div id="feature" class="span-15 append-bottom last">
+						<div id="feature_images" class="slideshow">
+							<?php /* if (time() >= mktime(23, 0, 0, 12, 2, 2011)):
+								<div class="slide">
+										<div class="slide_img">
+											<a href="/features/jimi-hendrix-band-interview" title="Jimi Hendrix Band Interview"><img alt="Jimi Hendrix Band Interview" height="198" src="/images/homepage_slideshow.jpg" width="590" /></a>
+										</div>
+								</div>
+							endif; */ ?>
+							{exp:channel:entries category="78" channel="venues|calendar_events|organisations" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="5" orderby="random"}
+								{exp:channel_images:images cover_only="yes" entry_id="{entry_id}"}
+									<div class="slide">
+										<div class="slide_img">
+											{if '{channel_short_name}' == 'calendar_events'}
+												<a href="/events/{url_title}" title="{title}"><img alt="{title}" height="198" src="{image:url:slideshow_image}" width="590" /></a>
+											{if:else}
+												<a href="/{channel_short_name}/{url_title}" title="{title}"><img alt="{title}" height="198" src="{image:url:slideshow_image}" width="590" /></a>
+											{/if}
+										</div>
+										<div class="slide_caption">
+											<p>
+												{if '{channel_short_name}' == 'calendar_events'}
+													<a href="/events/{url_title}" title="{title}"><strong>{title}</strong><br />
+												{if:else}
+													<a href="/{channel_short_name}/{url_title}" title="{title}"><strong>{title}</strong><br />
+												{/if}
+													{if image:description == ''}
+														{if '{channel_short_name}' == 'venues'}
+															{exp:eehive_hacksaw words="15" append="&hellip;"}
+																{venue_description}
+															{/exp:eehive_hacksaw}
+														{if:elseif '{channel_short_name}' == 'calendar_events'}
+															{exp:eehive_hacksaw words="15" append="&hellip;"}
+																{event_description}
+															{/exp:eehive_hacksaw}
+														{/if}
+													{if:else}
+														{exp:eehive_hacksaw words="15" append="&hellip;"}
+															{image:description}
+														{/exp:eehive_hacksaw}
+													{/if}
+												</a>
+											</p>
+										</div>
+									</div>
+								{/exp:channel_images:images}
+							{/exp:channel:entries}
+						</div>
+					</div>
+					<div class="span-15 append-bottom last">
+						<div style="height: 216px; float: left; width: 260px;">
+							<a href="/my-visit" title="myLC :: Start now"><img alt="myLC :: Start now" height="216" src="/assets/images/mylc_start_now.gif" width="240" /></a>
+						</div>
+						<div id="homepage_about_us" style="display: none; height: 216px; float: left; width: 328px;">
+							<a href="/about-us" title="About Us"><img alt="About Us" height="216" src="/assets/images/learn-more.png" width="328" /></a>
+						</div>
+						<div id="homepage_editors_choice" style="display: none; height: 196px; background-color: #7594ad; float: left; width: 310px; padding: 10px;">
+							<p class="blue_heading" style="color: #000000; font-weight: bold;">Editor's Choice</p>
+							{exp:channel:entries category="80" channel="features" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
+								{exp:channel_images:images cover_only="yes" entry_id="{entry_id}"}
+									<p style="color: #FFFFFF;"><img alt="{author}" height="80" src="{image:url:editors_choice}" width="80" style="border: 1px solid #FFFFFF; float: left; margin: 0 9px 9px 0;" /><a class="blue_link" style="color: #FFFFFF; font-weight: bold;" href="/{channel_short_name}/{url_title}" title="{title}">{title}</a><br />&nbsp;<br />{exp:eehive_hacksaw words="35" append="&hellip;"}{feature_excerpt}{/exp:eehive_hacksaw} <a class="blue_link" style="color: #6ecddd;" href="/{channel_short_name}/{url_title}" title="Read More">Read More</a></p>
+								{/exp:channel_images:images}
+							{/exp:channel:entries}
+						</div>
+					</div>
+					{exp:channel:entries category="1" channel="venues" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="2" orderby="random"}
+						<div class="span-15 append-bottom last premium_venue_listing paid_ad">
+							<div class="span-4">
+								{exp:channel_images:images cover_only="yes" entry_id="{entry_id}"}
+									<a href="/{channel_short_name}/{url_title}" title="Read More"><img alt="{title}" src="{exp:ed_imageresizer image='{image:url:thumbnail_image}' maxWidth='150' href_only='yes'}" width="150" /></a>
+								{/exp:channel_images:images}
+							</div>
+							<div class="span-11 last">
+								<p class="purple_heading"><a href="/{channel_short_name}/{url_title}" title="Read More">{title}</a></p>
+								<p>{exp:eehive_hacksaw words="45" append="&hellip;"}{venue_description}{/exp:eehive_hacksaw} <a class="purple_link" href="/{channel_short_name}/{url_title}" title="Read More">Read More</a></p>
+							</div>
+						</div>
+					{/exp:channel:entries}
+					<div id="standard_venue_listings_highlights" class="span-15 append-bottom last">
+						<div class="span-8">
+							{exp:channel:entries category="2" channel="venues" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="3" orderby="random"}
+								<div class="span-8 last standard_venue_listing venue_separator">
+									<div class="span-2">
+										{exp:channel_images:images cover_only="yes" entry_id="{entry_id}"}
+											<a href="/{channel_short_name}/{url_title}" title="{title}"><img alt="{title}" src="{exp:ed_imageresizer image='{image:url:thumbnail_image}' maxWidth='70' href_only='yes'}" width="70" style="margin-top: 36px;" /></a>
+										{/exp:channel_images:images}
+									</div>
+									<div class="span-6 last">
+										<p class="purple_heading"><a href="/{channel_short_name}/{url_title}" title="{title}">{title}</a></p>
+										<p>{exp:eehive_hacksaw words="15" append="&hellip;"}{venue_description}{/exp:eehive_hacksaw}<br /><a class="purple_link" href="/{channel_short_name}/{url_title}" title="Read More">Read More</a></p>
+									</div>
+								</div>
+							{/exp:channel:entries}
+							
+							<div class="span-8 last">
+								<div id="banner_300x250_left">
+									{embed="includes/.ads" ad_group="home-300x250-left" size="300x250"}
+								</div>
+							</div>
+						</div>
+						<div id="highlights_whats_on" class="span-7 last">
+							<div class="span-7 last highlights">
+								<p class="purple_heading">Highlights</p>
+
+								{exp:calendar:events category="1" calendar="calendar_events" dynamic="no" show_expired="no" show_future_entries="no" status="open" event_limit="3" orderby="event_start_date" sort="asc" date_range_start="today @ now" pad_short_weeks="n" show_years="2" first_day_of_week="1"}
+									{embed="pages/.embed_highlights" event_id="{event_id}"}
+								{/exp:calendar:events}
+							</div>
+							<div class="span-7 last whats_on">
+								<p class="purple_heading">What's On</p>
+
+								{exp:calendar:events category="2" calendar="calendar_events" dynamic="no" show_expired="no" show_future_entries="no" status="open" event_limit="3" orderby="event_start_date" sort="asc" date_range_start="today @ now" pad_short_weeks="n" show_years="2" first_day_of_week="1"}
+									{embed="pages/.embed_whats_on" event_id="{event_id}"}
+								{/exp:calendar:events}
+
+								<p><a class="purple_link uppercase" href="/events/show" title="View the full What's On listing">View the full What's On listing</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+{embed="includes/.sidebar"}
+{embed="includes/.footer"}

@@ -1,0 +1,3 @@
+{if '{embed:venue_id}' != ''}
+	{exp:channel:entries entry_id="{embed:venue_id}"}<a class="venue_link" href="/{channel_short_name}/{url_title}" title="{title}">{title}</a> {/exp:channel:entries}
+{/if}

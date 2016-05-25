@@ -1,0 +1,32 @@
+{exp:channel:entries entry_id="{embed:eid}"}
+						
+	{exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
+		<li><div class="selection-container"><a href="/{if channel_short_name == "calendar_events"}event_v2{if:else}{channel_short_name}{/if}/{url_title}"> <img src="{image:url:230x230}" width="230" height="230" /></a>
+		     <div class="selection-info"><h3><a href="/{channel_short_name}/{url_title}">{title}</a></h3>
+			 {if channel_short_name == "features"}
+		     <p><a href="/{channel_short_name}/{url_title}">{exp:eehive_hacksaw}{feature_excerpt}{/exp:eehive_hacksaw}</a></p>
+		     {if:elseif channel_short_name == "calendar_events"}
+		     <p><a href="/events_v2/{url_title}">{exp:eehive_hacksaw}{event_description}{/exp:eehive_hacksaw}</a></p>
+		     {if:elseif channel_short_name == "venues"}
+		     <p><a href="/{channel_short_name}/{url_title}">{exp:eehive_hacksaw}{venue_description}{/exp:eehive_hacksaw}</a></p>
+		     {if:elseif channel_short_name == "events"}
+		     <p><a href="/event_v2/{url_title}">{exp:eehive_hacksaw}{event_description}{/exp:eehive_hacksaw}</a></p>
+		     {if:else}
+		     {/if}
+		     </div>
+		</div>
+		 <div class="selection-actions">
+		 {if '{event_prices:total_rows}' > 0}
+		 	{event_prices}
+		 		{if price_band == "Free"}<a href="/{if channel_short_name == "calendar_events"}event_v2{if:else}{channel_short_name}{/if}/{url_title}" title="Free Entry!" class="freeentry tooltip-cat"></a>{/if}
+		 	{/event_prices}
+		 {/if}
+		 {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
+		 <a href="/special-offers/detail/{url_title}" title="{title}" class="relspecialoffer tooltip-cat"></a>
+		 {/exp:playa:parents}
+     </div>
+		</li>
+	{/exp:channel_images:images}
+							    
+							    
+{/exp:channel:entries}

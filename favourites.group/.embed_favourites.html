@@ -1,0 +1,73 @@
+								{if logged_in}
+									<ul class="favourites_">
+										{exp:favorites:entries category="{embed:cat_ids}" favorites_type="both" orderby="favorites_date"}
+											{exp:switchee variable="{channel_short_name}" parse="inward"}
+												{case value="calendar_events"}
+													<li class="favourite_entry {favourite: 'events||{entry_id}||{title}||{url_title}'} events_{entry_id}">
+														<img id="mylc_drag" alt="Drag" src="/assets/images/icons/mylc/hand_icon.png" />
+														<span id="mylc_link">{exp:eehive_hacksaw chars="25"}{title}{/exp:eehive_hacksaw}</span>
+														<a class="navigate_away" href="/events/{url_title}" title="Visit Page"><img id="mylc_visit" alt="Visit Page" src="/assets/images/icons/mylc/arrow_icon.png" /></a>
+
+														<a class="open_colorbox_contact" href="/test/contact/{entry_id}" title="Contact Details"><img id="mylc_contact" alt="Contact Details" src="/assets/images/icons/mylc/phone_icon.png" /></a>
+														<a class="open_colorbox_map" href="/test/map/{entry_id}" title="View Map"><img id="mylc_map" alt="View Map" src="/assets/images/icons/mylc/marker_icon.png" /></a>
+														{exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
+															<a class="navigate_away" href="/{channel_short_name}/{url_title}" title="{title}"><img id="mylc_special_offer" alt="View Special Offer" src="/assets/images/icons/mylc/special_offer_icon.png" /></a>
+														{/exp:playa:parents}
+													</li>
+												{/case}
+
+												{case value="venues"}
+													<li class="favourite_entry {favourite: 'venues||{entry_id}||{title}||{url_title}'} venues_{entry_id}">
+														<img id="mylc_drag" alt="Drag" src="/assets/images/icons/mylc/hand_icon.png" />
+														<span id="mylc_link">{title}</span>
+														<a class="navigate_away" href="/venues/{url_title}" title="Visit Page"><img id="mylc_visit" alt="Visit Page" src="/assets/images/icons/mylc/arrow_icon.png" /></a>
+
+														<a class="open_colorbox_contact" href="/test/contact/{entry_id}" title="Contact Details"><img id="mylc_contact" alt="Contact Details" src="/assets/images/icons/mylc/phone_icon.png" /></a>
+														<a class="open_colorbox_map" href="/test/map/{entry_id}" title="View Map"><img id="mylc_map" alt="View Map" src="/assets/images/icons/mylc/marker_icon.png" /></a>
+														{exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
+															<a class="navigate_away" href="/{channel_short_name}/{url_title}" title="{title}"><img id="mylc_special_offer" alt="View Special Offer" src="/assets/images/icons/mylc/special_offer_icon.png" /></a>
+														{/exp:playa:parents}
+													</li>
+												{/case}
+											{/exp:switchee}
+										{/exp:favorites:entries}
+									</ul>
+								{/if}
+
+								{if logged_out}
+									<ul class="favourites_">
+										{exp:favorites:entries category="{embed:cat_ids}" favorites_type="both" orderby="favorites_date" favorites_member_id="{exp:session_variables:get_guest}"}
+											{exp:switchee variable="{channel_short_name}" parse="inward"}
+												{case value="calendar_events"}
+													<li class="favourite_entry {favourite: 'events||{entry_id}||{title}||{url_title}'} events_{entry_id}">
+														<img id="mylc_drag" alt="Drag" src="/assets/images/icons/mylc/hand_icon.png" />
+														<span id="mylc_link">{exp:eehive_hacksaw chars="25"}{title}{/exp:eehive_hacksaw}</span>
+														<a class="navigate_away" href="/events/{url_title}" title="Visit Page"><img id="mylc_visit" alt="Visit Page" src="/assets/images/icons/mylc/arrow_icon.png" /></a>
+
+														<a class="open_colorbox_contact" href="/test/contact/{entry_id}" title="Contact Details"><img id="mylc_contact" alt="Contact Details" src="/assets/images/icons/mylc/phone_icon.png" /></a>
+														{exp:playa:children field="event_venue" limit="1"}
+															<a class="open_colorbox_map" href="/test/map/{entry_id}" title="View Map"><img id="mylc_map" alt="View Map" src="/assets/images/icons/mylc/marker_icon.png" /></a>
+														{/exp:playa:children}
+														{exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
+															<a class="navigate_away" href="/events/{url_title}" title="{title}"><img id="mylc_special_offer" alt="View Special Offer" src="/assets/images/icons/mylc/special_offer_icon.png" /></a>
+														{/exp:playa:parents}
+													</li>
+												{/case}
+
+												{case value="venues"}
+													<li class="favourite_entry {favourite: 'venues||{entry_id}||{title}||{url_title}'} venues_{entry_id}">
+														<img id="mylc_drag" alt="Drag" src="/assets/images/icons/mylc/hand_icon.png" />
+														<span id="mylc_link">{title}</span>
+														<a class="navigate_away" href="/venues/{url_title}" title="Visit Page"><img id="mylc_visit" alt="Visit Page" src="/assets/images/icons/mylc/arrow_icon.png" /></a>
+
+														<a class="open_colorbox_contact" href="/test/contact/{entry_id}" title="Contact Details"><img id="mylc_contact" alt="Contact Details" src="/assets/images/icons/mylc/phone_icon.png" /></a>
+														<a class="open_colorbox_map" href="/test/map/{entry_id}" title="View Map"><img id="mylc_map" alt="View Map" src="/assets/images/icons/mylc/marker_icon.png" /></a>
+														{exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
+															<a class="navigate_away" href="/{channel_short_name}/{url_title}" title="{title}"><img id="mylc_special_offer" alt="View Special Offer" src="/assets/images/icons/mylc/special_offer_icon.png" /></a>
+														{/exp:playa:parents}
+													</li>
+												{/case}
+											{/exp:switchee}
+										{/exp:favorites:entries}
+									</ul>
+								{/if}

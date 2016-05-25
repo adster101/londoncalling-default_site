@@ -1,0 +1,82 @@
+{embed="includes/.header" page_title="{structure:page:title}"}
+				<div class="span-15 append-bottom">
+					<p class="mylc_links"><a href="/my-visit" title="About myLC">About myLC</a> &nbsp;|&nbsp; <a href="/mylc/favourites" title="Favourites">Favourites</a> &nbsp;|&nbsp; <a href="/mylc/planner" title="Plan a Trip">Plan a Trip</a> &nbsp;|&nbsp; <a href="/mylc/my-details" title="My Details">My Details</a> &nbsp;|&nbsp; <a href="/mylc/saved-trips" title="Saved Trips">Saved Trips</a>{if logged_in} &nbsp;|&nbsp; <a href="{path='LOGOUT'}" title="Logout">Logout</a>{/if}</p>
+					<h1 class="purple_h1">myLC - My Favourites</h1>
+					<p>Please find below a list of your favourites (most recent first). To delete an item, please click the cross in the right hand corner.</p>
+
+					{if logged_in}
+						{exp:favorites:entries favorites_count="yes"}
+							<p>You have favourited <strong><span id="favourites_count">{favorites_count}</span></strong> venue(s).</p>
+						{/exp:favorites:entries}
+					{/if}
+
+					{if logged_out}
+						{exp:favorites:entries favorites_count="yes" favorites_member_id="{exp:session_variables:get_guest}"}
+							<p>You have favourited <strong><span id="favourites_count">{favorites_count}</span></strong> venue(s).</p>
+						{/exp:favorites:entries}
+					{/if}
+
+					{if logged_in}
+						{exp:favorites:entries favorites_type="both" orderby="favorites_date" limit="10" paginate="bottom"}
+							<div class="span-15 append-bottom last premium_venue_listing mylc_favourite">
+								<a class="delete_favourite" href="{permalink='mylc/favourites/delete/'}" title="Delete"><img alt="Delete" src="/assets/images/icons/mylc/delete.png" style="border: none; margin: 0;" /></a>
+								<div class="span-4">
+									{exp:channel_images:images cover_only="yes" entry_id="{entry_id}"}
+										{if '{channel_short_name}' == 'calendar_events'}
+											<a href="/events/{url_title}" title="Read More"><img alt="{title}" src="{exp:ed_imageresizer image='{image:url:thumbnail_image}' maxWidth='150' href_only='yes'}" width="150" /></a>
+										{if:else}
+											<a href="/{channel_short_name}/{url_title}" title="Read More"><img alt="{title}" src="{exp:ed_imageresizer image='{image:url:thumbnail_image}' maxWidth='150' href_only='yes'}" width="150" /></a>
+										{/if}
+									{/exp:channel_images:images}
+								</div>
+								<div class="span-11 last">
+									{if '{channel_short_name}' == 'calendar_events'}
+										<p class="purple_heading"><a href="/events/{url_title}" title="Read More">{title}</a></p>
+										<p>{exp:eehive_hacksaw words="45" append="&hellip;"}{event_description}{/exp:eehive_hacksaw} <a class="purple_link" href="/events/{url_title}" title="Read More">Read More</a></p>
+									{if:else}
+										<p class="purple_heading"><a href="/{channel_short_name}/{url_title}" title="Read More">{title}</a></p>
+										<p>{exp:eehive_hacksaw words="45" append="&hellip;"}{venue_description}{/exp:eehive_hacksaw} <a class="purple_link" href="/{channel_short_name}/{url_title}" title="Read More">Read More</a></p>
+									{/if}
+								</div>
+							</div>
+							{paginate}
+								<div class="span-15 last paginate">
+									<p class="prepend-top">Page {current_page} of {total_pages} pages &nbsp; {pagination_links}</p>
+								</div>
+							{/paginate}
+						{/exp:favorites:entries}
+					{/if}
+
+					{if logged_out}
+						{exp:favorites:entries favorites_type="both" orderby="favorites_date" limit="10" paginate="bottom" favorites_member_id="{exp:session_variables:get_guest}"}
+							<div class="span-15 append-bottom last premium_venue_listing mylc_favourite">
+								<a class="delete_favourite" href="{permalink='mylc/favourites/delete/'}" title="Delete"><img alt="Delete" src="/assets/images/icons/mylc/delete.png" style="border: none; margin: 0;" /></a>
+								<div class="span-4">
+									{exp:channel_images:images cover_only="yes" entry_id="{entry_id}"}
+										{if '{channel_short_name}' == 'calendar_events'}
+											<a href="/events/{url_title}" title="Read More"><img alt="{title}" src="{exp:ed_imageresizer image='{image:url:thumbnail_image}' maxWidth='150' href_only='yes'}" width="150" /></a>
+										{if:else}
+											<a href="/{channel_short_name}/{url_title}" title="Read More"><img alt="{title}" src="{exp:ed_imageresizer image='{image:url:thumbnail_image}' maxWidth='150' href_only='yes'}" width="150" /></a>
+										{/if}
+									{/exp:channel_images:images}
+								</div>
+								<div class="span-11 last">
+									{if '{channel_short_name}' == 'calendar_events'}
+										<p class="purple_heading"><a href="/events/{url_title}" title="Read More">{title}</a></p>
+										<p>{exp:eehive_hacksaw words="45" append="&hellip;"}{event_description}{/exp:eehive_hacksaw} <a class="purple_link" href="/events/{url_title}" title="Read More">Read More</a></p>
+									{if:else}
+										<p class="purple_heading"><a href="/{channel_short_name}/{url_title}" title="Read More">{title}</a></p>
+										<p>{exp:eehive_hacksaw words="45" append="&hellip;"}{venue_description}{/exp:eehive_hacksaw} <a class="purple_link" href="/{channel_short_name}/{url_title}" title="Read More">Read More</a></p>
+									{/if}
+								</div>
+							</div>
+							{paginate}
+								<div class="span-15 last paginate">
+									<p class="prepend-top">Page {current_page} of {total_pages} pages &nbsp; {pagination_links}</p>
+								</div>
+							{/paginate}
+						{/exp:favorites:entries}
+					{/if}
+				</div>
+{embed="includes/.sidebar"}
+{embed="includes/.footer"}

@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html
+	xml:lang="en"
+	lang="en"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+
+		<title>Reports &mdash; Contact Details &mdash; Events</title>
+
+		<link media="screen, projection" rel="stylesheet" type="text/css" href="/assets/css/blueprint/v1.0/screen.css" />
+		
+		<style media="screen, projection" type="text/css">
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="span-24">
+				<h1>Events</h1>
+
+				{exp:channel:entries channel="calendar_events" orderby="title" sort="asc" paginate="bottom" limit="25"}
+					<h3><a href="{title_permalink='events'}">{title}</a></h3>
+					<p>
+						{exp:playa:children field="event_venue" limit="1"}
+							<strong>Venue:</strong> <a href="{title_permalink='venues'}">{title}</a><br />&nbsp;<br />
+							<strong>Address:</strong><br />{venue_address_line_1}<br />{venue_address_line_2}<br />{venue_address_line_3}<br />{venue_town_city}<br />{venue_postcode}<br />&nbsp;<br />
+							<strong>Tel:</strong> {venue_telephone}<br />
+							<strong>Email:</strong> <a href="mailto:{venue_email_address}">{venue_email_address}</a>
+						{/exp:playa:children}
+					</p>
+
+					<hr />
+
+					{paginate}
+						<p>Page {current_page} of {total_pages} pages {pagination_links}</p>
+					{/paginate}
+				{/exp:channel:entries}
+			</div>
+		</div>
+	</body>
+</html>

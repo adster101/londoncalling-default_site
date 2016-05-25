@@ -1,0 +1,46 @@
+{if '{embed:event_id}' != ''}
+{exp:calendar:occurrences event_id="{embed:event_id}" show_expired="no" date_range_end="2 years" occurrences_limit="1"}
+<h4><a href="/events/{url_title}">{title}</a></h4>
+<p>
+
+{if occurrence_total != '1'} 
+
+	{if '{current_time format="%Y"}' != '{occurrence_start_date format="%Y"}'}
+		{event_start_date format="%j %F %Y"}
+	{if:else}
+		{event_start_date format="%j %F"}
+	{/if}
+
+	{if '{event_last_date}'}
+			{if '{event_last_date}' != '{event_start_date}'}
+			    - {event_last_date format="%j %F %Y"}
+			{if:else}
+			    until further notice
+			{/if}
+		
+		{if:else}
+		
+			{if '{occurence_last_date}' != '{event_start_date}'}
+			    - {event_last_date format="%j %F %Y"}
+			{if:else}
+			    until further notice
+			{/if}
+		{/if}
+
+{if:else}
+
+      {if '{occurrence_start_date format="%j %F %Y"}' == '{event_last_date format="%j %F %Y"}'}
+          {event_last_date format="%j %F %Y"}
+      {if:else}
+	{if '{current_time format="%Y"}' != '{occurrence_start_date format="%Y"}'}
+		{occurrence_start_date format="%j %F %Y"}
+	{if:else}
+		{occurrence_start_date format="%j %F"}
+	{/if}
+	- 
+		{event_last_date format="%j %F %Y"}
+	{/if}
+{/if}
+
+{/exp:calendar:occurrences}</p>
+{/if}

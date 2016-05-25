@@ -1,0 +1,7 @@
+{exp:channel:entries channel="venues|calendar_events|organisations" category="{embed:category}" limit="250"}
+	{if no_results}
+		<p class="prepend-3">No results found...</p>
+	{/if}
+
+	<p class="prepend-3"><a href="/lcmin/index.php?D=cp&C=content_publish&M=entry_form&channel_id={channel_id}&entry_id={entry_id}" title="Edit {title}" target="_blank">{title}</a></p>
+{/exp:channel:entries}

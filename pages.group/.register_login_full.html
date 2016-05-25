@@ -1,0 +1,82 @@
+{embed="includes/.header" page_title="{structure:page:title}" load_fbc="yes"}
+				<div class="span-15 append-bottom">
+					<h1>Register/Login to myLC</h1>
+
+					{if logged_in AND '{freebie_3}' != 'sync'}
+						{redirect="mylc/index"}
+					{if:else}
+						{if '{freebie_2}' != 'facebook-connect'}
+							<div class="span-15 append-bottom">
+								{exp:fbc:login_button button_version="2" button_label="Connect with Facebook" button_size="large" return_on_failure="register-login/error" return_to_register="register-login/facebook-connect" return_when_logged_in="register-login"}
+									{if fbc_logged_out == 'y'}
+										{fbc_login_button}
+									{/if}
+								{/exp:fbc:login_button}
+							</div>
+						{/if}
+
+						<div class="span-7 append-1">
+							{if '{freebie_2}' == 'facebook-connect'}
+								<h3>Connect with Facebook</h3>
+
+								{if '{freebie_3}' == 'sync'}
+									{exp:fbc:account_sync_form return_when_synced="register-login" return_when_sync_fails="register-login/error"}
+										<p><input name="sync" type="checkbox" value="yes" /> Sync my Facebook account with <strong>myLC</strong></p>
+										<p><input name="submit" type="submit" value="Sync" /></p>
+									{/exp:fbc:account_sync_form}
+								{if:else}
+									{exp:simple_registration:form}
+										<p>Username:<br /><input name="username" type="text" /></p>
+										<p>Password:<br /><input name="password" type="password" /></p>
+										<p>First name<br /><input name="first_name" type="text" /></p>
+										<p>Last name:<br /><input name="last_name" type="text" /></p>
+										<p>Email:<br /><input name="email" type="text" /></p>
+										<p>Postcode:<br /><input name="postcode" type="text" /></p>
+										<p><input name="accept_terms" type="checkbox" value="y" /> I agree to the Terms &amp; Conditions</p>
+										<p><input name="RET" type="hidden" value="{site_url}register-login/facebook-connect/sync" /><input name="submit" type="image" src="/assets/images/buttons/create-account.png" onClick="_gaq.push(['_trackEvent', 'Buttons', 'Click', 'myLC Create Account']);" /></p>
+									{/exp:simple_registration:form}
+								{/if}
+							{if:else}
+								<h3>New user? Register</h3>
+
+								{exp:simple_registration:form}
+									<p>Username:<br /><input name="username" type="text" /></p>
+									<p>Password:<br /><input name="password" type="password" /></p>
+									<p>First name<br /><input name="first_name" type="text" /></p>
+									<p>Last name:<br /><input name="last_name" type="text" /></p>
+									<p>Email:<br /><input name="email" type="text" /></p>
+									<p>Postcode:<br /><input name="postcode" type="text" /></p>
+									<p><input name="accept_terms" type="checkbox" value="y" /> I agree to the Terms &amp; Conditions</p>
+									<p><input name="RET" type="hidden" value="{site_url}/my-visit" /><input name="submit" type="image" src="/assets/images/buttons/create-account.png" onClick="_gaq.push(['_trackEvent', 'Buttons', 'Click', 'myLC Create Account']);" /></p>
+								{/exp:simple_registration:form}
+							{/if}
+						</div>
+						<div class="span-7 last">
+							{if '{freebie_2}' == 'facebook-connect'}
+								{if '{freebie_3}' == 'sync'}
+									<p>Last but not least, please confirm the syncing of your Facebook account with <strong>myLC</strong>.</p>
+								{if:else}
+									<p>You're almost there! We just need you to fill in the form opposite so we can &quot;sync&quot; your Facebook account with <strong>myLC</strong>.</p>
+									<p>This means that in the future, whenever you are logged in to Facebook, you'll automatically be logged in to <strong>myLC</strong>.</p>
+								{/if}
+							{if:else}
+								<h3>Existing user? Login</h3>
+
+								{exp:member:login_form return="register-login"}
+									<p>Username:<br /><input name="username" type="text" /></p>
+									<p>Password:<br /><input name="password" type="password" /></p>
+									<p><input name="submit" type="image" src="/assets/images/buttons/login.png" /></p>
+								{/exp:member:login_form}
+								
+								<h3>Forgotten your password?</h3>
+
+								{exp:simple_registration:forgot_password}
+									<p>Registered email address:<br /><input name="email" type="text" /></p>
+									<p><input name="submit" type="image" src="/assets/images/buttons/send-reset-link.png" /></p>
+								{/exp:simple_registration:forgot_password}
+							{/if}
+						</div>
+					{/if}
+				</div>
+{embed="includes/.sidebar" load_fbc="yes"}
+{embed="includes/.footer" load_fbc="yes"}

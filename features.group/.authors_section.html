@@ -1,0 +1,120 @@
+	<h2 class="author-section">Editor</h2>
+
+	
+	{exp:channel:entries channel="authors" search:author_type="=Editor"}
+	<div class="span-18 border-wrapper append-bottom author-wrapper">
+	
+		<div class="features-content">
+			
+			
+			{if author_image}
+				{exp:channel_images:images entry_id="{entry_id}"}
+					<div class="author-image">
+						<img alt="{title}" height="170" src="{image:url:170x170}" width="170" />
+					</div>
+				{/exp:channel_images:images}
+			{/if}
+			
+			
+			<h3>{title}</h3>
+			
+			{author_bio}
+			
+			<p><a href="/features/authors/{url_title}">View articles</a></p>
+			
+			
+		</div>
+	</div>
+	{/exp:channel:entries}
+	
+	
+	
+	<h2 class="author-section">Editorial Assistant</h2>
+	
+	{exp:channel:entries channel="authors" search:author_type="=Editorial Assistant" sort="asc"}
+	<div class="span-18 border-wrapper append-bottom features-wrapper">
+	
+		<div class="features-content">
+			
+			
+			{if author_image}
+				{exp:channel_images:images entry_id="{entry_id}"}
+					<div class="author-image">
+						<img alt="{title}" height="170" src="{image:url:170x170}" width="170" />
+					</div>
+				{/exp:channel_images:images}
+			{/if}
+			
+			
+			<h3>{title}</h3>
+			
+			{author_bio}
+			
+			<p><a href="/features/authors/{url_title}">View articles</a></p>
+			
+			
+		</div>
+
+	</div>
+	{/exp:channel:entries}
+	
+	<h2 class="author-section">London Calling Team</h2>
+	
+	{exp:channel:entries channel="authors" search:author_type="=London Calling Team"}
+	
+	<div class="span-18 border-wrapper append-bottom features-wrapper">
+	
+		<div class="features-content">
+			
+			
+			{if author_image}
+				{exp:channel_images:images entry_id="{entry_id}"}
+					<div class="author-image">
+						<img alt="{title}" height="170" src="{image:url:170x170}" width="170" />
+					</div>
+				{/exp:channel_images:images}
+			{/if}
+			
+			
+			<h3>{title}</h3>
+			
+			{author_bio}
+			
+			<p><a href="/features/authors/{url_title}">View articles</a></p>
+			
+			
+		</div>
+
+	</div>
+	
+	{/exp:channel:entries}
+	
+	<h2 class="author-section">Guest Contributors</h2>
+	
+	{exp:channel:entries channel="authors" search:author_type="=Guest Contributors"}
+	
+	<div class="span-18 border-wrapper append-bottom features-wrapper">
+	
+		<div class="features-content">
+			
+			
+			{if author_image}
+				{exp:channel_images:images entry_id="{entry_id}"}
+					<div class="author-image">
+						<img alt="{title}" height="170" src="{image:url:170x170}" width="170" />
+					</div>
+				{/exp:channel_images:images}
+			{/if}
+			
+			
+			<h3>{title}</h3>
+			
+			{author_bio}
+			
+			<p><a href="/features/authors/{url_title}">View articles</a></p>
+			
+			
+		</div>
+
+	</div>
+	{/exp:channel:entries}

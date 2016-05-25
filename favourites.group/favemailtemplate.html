@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+
+<html>
+	
+<head>
+
+<style>
+#outlook a{
+			padding:0;
+		}
+		body{
+			width:100% !important;
+			font-family: "Lucida Grande", "Lucida Sans Unicode", sans-serif !important;
+		}
+		.ReadMsgBody{
+			width:100%;
+		}
+		.ExternalClass{
+			width:100%;
+		}
+		body{
+			-webkit-text-size-adjust:none;
+		}
+		body{
+			margin:0;
+			padding:0;
+		}
+		img{
+			border:0;
+			height:auto;
+			line-height:100%;
+			outline:none;
+			text-decoration:none;
+		}
+		table td{
+			border-collapse:collapse;
+		}
+		#backgroundTable{
+			height:100% !important;
+			margin:0;
+			padding:0;
+			width:100% !important;
+		}
+	/*
+	@tab Page
+	@section background color
+	@tip Set the background color for your email. You may want to choose one that matches your company's branding.
+	@theme page
+	*/
+		body,#backgroundTable{
+			background:rgb(245,245,245);
+		}
+	/*
+	@tab Page
+	@section email border
+	@tip Set the border for your email.
+	*/
+		#templateContainer{
+			margin:10px 0 0 0;
+			/*@editable*/border:none;
+		}
+	/*
+	@tab Page
+	@section heading 1
+	@tip Set the styling for all first-level headings in your emails. These should be the largest of your headings.
+	@style heading 1
+	*/
+		h1,.h1{
+			/*@editable*/color:#202020;
+			display:block;
+			/*@editable*/font-family:Arial;
+			/*@editable*/font-size:34px;
+			/*@editable*/font-weight:bold;
+			/*@editable*/line-height:100%;
+			margin-top:0;
+			margin-right:0;
+			margin-bottom:10px;
+			margin-left:0;
+			/*@editable*/text-align:left;
+		}
+	/*
+	@tab Page
+	@section heading 2
+	@tip Set the styling for all second-level headings in your emails.
+	@style heading 2
+	*/
+		h2,.h2{
+			/*@editable*/color:#202020;
+			display:block;
+			/*@editable*/font-family:Arial;
+			/*@editable*/font-size:30px;
+			/*@editable*/font-weight:bold;
+			/*@editable*/line-height:100%;
+			margin-top:0;
+			margin-right:0;
+			margin-bottom:10px;
+			margin-left:0;
+			/*@editable*/text-align:left;
+		}
+	/*
+	@tab Page
+	@section heading 3
+	@tip Set the styling for all third-level headings in your emails.
+	@style heading 3
+	*/
+		h3,.h3{
+			/*@editable*/color:#202020;
+			display:block;
+			/*@editable*/font-family:Arial;
+			/*@editable*/font-size:26px;
+			/*@editable*/font-weight:bold;
+			/*@editable*/line-height:100%;
+			margin-top:0;
+			margin-right:0;
+			margin-bottom:10px;
+			margin-left:0;
+			/*@editable*/text-align:left;
+		}
+	/*
+	@tab Page
+	@section heading 4
+	@tip Set the styling for all fourth-level headings in your emails. These should be the smallest of your headings.
+	@style heading 4
+	*/
+		h4,.h4{
+			/*@editable*/color:#202020;
+			display:block;
+			/*@editable*/font-family:Arial;
+			/*@editable*/font-size:22px;
+			/*@editable*/font-weight:bold;
+			/*@editable*/line-height:100%;
+			margin-top:0;
+			margin-right:0;
+			margin-bottom:10px;
+			margin-left:0;
+			/*@editable*/text-align:left;
+		}
+	/*
+	@tab Header
+	@section preheader style
+	@tip Set the background color for your email's preheader area.
+	@theme page
+	*/
+		#templatePreheader{
+			background:rgb(245,245,245);
+		}
+	/*
+	@tab Header
+	@section preheader text
+	@tip Set the styling for your email's preheader text. Choose a size and color that is easy to read.
+	*/
+		.preheaderContent div{
+			/*@editable*/color:#505050;
+			/*@editable*/font-family:Arial;
+			/*@editable*/font-size:10px;
+			/*@editable*/line-height:100%;
+			/*@editable*/text-align:left;
+		}
+	/*
+	@tab Header
+	@section preheader link
+	@tip Set the styling for your email's preheader links. Choose a color that helps them stand out from your text.
+	*/
+		.preheaderContent div a:link,.preheaderContent div a:visited,.preheaderContent div a .yshortcuts{
+			/*@editable*/color:#336699;
+			/*@editable*/font-weight:normal;
+			/*@editable*/text-decoration:underline;
+		}
+	/*
+	@tab Header
+	@section header style
+	@tip Set the background color and border for your email's header area.
+	@theme header
+	*/
+		#templateHeader{
+			/*@editable*/background-color:rgb(208,209,211);
+			/*@editable*/border-bottom:0;
+			font-size:10px;
+			text-align: center;
+			padding:5px;
+			margin:0 0 20px 0;
+		}
+	/*
+	@tab Header
+	@section header text
+	@tip Set the styling for your email's header text. Choose a size and color that is easy to read.
+	*/
+	
+		.header{
+			/*@editable*/background-color:#FFFFFF;
+			/*@editable*/border-bottom:0;
+		}
+		
+		.headerContent{
+			/*@editable*/color:#202020;
+			/*@editable*/font-family:Arial;
+			/*@editable*/font-size:34px;
+			/*@editable*/font-weight:bold;
+			/*@editable*/line-height:100%;
+			/*@editable*/padding:4px;
+			/*@editable*/text-align:left;
+			/*@editable*/vertical-align:middle;
+			background: url(http://londoncalling.com/assets/images/v2/template/dotted-border.png) -7px -7px repeat #f5f5f5;
+		}
+		
+		.headerContent table {
+			width:594px;
+		}
+		
+		.headerContent table tr td{
+			background:#fff;
+			padding:20px 15px;
+			margin:0;
+			width:100%;
+			height:74px;
+		}
+		
+	/*
+	@tab Header
+	@section header link
+	@tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
+	*/
+		.headerContent a:link,.headerContent a:visited,.headerContent a .yshortcuts{
+			/*@editable*/color:#336699;
+			/*@editable*/font-weight:normal;
+			/*@editable*/text-decoration:underline;
+		}
+		#headerImage{
+			height:auto;
+			max-width:600px;
+		}
+	/*
+	@tab Body
+	@section body style
+	@tip Set the background color for your email's body area.
+	*/
+		#templateContainer,.bodyContent{
+			background:rgb(245,245,245);
+		}
+	/*
+	@tab Body
+	@section body text
+	@tip Set the styling for your email's main content text. Choose a size and color that is easy to read.
+	@theme main
+	*/
+		.bodyContent div{
+			/*@editable*/color:#505050;
+			/*@editable*/font-family:Arial;
+			/*@editable*/font-size:14px;
+			/*@editable*/line-height:150%;
+			/*@editable*/text-align:left;
+		}
+	/*
+	@tab Body
+	@section body link
+	@tip Set the styling for your email's main content links. Choose a color that helps them stand out from your text.
+	*/
+		.bodyContent div a:link,.bodyContent div a:visited,.bodyContent div a .yshortcuts{
+			/*@editable*/color:#ec008c;
+			/*@editable*/font-weight:normal;
+			/*@editable*/text-decoration:underline;
+		}
+		.bodyContent img{
+			display:inline;
+			height:auto;
+		}
+	/*
+	@tab Columns
+	@section left column text
+	@tip Set the styling for your email's left column text. Choose a size and color that is easy to read.
+	*/
+		.leftColumnContent{
+			/*@editable*/background-color:#FFFFFF;
+		}
+	/*
+	@tab Columns
+	@section left column text
+	@tip Set the styling for your email's left column text. Choose a size and color that is easy to read.
+	*/
+		.leftColumnContent div{
+			/*@editable*/color:#505050;
+			/*@editable*/font-family:Arial;
+			/*@editable*/font-size:14px;
+			/*@editable*/line-height:150%;
+			/*@editable*/text-align:left;
+		}
+	/*
+	@tab Columns
+	@section left column link
+	@tip Set the styling for your email's left column links. Choose a color that helps them stand out from your text.
+	*/
+		.leftColumnContent div a:link,.leftColumnContent div a:visited,.leftColumnContent div a .yshortcuts{
+			/*@editable*/color:#336699;
+			/*@editable*/font-weight:normal;
+			/*@editable*/text-decoration:underline;
+		}
+		.leftColumnContent img{
+			display:inline;
+			height:auto;
+		}
+	/*
+	@tab Columns
+	@section right column text
+	@tip Set the styling for your email's right column text. Choose a size and color that is easy to read.
+	*/
+		.rightColumnContent{
+			/*@editable*/background-color:#FFFFFF;
+			vertical-align: top;
+		}
+	/*
+	@tab Columns
+	@section right column text
+	@tip Set the styling for your email's right column text. Choose a size and color that is easy to read.
+	*/
+		.rightColumnContent div{
+			/*@editable*/color:#505050;
+			/*@editable*/font-family:Arial;
+			/*@editable*/font-size:14px;
+			/*@editable*/line-height:150%;
+			/*@editable*/text-align:left;
+		}
+	/*
+	@tab Columns
+	@section right column link
+	@tip Set the styling for your email's right column links. Choose a color that helps them stand out from your text.
+	*/
+		.rightColumnContent div a:link,.rightColumnContent div a:visited,.rightColumnContent div a .yshortcuts{
+			/*@editable*/color:#336699;
+			/*@editable*/font-weight:normal;
+			/*@editable*/text-decoration:underline;
+		}
+		.rightColumnContent img{
+			display:inline;
+			height:auto;
+		}
+		
+		.specials{
+			background: url(http://londoncalling.com/assets/images/v2/template/dotted-border.png) -7px -7px repeat #f5f5f5;
+			position: relative;
+			padding:6px;
+			width:162px;
+			margin:0 0 10px 0;
+		}
+		
+		.specials_content{
+			background:#fff;
+			width:150px;
+			position: relative;
+			min-height:50px;
+			height:auto;
+			overflow:hidden;
+			padding:5px;
+		}
+		
+		.specials h3{
+			font-size:18px;
+			font-weight:bold;
+			color:#ec008c;
+			
+		}
+		
+		.specials_content p {
+			font-size:12px;
+		}
+		
+		.specials_content ul{
+			list-style: none;
+			margin:0;
+			padding:5px;
+			font-size:12px;
+		}
+		
+		.specials_content ul li{
+			line-height:150%;
+		}
+		
+		.article {
+			background: url(http://londoncalling.com/assets/images/v2/template/dotted-border.png) -7px -7px repeat #f5f5f5;
+			position: relative;
+			padding:7px;
+			width:550px;
+			margin: 0 0 10px 0;
+
+		}
+		
+		.articleContent {
+			background:#fff;
+			width:528px;
+			position: relative;
+			min-height:50px;
+			height:auto;
+			overflow:hidden;
+			padding:10px;
+		}
+		
+		.articleContent h3{
+			color:#ec008c;
+			font-size:20px;
+		}
+		
+		.articleContent span.headerline{
+			font-size:40px;
+			vertical-align: top;
+			margin:35px 0 0 10px;
+			position: relative;
+			float: right;
+			color:rgb(156,158,161);
+			font-weight:bold;
+		}
+		
+		.articleImage {
+			float:left;
+			width:150px;
+			margin:0 5px 0 0;
+		}
+		
+		.articleImage img {
+			width:150px;
+			height:150px;
+		}
+		
+		.articleEntry {
+			float:right;
+			width:370px;
+		}
+		.articleContent p{
+			padding:0px;
+			line-height: 150%;
+			margin:0;
+		}
+		.articleContent p span{
+			color:#ec008c;
+			font-weight:bold;
+		}
+		.articleContent a, .articleCoent a:visted{
+			color:#ec008c;
+		}
+		
+		.viewbutton{
+			height:15px;
+			line-height: 15px;
+			padding:5px 15px;
+			color:#fff !important;
+			background:rgb(83,0,132);
+			vertical-align: middle;
+			text-decoration:none !important;
+			margin-top:-15px;
+		}
+		
+		.sharebuttons a{
+			text-decoration:none !important;
+			display:inline-block;
+		}
+	/*
+	@tab Footer
+	@section footer style
+	@tip Set the background color and top border for your email's footer area.
+	@theme footer
+	*/
+		#templateFooter {
+			margin:20px 0 0 0;
+		}
+		#templateFooter td{
+			/*@editable*/background: rgb(208,209,211);
+			/*@editable*/border-top:0;
+		}
+		
+		#templateFooter p{
+			font-size:12px;
+		}
+		
+		#templateFooter table tr td {
+			padding:10px 3px 16px;
+			margin: 0;
+			width: 100%;
+		}
+		
+		#templateFooter table tr td table tr td{
+			padding:0;
+		}
+	/*
+	@tab Footer
+	@section footer text
+	@tip Set the styling for your email's footer text. Choose a size and color that is easy to read.
+	@theme footer
+	*/
+	
+		.footerContent {
+			/*@editable*/background:#fff;
+			padding:5px;
+			width:584px;
+		}
+		.footerContent div{
+			/*@editable*/color:#707070;
+			/*@editable*/font-family:Arial;
+			/*@editable*/font-size:12px;
+			/*@editable*/line-height:125%;
+			/*@editable*/text-align:left;
+		}
+	/*
+	@tab Footer
+	@section footer link
+	@tip Set the styling for your email's footer links. Choose a color that helps them stand out from your text.
+	*/
+		.footerContent div a:link,.footerContent div a:visited,.footerContent div a .yshortcuts{
+			/*@editable*/color:#336699;
+			/*@editable*/font-weight:normal;
+			/*@editable*/text-decoration:underline;
+		}
+		.footerContent img{
+			display:inline;
+		}
+	/*
+	@tab Footer
+	@section social bar style
+	@tip Set the background color and border for your email's footer social bar.
+	@theme footer
+	*/
+		#social{
+			/*@editable*/background-color:#FAFAFA;
+			/*@editable*/border:0;
+		}
+	/*
+	@tab Footer
+	@section social bar style
+	@tip Set the background color and border for your email's footer social bar.
+	*/
+		#social div{
+			/*@editable*/text-align:center;
+		}
+	/*
+	@tab Footer
+	@section utility bar style
+	@tip Set the background color and border for your email's footer utility bar.
+	@theme footer
+	*/
+		#utility{
+			/*@editable*/background-color:#FFFFFF;
+			/*@editable*/border:0;
+		}
+	/*
+	@tab Footer
+	@section utility bar style
+	@tip Set the background color and border for your email's footer utility bar.
+	*/
+		#utility div{
+			/*@editable*/text-align:center;
+		}
+		#monkeyRewards img{
+			max-width:190px;
+		}
+		
+	a {
+		color:#ec008c;
+	}
+</style>
+
+</head>
+
+<body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0">
+    	<center>
+        	<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="backgroundTable">
+            	<tr>
+                	<td align="center" valign="top">
+                        <table border="0" cellpadding="0" cellspacing="0" width="600" id="templateContainer">
+                        	<tr>
+                            	<td align="center" valign="top">
+                                    <!-- // Begin Template Header \\ -->
+                                	<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateHeader">
+                                        <tr>
+                                            <td>
+                                            
+                                            	<table>
+                                            	
+                                            		<tr>
+                                            			<td width="350" style="border-right:1px solid #000;">
+                                            
+			                                            	Your favourites for this week from LondonCalling.com
+			                                            	
+                                            			</td>
+                                            			
+                                            			<td width="250">
+                                            			
+                                            				Email not displaying properly?<br /><a href="{exp:shortlist:view limit="1"}{site_url}favourites/{list_id}{/exp:shortlist:view}">View it in your browser</a>.
+                                            			</td>
+                                            		</tr>
+                                            	</table>
+                                            
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <!-- // End Template Header \\ -->
+                                </td>
+                            </tr>
+                        	<tr>
+                            	<td valign="top">
+                                    <!-- // Begin Template Body \\ -->
+                                	<table border="0" cellpadding="0" cellspacing="0" width="550" align="center">
+                                    	<tr>
+                                        	<td valign="top" class="bodyContent" width="550">
+                                           
+                                           <div class="article">
+                                           	<div class="articleContent">
+	                                           <img alt="logo" src="http://londoncalling.com/assets/images/logo.gif" id="headerImage campaign-icon" mc:label="header_image" mc:edit="header_image" mc:allowdesigner="" mc:allowtext="">
+			                                            
+	                                           <span class="headerline">Event Submission</span>
+                                           	</div>
+                                           
+                                           </div>
+                                             
+                                            
+						<div class="article">
+
+											
+							<div class="articleContent">
+							
+								<h3 class="favourites-title">Thank you</h3>
+							
+								<p>Your event submission has been received. We will aim to approve your submission within 72 hours or contact you if we need any further information.</p>
+								
+								<p>If you would like to discuss your submission please do not hesitate to contact a member of the London Calling team.</p>
+								
+								<p><strong>Tel:</strong> 020 7275 7225<br />
+								<strong>Email:</strong> press@londoncalling.com</p>
+
+								<p><strong>Office hours:</strong> Monday to Friday 9.00am-5.30pm</p>
+							
+							</div>
+							</div>
+					
+						</div>
+	
+{/exp:shortlist:view}
+                                            
+                                            </td>
+                                        </tr>
+                                    	                                    </table>
+                                    <!-- // End Template Body \\ -->
+                                </td>
+                            </tr>
+                        	<tr>
+                            	<td align="center" valign="top">
+                                    <!-- // Begin Template Footer \\ -->
+                                	<table border="0" cellpadding="10" cellspacing="0" width="600" id="templateFooter">
+                                    	<tr>
+                                        	<td valign="top" class="footerContent">
+                                            
+                                                <!-- // Begin Module: Standard Footer \\ -->
+                                                <table border="0" cellpadding="10" cellspacing="0" width="100%">
+                                                
+                                                	<tr>
+                                                		<td>
+                                                			<table>
+			                                                    <tr>
+			                                                        <td valign="top" width="350">
+			                                                            	<p>You are receiving this email as you requested that we send a copy of your favourites list to you.</p>
+			                                                            	<p>Our mailing address is:</p>
+			                                                            	<p>London Calling Arts Ltd<br />
+			                                                            	14a Ardleigh Road<br />
+			                                                            	London<br />
+			                                                            	N1 4HP</p>
+			                                                            	
+			                                                            	<p>Our telephone:<br />
+			                                                            	020 7275 7225</p>
+			                                                            	
+			                                                            	<p>Copyright &copy; 2012 London Calling. All rights reserved.</p>			                                                            
+			                                                        </td>
+			                                                    </tr>
+                                                			</table>
+                                                		</td>
+                                                	</tr>
+                                                </table>
+                                                <!-- // End Module: Standard Footer \\ -->
+                                            
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <!-- // End Template Footer \\ -->
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                    </td>
+                </tr>
+            </table>
+        </center>
+
+
+
+</body>
+
+</html>

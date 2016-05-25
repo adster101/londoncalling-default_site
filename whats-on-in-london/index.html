@@ -1,0 +1,177 @@
+<?php //echo 'hello'; ?>
+
+{if '{freebie_2}' == 'category' && '{freebie_3}' != ''}
+	{embed="includes/.header" page_title="What's On in London &mdash; {exp:freebie:category_name segment='4'}"}
+{if:else}
+	{embed="includes/.header" page_title="What's On in London"}
+{/if}
+				
+
+
+<div class="span-24 append-bottom category whats-on fixed-header">
+				
+				<h1 class="header-whatson">What's on in London?</h1>
+				
+						
+						<div id="whatson-header-image">
+						
+							{exp:channel_images:images entry_id="3616" orderby="random" limit="1"}
+								<img alt="{title}" src="{image:url:980x240}" alt="whats on header image" />
+							
+							{if image:description}
+								<div class="wo-image-credit">Image courtesy of {image:description}</div>
+							{/if}
+							{/exp:channel_images:images}
+						</div>
+												
+						
+						<div id="category-search" class="span-24 category-search-whatson">
+						
+						<form method="post" action="{current_url}">
+						
+							<div class="search-options">
+								
+								
+
+								<input type="text" name="keywords" id="keywords" placeholder="Keywords" class="keywords" {if post:keywords}value="{post:keywords}"{/if} /><input type="text" name="startdate" id="startdate" placeholder="Start Date" class="date datepicker" {if post:startdate}value="{post:startdate}"{/if} /><input type="text" id="enddate" name="enddate" placeholder="End Date" class="date datepicker" {if post:enddate}value="{post:enddate}"{/if} />
+								
+								<div class="checkboxoptions whatsoncheck">
+								
+									<div class="setcheck">
+									
+									
+											<input type="checkbox" name="today" id="today" {if post:today}checked="checked"{/if} /><label for="today">Today</label>
+											<input type="checkbox" name="tomorrow" id="tomorrow" {if post:tomorrow}checked="checked"{/if} /><label for="tomorrow">Tomorrow</label>
+											<input type="checkbox" name="next7" id="next7" {if post:next7}checked="checked"{/if} /><label for="next7">Next 7 days</label>
+											<input value="4" type="checkbox" name="category[]" id="attractions" <?php if (isset($_POST['category']) && in_array("4", $_POST['category'])) {echo 'checked="checked"';}?> /><label for="attractions">Attractions</label>
+											<input value="5" type="checkbox" name="category[]" id="art" <?php if (isset($_POST['category']) && in_array("5", $_POST['category'])) {echo 'checked="checked"';}?> /><label for="art">Art</label>
+											<input value="6" type="checkbox" name="category[]" id="entertainment" <?php if (isset($_POST['category']) && in_array("6", $_POST['category'])) {echo 'checked="checked"';}?> /><label for="entetrainment">Entertainment</label>
+											<input value="7" type="checkbox" name="category[]" id="families" <?php if (isset($_POST['category']) && in_array("7", $_POST['category'])) {echo 'checked="checked"';}?> /><label for="families">Families</label>
+											<input value="8" type="checkbox" name="category[]" id="museums" <?php if (isset($_POST['category']) && in_array("8", $_POST['category'])) {echo 'checked="checked"';}?> /><label for="museums">Museums</label>
+											<input value="9" type="checkbox" name="category[]" id="music" <?php if (isset($_POST['category']) && in_array("9", $_POST['category'])) {echo 'checked="checked"';}?> /><label for="music">Music</label>
+											<input value="10" type="checkbox" name="category[]" id="theatre" <?php if (isset($_POST['category']) && in_array("10", $_POST['category'])) {echo 'checked="checked"';}?> /><label for="theatre">Theatre</label>
+											<input type="checkbox" name="free" id="free" {if post:free}checked="checked"{/if} /><label for="free">FREE</label>
+											<input type="checkbox" name="specialoffer" {if post:specialoffer}checked="checked"{/if} id="specialoffer" /><label for="specialoffer">Special Offers</label>
+											<input type="checkbox" name="new" id="new" {if post:new}checked="checked"{/if} /><label for="new">New</label>
+											<input type="checkbox" name="endingsoon" id="endingsoon" {if post:endingsoon}checked="checked"{/if} /><label for="endingsoon">Ending Soon</label>
+											
+										
+									</div>
+								
+								
+								</div>
+								
+							
+								
+							</div>
+							
+							<input type="submit" id="refinecatresults" value="" name="refinecatresults" />
+								
+							</form>
+							
+							<div class="category-emailbox emailbox-whatson">
+								
+								<h2>Sign up FREE and be inspired</h2>
+								<p>We pride ourselves on finding inspirational places to go in London. We would love to share these with your via our e-newsletter.</p>
+								
+								<input type="text" placeholder="First name" name="firstname" />
+								<input type="text" placeholder="Email address" name="emailaddress" />
+								<a href="/assets/php/email-newsletter.php"></a>
+							
+							</div>
+						
+						</div>
+						
+						
+						<h2 class="whatsontoday">What's on 
+						
+						<?php if(isset($_POST['tomorrow']) && !isset($_POST['today']) && !isset($_POST['next7'])) {
+						
+							echo "Tomorrow";
+						
+						} elseif(isset($_POST['tomorrow']) && isset($_POST['today']) && !isset($_POST['next7'])) {
+							echo "Today and Tomorrow";
+						} elseif(isset($_POST['tomorrow']) && isset($_POST['today']) && isset($_POST['next7'])) {
+							echo "Today, Tomorrow and the next 7 days";
+						} elseif(isset($_POST['tomorrow']) && !isset($_POST['today']) && isset($_POST['next7'])) {
+							echo "Tomorrow and the next 7 days";
+						} elseif(!isset($_POST['tomorrow']) && isset($_POST['today']) && isset($_POST['next7'])) {
+							echo "Today and the next 7 days";
+						} elseif(!isset($_POST['tomorrow']) && !isset($_POST['today']) && isset($_POST['next7'])) {
+							echo "over the next 7 days";
+						} else {
+						
+							echo "Today <!--- {current_time format="%l %j %F %Y"}-->";
+							
+						}
+						
+						?>
+						</h2>
+						
+								<?php
+					$today = date('Ymd');
+$todaytotime = strtotime('now');
+
+if(isset($_POST['startdate']) && $_POST['startdate'] != '') {
+	$startdate = explode('/',$_POST['startdate']);
+	$startdate = $startdate[2].$startdate[1].$startdate[0];
+} else if(isset($_POST['keywords']) && $_POST['keywords'] != '') {
+	$startdate = $today;
+} else {
+	//$startdate = $today;
+	$startdate = '20110101';
+}
+
+if(isset($_POST['enddate']) && $_POST['enddate'] != '') {
+	$enddate = explode('/',$_POST['enddate']);
+	$enddate = $enddate[2].$enddate[1].$enddate[0];
+} elseif(isset($_POST['endingsoon']) && $_POST['endingsoon'] != '') {
+    $futuredate = strtotime('+14 days'); // 5 days from today
+    $enddate = date('Ymd',$futuredate);
+} else {
+	//$enddate = $today;
+	$futuredate = strtotime('+2 month'); // 1 month from today
+    $enddate = date('Ymd',$futuredate);
+}
+
+
+if(isset($_POST['newdate'])) {
+   $entrydate = strtotime('-7 days'); // with last 7 days
+} else {
+    $entrydate = '';
+}
+					
+						$dates = "start_date <={$startdate} AND generic_end_date {$enddate}";
+					
+					// Order direction
+					$orderby = 'exp_calendar_events.last_date'; // Default is channel entry ID desc
+					$orderdir = 'ASC';
+					
+					// Category IDs
+					
+					if(isset($_POST['category']) && $_POST['category'] != '') {
+					$category = '';
+					$category = implode(',',$_POST['category']);
+					} else {
+						$category = "4,5,6,7,8,9,10";							
+					}
+					
+					?>
+					
+					<?php die('testing'); ?>
+
+						{embed="events/whatson2" noofresults="8" groupby="exp_channel_titles.entry_id" wheresearch="exp_categories.cat_id" whereoperator="IN" wherevalue="(<?php echo $category; ?>)" dates="<?php echo $dates;?>" {if post:keywords}keywords="AND (REPLACE(exp_channel_titles.title,'\'','') LIKE '%{post:keywords}%' OR REPLACE(exp_channel_data.field_id_29,'\'','') LIKE '%{post:keywords}%' OR REPLACE( exp_tagger.tag_name,'\'','') = '{post:keywords}')"{/if} order_is="<?php echo $orderdir; ?>" orderfield="<?php echo $orderby; ?>" {if post:free}entryprice="INNER JOIN exp_matrix_data
+ON exp_matrix_data.entry_id = exp_channel_titles.entry_id AND exp_matrix_data.col_id_5 = 'Free'"{/if}
+{if post:specialoffer}specialoffer="AND exp_channel_titles.entry_id IN ( 
+	 SELECT child_entry_id FROM exp_playa_relationships
+	INNER JOIN exp_channel_titles on exp_channel_titles.entry_id = exp_playa_relationships.parent_entry_id
+	WHERE 
+	parent_field_id = '87'
+	AND unix_timestamp(now()) < exp_channel_titles.expiration_date
+)"{/if}
+}
+
+				</div>
+
+				
+{embed="includes/.footer"}

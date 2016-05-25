@@ -1,0 +1,80 @@
+{embed="includes/.header" page_title="Search Results"}
+
+<div class="span-24 append-bottom search fixed-header">
+				
+				<h1 class="header">Search Results</h1>
+				<h2 id="totalsearchresult">{if post:search_keywords for: {post:search_keywords}{/if}</h2>
+</div>
+
+
+
+<?php
+if(isset($_POST['startdate']) && $_POST['startdate'] != '') {
+	$startdate = explode('/',$_POST['startdate']);
+	$startdate = $startdate[2].$startdate[1].$startdate[0];
+} else {
+	$startdate = '20120101';
+}
+if(isset($_POST['enddate']) && $_POST['enddate'] != '') {
+		$enddate = explode('/',$_POST['enddate']);
+		$enddate = $enddate[2].$enddate[1].$enddate[0];
+} else {
+	$enddate = '20991231';
+}
+
+$dates = "(a.last_date <=0 AND a.recurs = 'y') OR
+		(a.start_date >={$startdate} AND a.ee_date <={$enddate}) OR
+		(a.recurs IS null AND a.ee_date IS null AND a.start_date is NULL)";
+
+$orderdir = 'DESC';
+$ordeby = 'title_entry_id';
+
+
+
+if(isset($_POST['as_category'])) {
+
+	$subcats = '';
+	$subcats = implode(',',$_POST['as_category']);
+
+	$selectoptions= 'exp_channel_titles.entry_id AS title_entry_id, exp_channel_titles.view_count_one AS views, exp_channel_data.entry_id AS channel_entry_id, exp_categories.cat_id AS category_id, exp_category_posts.cat_id AS post_cat_id, exp_category_posts.entry_id AS cat_post_id, exp_calendar_events.start_date, exp_calendar_events.end_date AS ee_date, exp_calendar_events.entry_id as event_entry_id, exp_calendar_events.recurs AS recurs';
+	$innerjoin = 'INNER JOIN exp_category_posts
+ON exp_category_posts.entry_id = exp_channel_titles.entry_id
+INNER JOIN exp_categories
+ON exp_categories.cat_id = exp_category_posts.cat_id
+LEFT JOIN exp_calendar_events
+ON exp_calendar_events.entry_id = exp_channel_titles.entry_id
+INNER JOIN exp_tagger_links ON exp_tagger_links.entry_id = exp_channel_titles.entry_id
+INNER JOIN exp_tagger ON exp_tagger_links.tag_id = exp_tagger.tag_id ';
+
+
+} else {
+
+	$selectoptions= 'exp_channel_titles.entry_id AS title_entry_id, exp_channel_titles.view_count_one AS views, exp_channel_data.entry_id AS channel_entry_id, exp_calendar_events.start_date, exp_calendar_events.last_date, exp_calendar_events.end_date AS ee_date, exp_calendar_events.entry_id as event_entry_id, exp_calendar_events.recurs AS recurs';
+	$innerjoin = 'LEFT JOIN exp_calendar_events
+ON exp_calendar_events.entry_id = exp_channel_titles.entry_id
+INNER JOIN exp_tagger_links ON exp_tagger_links.entry_id = exp_channel_titles.entry_id
+INNER JOIN exp_tagger ON exp_tagger_links.tag_id = exp_tagger.tag_id ';
+}
+
+if(isset($_POST['search_keywords'])) {
+	$keywords = addslashes($_POST['search_keywords']);
+}
+
+?>
+
+
+				{embed="search/cat_ajax_embed_grid"
+				noofresults="8"
+				<?php if(isset($_POST['as_category'])) { ?>wheresearch="{if post:search_keywords}AND{/if} exp_categories.cat_id" whereoperator="IN" wherevalue="(<?php echo $subcats; ?>)"<?php }?>
+					dates="WHERE <?php echo $dates;?>"
+				{if post:search_keywords}keywords="(REPLACE(exp_channel_titles.title,'\'','') LIKE '%<?php echo $keywords; ?>%' OR REPLACE(exp_channel_data.field_id_29,'\'','') LIKE '%<?php echo $keywords; ?>%' OR REPLACE(exp_channel_data.field_id_56,'\'','') LIKE '%<?php echo $keywords; ?>%' OR REPLACE(exp_channel_data.field_id_67,'\'','') LIKE '%<?php echo $keywords; ?>%' OR REPLACE(exp_tagger.tag_name,'\'','') = '<?php echo $keywords; ?>') AND exp_tagger_links.entry_id = exp_channel_titles.entry_id"{/if}
+				order_is="<?php echo $orderdir; ?>"
+				orderfield="<?php echo $orderby; ?>"
+				{if post:free}entryprice="INNER JOIN exp_matrix_data ON exp_matrix_data.entry_id = exp_channel_titles.entry_id AND exp_matrix_data.col_id_5 = 'Free'"{/if}
+				{if post:specialoffer}specialoffer="AND exp_channel_titles.entry_id IN ( SELECT child_entry_id FROM exp_playa_relationships WHERE parent_field_id = '87')"{/if}
+				selectoptions = "<?php echo $selectoptions; ?>"
+				innerjoin = "<?php echo $innerjoin; ?>"
+}
+
+		
+{embed="includes/.footer"}

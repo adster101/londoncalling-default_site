@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset >
+<?php
+global $LOC;
+$start_time = $LOC->decode_date('%Y-%m-%d %H:%i', $LOC->now - 259200);
+?>
+{exp:weblog:entries weblog="_____name_of_your_weblog_____" sort="desc" start_on="<?php echo $start_time; ?>" disable="pagination|trackbacks" rdf="off" dynamic="off"}
+  <url>
+    <loc>_____http://www.website.com/home/article/_____{url_title}/</loc>
+    <priority>1.0</priority>
+    <news:news>
+      <news:publication_date>{exp:stats}{entry_date format="{DATE_W3C}"}{/exp:stats}</news:publication_date>
+      <news:keywords>_____your_keywords_field_name_here_(optional)_____</news:keywords>
+    </news:news>
+  </url>
+{/exp:weblog:entries}
+</urlset> 

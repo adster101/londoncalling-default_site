@@ -1,0 +1,144 @@
+{if '{freebie_3}' == 'category' && '{freebie_4}' != ''}
+	{embed="includes/.header" page_title="What's On in London &mdash; {exp:freebie:category_name segment='4'}"}
+{if:else}
+	{embed="includes/.header" page_title="What's On in London"}
+{/if}
+				
+
+
+<div class="span-24 append-bottom category fixed-header">
+				
+				<h1 class="header-whatson">What's on in London?</h1>
+				
+						
+						<div id="whatson-header-image">
+						
+							{exp:channel_images:images entry_id="3616" orderby="random" limit="1"}
+								<img alt="{title}" src="{image:url:980x240}" alt="whats on in london" />
+							
+							{if image:description}
+								<div class="wo-image-credit">Image courtesy of {image:description}</div>
+							{/if}
+							{/exp:channel_images:images}
+						</div>
+																	
+						<h2 class="whatsontoday">What's On 
+						
+						<?php if(isset($_POST['today']) && !isset($_POST['tomorrow']) && !isset($_POST['next7'])) {
+						
+							echo "Today";
+						
+						} elseif(isset($_POST['tomorrow']) && !isset($_POST['today']) && !isset($_POST['next7'])) {
+						
+							echo "Tomorrow";
+						
+						} elseif(isset($_POST['tomorrow']) && isset($_POST['today']) && !isset($_POST['next7'])) {
+							echo "Today and Tomorrow";
+						} elseif(isset($_POST['tomorrow']) && isset($_POST['today']) && isset($_POST['next7'])) {
+							echo "Today, Tomorrow and the next 7 days";
+						} elseif(isset($_POST['tomorrow']) && !isset($_POST['today']) && isset($_POST['next7'])) {
+							echo "Tomorrow and the next 7 days";
+						} elseif(!isset($_POST['tomorrow']) && isset($_POST['today']) && isset($_POST['next7'])) {
+							echo "Today and the next 7 days";
+						} elseif(!isset($_POST['tomorrow']) && !isset($_POST['today']) && isset($_POST['next7'])) {
+							echo "over the next 7 days";
+						}
+						
+						?>
+						</h2>
+						
+					<?php
+$today = date('Ymd');
+$todaytotime = strtotime('now');
+
+if(isset($_POST['startdate']) && $_POST['startdate'] != '') {
+	$startdate = explode('/',$_POST['startdate']);
+	$startdate = $startdate[2].$startdate[1].$startdate[0];
+} else if(isset($_POST['keywords']) && $_POST['keywords'] != '') {
+	$startdate = $today;
+} else {
+	//$startdate = $today;
+	$startdate = '20110101';
+}
+
+if(isset($_POST['enddate']) && $_POST['enddate'] != '') {
+	$enddate = explode('/',$_POST['enddate']);
+	$enddate = $enddate[2].$enddate[1].$enddate[0];
+} elseif(isset($_POST['endingsoon']) && $_POST['endingsoon'] != '') {
+    $futuredate = strtotime('+14 days'); // 5 days from today
+    $enddate = date('Ymd',$futuredate);
+} else {
+	//$enddate = $today;
+	$futuredate = strtotime('+4 month'); // 4 months from today
+    $enddate = date('Ymd',$futuredate);
+}
+
+
+if(isset($_POST['newdate'])) {
+   $entrydate = strtotime('-7 days'); // with last 7 days
+} else {
+    $entrydate = '';
+}
+
+
+
+if(isset($_POST['subcat'])) {
+
+	$subcats = '';
+	$subcats = implode(',',$_POST['subcat']);
+
+	
+} else {
+
+      $subcats = "4,5,6,7,8,9,10,94";
+      
+}
+$keywords = '';
+if(isset($_POST['keywords'])) {
+	$keywords = str_replace('"','',$_POST['keywords']);
+	$keywords = str_replace("'","",$keywords);
+	$keywords = addslashes($keywords);
+} else {
+    $keywords = '';
+}
+
+if(isset($_POST['free'])) {
+	
+	$free = 'Yes';
+} else {
+	$free = '';
+}
+
+if(isset($_POST['specialoffer'])) {
+	$special = 'yes';
+} else {
+	$special = 'no';
+}
+
+if(isset($_POST['endingsoon'])) {
+	$endingsoon = 'yes';
+} else {
+	$endingsoon = 'no';
+}
+
+?>
+
+				{embed="events/whatson2"
+					noofresults="{if post:noresults}{post:noresults}{if:else}8{/if}"
+					wherevalue="(<?php echo $subcats; ?>)"
+					start_date="<?php echo $startdate;?>"
+					end_date="<?php echo $enddate; ?>"
+					today="<?php echo $today; ?>"
+					keywords="<?php echo $keywords; ?>"
+					free="<?php echo $free;?>"
+					special="<?php echo $special;?>"
+					entry_date="<?php echo $entrydate;?>"
+					todaytotime="<?php echo $todaytotime; ?>"
+					endingsoon="<?php echo $endingsoon; ?>"
+				}
+				
+ 
+				</div>
+
+				
+{embed="includes/.footer"}

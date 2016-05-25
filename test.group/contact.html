@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html
+	xml:lang="en"
+	lang="en"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+
+		<title>Contact Details</title>
+
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+		<script type="text/javascript" src="/themes/third_party/mx_google_map/mxgooglemap.js"></script>
+
+		<link media="screen, projection" rel="stylesheet" type="text/css" href="/assets/css/blueprint/v1.0/screen.css" />
+	</head>
+	<body>
+		{exp:channel:entries entry_id="{freebie_3}"}
+			{exp:switchee variable="{channel_short_name}" parse="inward"}
+				{case value="calendar_events"}
+							{if event_address_line_1}
+								<p>
+									<strong>Address</strong><br />{title}<br />{event_address_line_1}<br />
+
+									{if event_address_line_2}
+										{event_address_line_2}<br />
+									{/if}
+
+									{if event_address_line_3}
+										{event_address_line_3}<br />
+									{/if}
+
+									{if event_town_city}
+										{event_town_city}<br />
+									{/if}
+
+									{if event_postcode}
+										{event_postcode}<br />
+									{/if}
+								</p>
+							{if:else}
+								{exp:playa:children field="event_venue" limit="1"}
+									<p>
+										<strong>Address</strong><br />{title}<br />{venue_address_line_1}<br />
+
+										{if venue_address_line_2}
+											{venue_address_line_2}<br />
+										{/if}
+
+										{if venue_address_line_3}
+											{venue_address_line_3}<br />
+										{/if}
+
+										{if venue_town_city}
+											{venue_town_city}<br />
+										{/if}
+
+										{if venue_postcode}
+											{venue_postcode}<br />
+										{/if}
+									</p>
+								{/exp:playa:children}
+							{/if}
+
+							{if event_telephone OR event_email_address}
+								<p>
+									{if event_telephone}
+										<strong>Telephone</strong><br />{event_telephone}<br />
+									{/if}
+
+									{if event_email_address}
+										<strong>Email Address</strong><br />{event_email_address}<br />
+									{/if}
+
+									{if event_url}
+										<strong>Website</strong><br /><a href="{event_url}" title="Click here to visit their website" target="_blank">Click here to visit their website</a><br />
+									{/if}
+
+									{if event_book_tickets_url}
+										<strong>Book Tickets</strong><br /><a href="{event_book_tickets_url}" title="Click here to book tickets" target="_blank">Click here to book tickets</a><br />
+									{/if}
+								</p>
+							{if:else}
+								<p>
+									{exp:playa:children field="event_venue" limit="1"}
+										{if venue_telephone}
+											<strong>Telephone</strong><br />{venue_telephone}<br />
+										{/if}
+
+										{if venue_email_address}
+											<strong>Email Address</strong><br /><a href="mailto:{venue_email_address}">{venue_email_address}</a><br />
+										{/if}
+									{/exp:playa:children}
+
+									{if event_url}
+										<strong>Website</strong><br /><a href="{event_url}" title="Click here to visit their website" target="_blank">Click here to visit their website</a><br />
+									{/if}
+
+									{if event_book_tickets_url}
+										<strong>Book Tickets</strong><br /><a href="{event_book_tickets_url}" title="Click here to book tickets" target="_blank">Click here to book tickets</a><br />
+									{/if}
+								</p>
+							{/if}
+				{/case}
+				{case value="venues"}
+																<p>
+																	<strong>Address</strong><br />{venue_address_line_1}<br />
+
+																	{if venue_address_line_2}
+																		{venue_address_line_2}<br />
+																	{/if}
+
+																	{if venue_address_line_3}
+																		{venue_address_line_3}<br />
+																	{/if}
+
+																	{venue_town_city}<br />{venue_postcode}
+																</p>
+
+																{if venue_telephone OR venue_email_address OR venue_url OR venue_book_tickets_url}
+																	<p>
+																		{if venue_telephone}
+																			<strong>Telephone</strong><br />{venue_telephone}<br />
+																		{/if}
+
+																		{if venue_email_address}
+																			<strong>Email Address</strong><br />{exp:md_spam_me_not email="{venue_email_address}" title="Click here to email this venue" text="Click here to email this venue"}<br />
+																		{/if}
+
+																		{if venue_url}
+																			<strong>Website</strong><br /><a href="{venue_url}" title="Click here to visit their website">Click here to visit their website</a><br />
+																		{/if}
+
+																		{if venue_book_tickets_url}
+																			<strong>Book Tickets</strong><br /><a href="{venue_book_tickets_url}" title="Click here to book tickets">Click here to book tickets</a><br />
+																		{/if}
+																	</p>
+																{/if}
+				{/case}
+			{/exp:switchee}
+		{/exp:channel:entries}
+	</body>
+</html>

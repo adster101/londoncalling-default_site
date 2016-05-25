@@ -1,0 +1,155 @@
+{embed="includes/.header" page_title="{structure:page:title}"}
+				<div class="span-15 append-bottom">
+					{if '{freebie_1}' == 'my-visit'}
+						<h1 class="purple_h1">{structure:page:title}</h1>
+						<p>myLC is a fantastic cultural tool to collate your favourite London attractions, venues and events in one handy central location. You can use myLC to create, edit and save your own trips and create a daily itinerary plan with your favourite events, using drag and drop technology.</p>
+						<p>Plus, myLC is completely free, sign up below!</p>
+						<p>How does it work?</p>
+						<p>
+							<img alt="" src="/assets/images/mylc_bubble_1.jpg" /><br />&nbsp;<br />
+							<img alt="" src="/assets/images/mylc_bubble_2.jpg" /><br />&nbsp;<br />
+							<img alt="" src="/assets/images/mylc_bubble_3.jpg" /><br />&nbsp;<br />
+							<a href="/register-login" title="Register"><img alt="" src="/assets/images/get_started.png" /></a>
+						</p>
+					{if:elseif '{freebie_1}' == 'about-us'}
+						{if '{freebie_2}' == 'advertise'}
+							{exp:channel:entries channel="pages"}
+								<p>{page_content}</p>
+							{/exp:channel:entries}
+						{if:elseif '{freebie_2}' == 'contact'}
+							<h1 class="purple_h1">{structure:page:title}</h1>
+							{exp:channel:entries channel="pages"}
+								<div class="span-10">
+									{if '{freebie_3}' == 'success'}
+										<p class="success">Your message has been sent! We will be in touch shortly.</p>
+									{/if}
+
+									<p>{page_content}</p>
+									{exp:freeform:form collection="Contact Form" required="name|email|message" return="about-us/contact/success" notify="{lv_email_address}"}
+										<p>Name:<br /><input name="name" type="text" /></p>
+										<p>Email:<br /><input name="email" type="text" /></p>
+										<p>Telephone:<br /><input name="phone1" type="text" /></p>
+										<p>Message:<br /><textarea name="message" rows="5" cols="5"></textarea></p>
+										<p><input name="submit" type="submit" value="Send Message" /></p>
+									{/exp:freeform:form}
+								</div>
+								<div class="prepend-1 span-4 last">
+									<p>
+										<strong>Address</strong><br />
+										{lv_company_name}
+										<br />{lv_address_line_1}
+										{if lv_address_line_2}
+											<br />{lv_address_line_2}
+										{/if}
+										<br />{lv_town}
+										<br />{lv_postcode}
+									</p>
+									<p>
+										<strong>Telephone</strong><br />
+										{lv_telephone_number}
+									</p>
+									<p>
+										<strong>Company Number</strong><br />
+										{lv_company_number}
+									</p>
+									<p>
+										<strong>VAT Number</strong><br />
+										{lv_vat_number}
+									</p>
+								</div>
+							{/exp:channel:entries}
+						{if:else}
+						<!--
+							<p><img alt="About London Calling" src="/assets/images/about_large.png" /></p>
+							<h1 style="font-weight: bold; color: #ec008c;">Welcome to London Calling - a vibrant and pro-active online guide to everything cultural in the city of London.</h1>
+
+							<p>With over 25 years experience in marketing and promoting cultural events and venues
+in London, the London Calling editorial and promotions team are dedicated to bringing
+you the very latest news, recommendations and information about all aspects of ‘The
+Arts’ in this great city!</p>
+
+							<p>We hope that among the many and varied pages of this website, you will find something
+to stimulate your interests and stir you into visiting a particular performance, venue or
+installation.</p>
+
+							<p>You can 'personalise' your London Calling experience by joining myLC; it's quick, easy
+and FREE - so why not join today? <a href="/mylc" title="myLC">Click here to visit the myLC section.</a></p>
+
+							<div style="height: 198px;">
+							<p><img alt="" src="/assets/images/about_editorial.png" style="float: right; margin: 0 0 9px 9px;" /><strong>Exclusive Editorial Content</strong></p>
+
+							<p>Our in-house team of experienced writers and
+reviewers are joined regularly by high-profile guest
+journalists to bring you the latest news, opinions and
+discussions on a wide-range of topics relating to The
+Arts in London.</p>
+
+							<p>Read, attend, recommend and inform - get involved
+in your cultural London experience and share the
+experience with us and other website users on
+LondonCalling.com. <a href="/features/show" title="Features">Click here to visit the Features section.</a></p>
+							</div>
+
+							<div style="height: 198px;">
+
+							<p><img alt="" src="/assets/images/about_mylc.png" style="float: right; margin: 0 0 9px 9px;" /><strong>myLC - Your personal cultural planner</strong></p>
+
+							<p>Sign-up for FREE and take advantage of a range of
+features that this bespoke service can offer.</p>
+
+							<p>myLC is a fantastic cultural tool to collate your
+favourite London attractions, venues and events in
+one handy central location. You can use myLC to
+create, edit and save your own trips and create a daily
+itinerary plan with your favourite events, using drag
+and drop technology. Click here to visit the <a href="/mylc" title="myLC">myLC
+section</a>.</p>
+							</div>
+
+							<div style="height: 198px;">
+
+							<p><img alt="" src="/assets/images/about_whats_on.png" style="float: right; margin: 0 0 9px 9px;" /><strong>What's On</strong></p>
+
+							<p>Everything you'll ever need to know about The
+Arts, Music, Painting, Performance Art, Literature,
+Philosophy, Film, Theatre and well-known, and not so
+well-known Venues all around London is here under
+this button - if you love your Arts, you'll love 'What's
+On' - <a href="#newsletter" title="Newsletter">sign-up to receive our regular emails</a> and we'll
+keep you informed about everything new in London!
+<a href="/events/show" title="What's On">Click here to visit the What’s On section</a>.</p>
+
+							</div>
+							<div style="height: 198px;">
+							<p><img alt="" src="/assets/images/about_special_offer.png" style="float: right; margin: 0 0 9px 9px;" /><strong>Special Offers</strong></p>
+
+							<p>As well as lively debate, information, news, reviews,
+editorial and promotion of everything connected with
+culture, LondonCalling.com can also bring you some
+highly-advantageous offers not available on any other
+site - <a href="#newsletter" title="Newsletter">sign up for our email up-dates and newsletters</a>
+and be the first to enjoy these promotions. <a href="/win-one-years-free-va-membership" title="Special Offers">Click here
+to visit the Special Offers section</a>.</p>
+							</div>
+							-->
+							{exp:channel:entries channel="pages" entry_id="25"}
+								{page_content}
+							{/exp:channel:entries}
+						{/if}
+					{if:elseif '{freebie_1}' == 'affordable-art-fair-offer'}
+						<a target="_blank" href="/uploads/special_offer.pdf" title="Download PDF"><img alt="Download PDF" src="/uploads/affordable-art-offer.gif" /></a>
+					{if:elseif '{freebie_1}' == 'win-one-years-free-va-membership'}
+						<div style="width: 592px; height: 399px; position: relative; background: url('/assets/images/special_offer.jpg') no-repeat 0 0;">
+								<a href="http://www.vam.ac.uk/membership/" title="Learn about Membership"><img class="hover" alt="" src="/assets/images/special_offer/learn.gif" style="position: absolute; top: 329px; left: 34px;" /></a>
+								<a href="http://www.surveymonkey.com/s/3HKPGBC" title="Begin Survey"><img class="hover" alt="" src="/assets/images/special_offer/survey.gif" style="position: absolute; top: 329px; left: 314px;" /></a>
+						</div>
+					{if:else}
+						
+						{exp:channel:entries channel="pages"}
+							<h1 class="purple_h1">{structure:page:title}</h1>
+							<p>{page_content}</p>
+						{/exp:channel:entries}
+					{/if}
+				</div>
+{embed="includes/.sidebar"}
+{embed="includes/.footer"}

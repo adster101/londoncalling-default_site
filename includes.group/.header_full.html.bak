@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html
+	xml:lang="en"
+	lang="en"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:addthis="http://www.addthis.com/help/api-spec"
+	xmlns:fb="http://www.facebook.com/2008/fbml">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+		{if embed:seo_plugin == 'yes'}
+			{exp:seo_lite use_last_segment="yes"}
+		{if:else}
+			{if '{freebie_4}' == 'placeholder'}
+
+			{!-- COPY AND PASTE ME FOR EACH CATEGORY... START --}
+			{if:elseif '{freebie_4}' == 'attractions'}
+				<meta name="description" content="" />
+				<title></title>
+			{!-- COPY AND PASTE ME FOR EACH CATEGORY... END --}
+
+			{!-- COPY AND PASTE ME FOR EACH CATEGORY... START --}
+			{if:elseif '{freebie_4}' == 'families'}
+				<meta name="description" content="" />
+				<title></title>
+			{!-- COPY AND PASTE ME FOR EACH CATEGORY... END --}
+
+
+
+
+			{if:else}
+				<meta name="description" content="Get recommendations on the best London attractions, venues and events, and organise your trip with our handy cultural planner" />
+				<title>{embed:page_title} &mdash; LondonCalling.com</title>
+			{/if}
+		{/if}
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" />
+		<link rel="apple-touch-startup-image" href="/assets/images/apple-touch-startup-image.png" />
+
+		<link media="screen, projection" rel="stylesheet" type="text/css" href="/assets/css/blueprint/v1.0/screen.css" />
+		<!--<link media="print" rel="stylesheet" type="text/css" href="/assets/css/blueprint/v1.0/print.css" />-->
+		<!--[if lt IE 8]>
+			<link media="screen, projection" rel="stylesheet" type="text/css" href="/assets/css/blueprint/v1.0/ie.css" />
+		<![endif]-->
+		<link media="screen, projection" rel="stylesheet" type="text/css" href="/assets/css/sticky_footer.css" />
+		<link media="screen, projection" rel="stylesheet" type="text/css" href="/assets/css/jquery-ui/smoothness/jquery-ui-1.8.13.custom.css" />
+		<link media="screen, projection" rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+		<!--[if !IE 7]>
+			<style media="screen, projection" type="text/css">
+				#wrap
+				{
+					display: table;
+					height: 100%;
+				}
+			</style>
+		<![endif]-->
+		<!--[if IE 7]>
+			<style media="screen, projection" type="text/css">
+				#main
+				{
+					padding-bottom: 267px;
+				}
+
+				#minimise_form_newsletter
+				{
+						top: 6px;
+				}
+			</style>
+		<![endif]-->
+		<link media="screen, projection" rel="stylesheet" type="text/css" href="/assets/js/jquery/plugins/colorbox/colorbox.css" />
+		<link media="screen, projection" rel="stylesheet" type="text/css" href="/assets/css/add2home.css" />
+		<link media="screen, projection" rel="stylesheet" type="text/css" href="/themes/solspace_themes/calendar/templates/mini.css" />
+
+		{if '{embed:load_fbc}' != 'yes'}
+			<script type="text/javascript" src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script>
+		{/if}
+		<script type="text/javascript" src="http://widgets.twimg.com/j/2/widget.js"></script>
+
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+		<script type="text/javascript" src="/themes/third_party/mx_google_map/mxgooglemap.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery/plugins/cycle.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery/plugins/spotlight.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery/plugins/cookie.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery/plugins/metadata.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery/plugins/scrollto.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery/plugins/localscroll.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery/plugins/colorbox/jquery.colorbox-min.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery/plugins/flash.js"></script>
+		<script type="text/javascript" src="/assets/js/jquery/plugins/printelement.js"></script>
+		<script type="text/javascript" src="/assets/js/third_party/add2home.js"></script>
+		<script type="text/javascript" src="/assets/js/custom.js"></script>
+
+		<script type="text/javascript" src="/assets/js/z-index.js"></script>
+
+		{lv_ga_code}
+	</head>
+	<body>
+		{exp:session_variables:set_guest member_id="{logged_in_member_id}"}
+
+		<div id="wrap">
+			<div id="main" class="container">
+				<div id="header" class="span-24">
+					<a id="logo" href="/" title="Home"><img alt="London Calling - Connecting Culture" height="64" src="/assets/images/logo.gif" width="160" /></a>
+
+					<div id="banner_728x90">
+						{exp:switchee variable="{freebie_1}" parse="inward"}
+							{case value="venues"}
+								{if freebie_4}
+									{embed="includes/.ads_venues" cat_id="{exp:freebie:category_id segment="4"}" size="728x90"}
+								{if:else}
+									{embed="includes/.ads_venues" cat_id="11" size="728x90"}
+								{/if}
+							{/case}
+
+							{case value="special-offers|affordable-art-fair-offer"}
+								{embed="includes/.ads" ad_group="special-offers-728x90" size="728x90"}
+							{/case}
+
+							{case value="features"}
+								{embed="includes/.ads" ad_group="features-728x90" size="728x90"}
+							{/case}
+
+							{case value="events"}
+								{embed="includes/.ads" ad_group="whats-on-728x90" size="728x90"}
+							{/case}
+
+							{case value="mylc|my-visit"}
+								{embed="includes/.ads" ad_group="mylc-728x90" size="728x90"}
+							{/case}
+
+							{case default="Yes"}
+								{if freebie_1}
+									{embed="includes/.ads" ad_group="other-728x90" size="728x90"}
+								{if:else}
+									{embed="includes/.ads" ad_group="home-728x90" size="728x90"}
+								{/if}
+							{/case}
+						{/exp:switchee}
+					</div>
+				</div>
+				<div id="navigation" class="span-24 append-bottom">
+					{exp:since_last_visit:set_cookie expire="1"}
+
+					{exp:since_last_visit:stats channel_id="3"}
+						<span id="notification_special_offers" class="notifications">{new_entry_total}</span>
+					{/exp:since_last_visit:stats}
+
+					{exp:since_last_visit:stats channel_id="11"}
+						<span id="notification_features" class="notifications">{new_entry_total}</span>
+					{/exp:since_last_visit:stats}
+					<ul>
+						<li id="list_1"><a href="/" title="Home"><span>Home</span></a>
+							<ul>
+								<li><a href="/about-us/advertise" title="Advertise">&middot; Advertise</a></li>
+								<li><a href="/about-us" title="About Us">&middot; About Us</a></li>
+								<li><a href="/about-us/contact" title="Contact Us">&middot; Contact Us</a></li>
+							</ul>
+						</li>
+						<li id="list_2"><a href="/venues/show/category/attractions" title="Attractions"><span>Attractions</span></a>
+							<ul>
+								<li><a href="/venues/show/category/attractions" title="Attractions">&middot; Attractions</a></li>
+								{exp:gwcode_categories cat_id="4" style="linear" incl_self="no"}
+									<li><a href="/venues/show/category/{cat_url_title}" title="{cat_name}">&middot; {cat_name}</a></li>
+								{/exp:gwcode_categories}
+								<li><a href="/features/show/category/attractions" title="Features">&middot; Features</a></li>
+								<li><a href="/events/show/category/attractions" title="What's On">&middot; What's On</a></li>
+							</ul>
+						</li>
+						<li id="list_3"><a href="/venues/show/category/art" title="Art"><span>Art</span></a>
+							<ul>
+								<li><a href="/venues/show/category/art" title="Art">&middot; Art</a></li>
+								{exp:gwcode_categories cat_id="5" style="linear" incl_self="no"}
+									<li><a href="/venues/show/category/{cat_url_title}" title="{cat_name}">&middot; {cat_name}</a></li>
+								{/exp:gwcode_categories}
+								<li><a href="/features/show/category/art" title="Features">&middot; Features</a></li>
+								<li><a href="/events/show/category/art" title="What's On">&middot; What's On</a></li>
+							</ul>
+						</li>
+						<li id="list_4"><a href="/venues/show/category/entertainment" title="Entertainment"><span>Entertainment</span></a>
+							<ul>
+								<li><a href="/venues/show/category/entertainment" title="Entertainment">&middot; Entertainment</a></li>
+								{exp:gwcode_categories cat_id="6" style="linear" incl_self="no"}
+									<li><a href="/venues/show/category/{cat_url_title}" title="{cat_name}">&middot; {cat_name}</a></li>
+								{/exp:gwcode_categories}
+								<li><a href="/features/show/category/entertainment" title="Features">&middot; Features</a></li>
+								<li><a href="/events/show/category/entertainment" title="What's On">&middot; What's On</a></li>
+							</ul>
+						</li>
+						<li id="list_5"><a href="/venues/show/category/families" title="Families"><span>Families</span></a>
+							<ul>
+								<li><a href="/venues/show/category/families" title="Families">&middot; Families</a></li>
+								{exp:gwcode_categories cat_id="7" style="linear" incl_self="no"}
+									<li><a href="/venues/show/category/{cat_url_title}" title="{cat_name}">&middot; {cat_name}</a></li>
+								{/exp:gwcode_categories}
+								<li><a href="/features/show/category/families" title="Features">&middot; Features</a></li>
+								<li><a href="/events/show/category/families" title="What's On">&middot; What's On</a></li>
+							</ul>
+						</li>
+						<li id="list_6"><a href="/venues/show/category/museums" title="Museums"><span>Museums</span></a>
+							<ul>
+								<li><a href="/venues/show/category/museums" title="Museums">&middot; Museums</a></li>
+								{exp:gwcode_categories cat_id="8" style="linear" incl_self="no"}
+									<li><a href="/venues/show/category/{cat_url_title}" title="{cat_name}">&middot; {cat_name}</a></li>
+								{/exp:gwcode_categories}
+								<li><a href="/features/show/category/museums" title="Features">&middot; Features</a></li>
+								<li><a href="/events/show/category/museums" title="What's On">&middot; What's On</a></li>
+							</ul>
+						</li>
+						<li id="list_7"><a href="/venues/show/category/music" title="Music"><span>Music</span></a>
+							<ul>
+								<li><a href="/venues/show/category/music" title="Music">&middot; Music</a></li>
+								{exp:gwcode_categories cat_id="9" style="linear" incl_self="no"}
+									<li><a href="/venues/show/category/{cat_url_title}" title="{cat_name}">&middot; {cat_name}</a></li>
+								{/exp:gwcode_categories}
+								<li><a href="/features/show/category/music" title="Features">&middot; Features</a></li>
+								<li><a href="/events/show/category/music" title="What's On">&middot; What's On</a></li>
+							</ul>
+						</li>
+						<li id="list_8"><a href="/venues/show/category/theatre" title="Theatre"><span>Theatre</span></a>
+							<ul>
+								<li><a href="/venues/show/category/theatre" title="Theatre">&middot; Theatre</a></li>
+								{exp:gwcode_categories cat_id="10" style="linear" incl_self="no"}
+									<li><a href="/venues/show/category/{cat_url_title}" title="{cat_name}">&middot; {cat_name}</a></li>
+								{/exp:gwcode_categories}
+								<li><a href="/features/show/category/theatre" title="Features">&middot; Features</a></li>
+								<li><a href="/events/show/category/theatre" title="What's On">&middot; What's On</a></li>
+							</ul>
+						</li>
+						<li id="list_9"><a href="/venues/show/category/venues" title="Venues"><span>Venues</span></a>
+							<ul>
+								<li><a href="/venues/show/category/venues" title="Venues">&middot; Venues</a></li>
+								{exp:gwcode_categories cat_id="11" style="linear" incl_self="no"}
+									<li><a href="/venues/show/category/{cat_url_title}" title="{cat_name}">&middot; {cat_name}</a></li>
+								{/exp:gwcode_categories}
+								<li><a href="/features/show/category/venues" title="Features">&middot; Features</a></li>
+								<li><a href="/events/show/category/venues" title="What's On">&middot; What's On</a></li>
+							</ul>
+						</li>
+						<li id="list_10"><a href="/win-one-years-free-va-membership" title="Special Offers"><span>Special Offers</span></a></li>
+						<li id="list_11"><a href="/features/show" title="Features"><span>Features</span></a></li>
+						<li id="list_12"><a href="/events/show" title="What's On"><span>What's On</span></a>
+							<ul>
+								<li><a href="/events/show/category/attractions" title="Attractions">&middot; Attractions</a></li>
+								<li><a href="/events/show/category/art" title="Art">&middot; Art</a></li>
+								<li><a href="/events/show/category/entertainment" title="Entertainment">&middot; Entertainment</a></li>
+								<li><a href="/events/show/category/families" title="Families">&middot; Families</a></li>
+								<li><a href="/events/show/category/museums" title="Museums">&middot; Museums</a></li>
+								<li><a href="/events/show/category/music" title="Music">&middot; Music</a></li>
+								<li><a href="/events/show/category/theatre" title="Theatre">&middot; Theatre</a></li>
+								<li><a href="/events/show/category/venues" title="Venues">&middot; Venues</a></li>
+							</ul>
+						</li>
+						<li id="list_13"><a href="/my-visit" title="Your Visit"><span>Your Visit</span></a></li>
+						<li id="list_14"><a href="/mylc" title="myLC"><span>myLC</span></a>
+							<ul class="right">
+								{if logged_in}
+									<li><a href="/my-visit" title="About myLC">&middot; About myLC</a></li>
+									<li><a href="/mylc/favourites" title="Favourites">&middot; Favourites</a></li>
+									<li><a href="/mylc/planner" title="Plan a Trip">&middot; Plan a Trip</a></li>
+									<li><a href="/mylc/saved-trips" title="Saved Trips">&middot; Saved Trips</a></li>
+									<li><a href="{path='LOGOUT'}" title="Logout">&middot; Logout</a></li>
+								{/if}
+
+								{if logged_out}
+									<li><a href="/my-visit" title="About myLC">&middot; About myLC</a></li>
+									<!--<li><a href="/mylc/favourites" title="Favourites">&middot; Favourites</a></li>
+									<li><a href="/mylc/planner" title="Planner">&middot; Planner</a></li>-->
+									<li><a href="/register-login" title="About myLC">&middot; Register</a></li>
+									<li><a href="/register-login" title="About myLC">&middot; Login</a></li>
+								{/if}
+							</ul>
+						</li>
+					</ul>
+				</div>

@@ -1,0 +1,5 @@
+{if embed:entry_id != ''}
+	{exp:channel:entries entry_id="{embed:entry_id}" limit="1"}
+		<a href="/special-offers/detail/{url_title}" title="Special Offer" class="relspecialoffer tooltip"></a>
+	{/exp:channel:entries}
+{/if}

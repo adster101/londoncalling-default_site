@@ -1,0 +1,68 @@
+{exp:infinite_scroll:wrapper
+	ajax_container="ajax-container"
+	embed_template_url="{homepage}venues_test/cat_ajax_embed_list" 
+	process_indicator="process_indicator"
+	next_chunk_link="morelink"
+	infinite_scroll_vars="{embed:infinite_scroll_vars}" 
+	infinite_scroll_values="{embed:infinite_scroll_values}" parse="inward"}
+
+{infinite_scroll_container_top}
+<div id="ajax-container">
+{/infinite_scroll_container_top}
+	
+
+							 
+							 
+								 {exp:channel:entries show_expired="yes" channel="{infinite_scroll_embed_channel}" show_future_entries="yes" status="open" limit="{infinite_scroll_embed_noresults}" paginate="bottom" dynamic="yes" {if infinite_scroll_embed_searchterms}search:body="{infinite_scroll_embed_searchterms}"{/if}}
+								 
+								 
+								
+								 
+							<div class="border-wrapper span-24 category-results-wrapper">
+								<div class="category-results">
+								
+									<div class="feature-list-image">
+									</div>
+									
+									<div class="span-19 last whatsonentry">
+
+										<h3 class="whatsontitle"><a href="/events_v2/{url_title}" title="{title}">{title}</a></h3>
+										
+										<p>{exp:eehive_hacksaw words="65" append="&hellip;"}{venue_description}{/exp:eehive_hacksaw}<br /><a class="readmore" href="/events_v2/{url_title}" title="Read More">Read More</a></p>
+													
+										<div class="selection-actions whatsonactions">
+									     {if '{event_prices:total_rows}' > 0}
+										 	{event_prices}
+										 		{if price_band == "Free"}<a href="/events_v2/{url_title}" title="Free Entry!" class="freeentry tooltip-cat"></a>{/if}
+										 	{/event_prices}
+										 {/if}
+										 
+										 {!-- RELATED FEATURES --}
+										 {!-- NEED TO ADD PLAYA FIELD TO VENUES --}
+									     {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
+									     <a href="/special-offers/detail/{url_title}" title="Special Offer" class="relspecialoffer tooltip-cat"></a>
+									     {/exp:playa:parents}
+	     
+									    </div>
+													
+									</div>
+								
+								</div>
+							</div>
+								 
+								 
+								
+							
+							{paginate}{exp:infinite_scroll:next_chunk_link}{if next_page}<div class="morelink"><a href="{auto_path}" class="next_chunk_link">More</a></div>{/if}{/exp:infinite_scroll:next_chunk_link}{/paginate}
+							
+							{/exp:channel:entries}
+						
+						
+						
+						
+
+{infinite_scroll_container_bottom}
+</div><!-- End of #ajax_container -->
+{/infinite_scroll_container_bottom}
+
+{/exp:infinite_scroll:wrapper}

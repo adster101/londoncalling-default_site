@@ -1,0 +1,23 @@
+{exp:channel:entries entry_id="{embed:content_id}" limit="1" dynamic="no"}
+
+<div class="about-left">
+
+{exp:channel_images:images limit="1" entry_id="{embed:content_id}"}
+
+	<img alt="{image:field:1}" src="{image:url:large}" alt="about London Calling" />
+
+
+{/exp:channel_images:images}
+
+
+</div>
+
+<div class="about-right">
+
+	<h3>{title}</h3>
+	
+	<p>{about_content}</p>
+
+</div>
+
+{/exp:channel:entries}

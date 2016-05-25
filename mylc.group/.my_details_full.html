@@ -1,0 +1,37 @@
+{embed="includes/.header" page_title="{structure:page:title}"}
+				<div class="span-15 append-bottom">
+					<p class="mylc_links"><a href="/my-visit" title="About myLC">About myLC</a> &nbsp;|&nbsp; <a href="/mylc/favourites" title="Favourites">Favourites</a> &nbsp;|&nbsp; <a href="/mylc/planner" title="Plan a Trip">Plan a Trip</a> &nbsp;|&nbsp; <a href="/mylc/my-details" title="My Details">My Details</a> &nbsp;|&nbsp; <a href="/mylc/saved-trips" title="Saved Trips">Saved Trips</a>{if logged_in} &nbsp;|&nbsp; <a href="{path='LOGOUT'}" title="Logout">Logout</a>{/if}</p>
+					<h1 class="purple_h1">myLC - My Details</h1>
+					<p>To manage your details, please edit the form below:</p>
+
+					<h3>My Profile</h3>
+
+					{exp:user:edit}
+						<div class="span-7 append-1">
+							<p>First Name:<br /><input name="first_name" value="{first_name}" /></p>
+							<p>Last Name:<br /><input name="last_name" value="{last_name}" /></p>
+							<p>Postcode:<br /><input name="postcode" value="{postcode}" /></p>
+							<p>Email:<br /><input name="email" value="{email}" /><br /><span style="font-size: 11px;">Requires your current password to be updated</span></p>
+							<p>Username:<br /><input name="username" value="{username}" /><br /><span style="font-size: 11px;">Requires your current password to be updated</span></p>
+							<p><input type="submit" value="Save" /></p>
+						</div>
+						<div class="span-7 last">
+							<p>Create a New Password?<br /><input type="password" name="password" /></p>
+							<p>Password Confirm: <br /><input type="password" name="password_confirm" /></p>
+							<p>Current Password:<br /><input type="password" name="current_password" /></p>
+						</div>
+					{/exp:user:edit}
+
+					<div class="prepend-top span-15 last">
+
+						{exp:user:delete_form}
+							<h3>Delete Account</h3>
+
+							<p>To do so, please enter your password:<br /><input type="password" name="password" /></p>
+							<p style="color: #FF0000;">WARNING! This process cannot be undone.</p>
+							<p><input type="submit" value="I understand, please delete my account" /></p>
+						{/exp:user:delete_form} 
+					</div>
+				</div>
+{embed="includes/.sidebar"}
+{embed="includes/.footer"}

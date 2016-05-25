@@ -1,0 +1,63 @@
+{exp:infinite_scroll:wrapper
+	ajax_container="ajax-container"
+	embed_template_url="{homepage}venues/cat_ajax_embed" 
+	process_indicator="process_indicator"
+	next_chunk_link="morelink"
+	infinite_scroll_vars="{embed:infinite_scroll_vars}" 
+	infinite_scroll_values="{embed:infinite_scroll_values}" parse="inward"}
+
+{infinite_scroll_container_top}
+<ul class="cat-selections" id="ajax-container">
+{/infinite_scroll_container_top}
+							 
+							{exp:channel:entries show_expired="yes" channel="{infinite_scroll_embed_channel}" show_future_entries="yes" status="open" limit="{infinite_scroll_embed_noresults}" paginate="bottom" dynamic="yes" search:title="{infinite_scroll_embed_searchterms}" search:venue_description="{infinite_scroll_embed_searchterms}" search:venue_tags="{infinite_scroll_embed_free}|{infinite_scroll_embed_specialoffer}|{infinite_scroll_embed_new}|{infinite_scroll_embed_endingsoon}|{infinite_scroll_embed_mostpopular}" category="{infinite_scroll_embed_families}|{infinite_scroll_embed_historicbuildings}|{infinite_scroll_embed_landmarks}|{infinite_scroll_embed_outdoors}|{infinite_scroll_embed_outsidelondon}"}
+							
+							
+							{if no_results}  <p>There are no entries available.</p>  {/if}
+							
+							 
+							 	{exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
+							     <li><div class="selection-container"><a href="/{if channel_short_name == "calendar_events"}event{if:else}{channel_short_name}{/if}/{url_title}"> <img src="{image:url:230x230}" width="230" height="230" alt="venue image" /></a>
+									     <div class="selection-info"><h3><a href="/{channel_short_name}/{url_title}">{title}</a></h3>
+										 {if channel_short_name == "features"}
+									     <p><a href="/{channel_short_name}/{url_title}">{exp:eehive_hacksaw}{feature_excerpt}{/exp:eehive_hacksaw}</a></p>
+									     {if:elseif channel_short_name == "calendar_events"}
+									     <p><a href="/events/{url_title}">{exp:eehive_hacksaw}{event_sub_title}{/exp:eehive_hacksaw}</a></p>
+									     {if:elseif channel_short_name == "venues"}
+									     <p><a href="/{channel_short_name}/{url_title}">{exp:eehive_hacksaw}{venue_description}{/exp:eehive_hacksaw}</a></p>
+									     {if:elseif channel_short_name == "events"}
+									     <p><a href="/event/{url_title}">{exp:eehive_hacksaw}{event_sub_title}{/exp:eehive_hacksaw}</a></p>
+									     {if:else}
+									     {/if}
+									     </div>
+								    </div>
+								     <div class="selection-actions">
+								     {if '{event_prices:total_rows}' > 0}
+									 	{event_prices}
+									 		{if price_band == "Free"}<a href="/{if channel_short_name == "calendar_events"}event{if:else}{channel_short_name}{/if}/{url_title}" title="Free Entry!" class="freeentry tooltip-cat"></a>{/if}
+									 	{/event_prices}
+									 {/if}
+								     {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
+								     <a href="/special-offers/detail/{url_title}" title="{title}" class="relspecialoffer tooltip-cat"></a>
+								     {/exp:playa:parents}
+								     
+							    </li>
+							    {/exp:channel_images:images}
+							    
+							    {if total_results < absolute_results}
+							    	
+							    	{paginate}{exp:infinite_scroll:next_chunk_link}{if next_page}<li class="morelink"><a href="{auto_path}" class="next_chunk_link">More</a></li>{/if}{/exp:infinite_scroll:next_chunk_link}{/paginate}
+							    	{/if}
+							    
+							   {/exp:channel:entries}
+							
+							
+
+{infinite_scroll_container_bottom}
+</ul><!-- End of #ajax_container -->
+{/infinite_scroll_container_bottom}
+
+
+{/exp:infinite_scroll:wrapper}
+
+

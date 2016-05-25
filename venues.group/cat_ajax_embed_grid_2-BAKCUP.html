@@ -1,0 +1,348 @@
+{exp:infinite_scroll:wrapper
+	ajax_container="ajax-container"
+	embed_template_url="{homepage}venues/cat_ajax_embed_grid_2" 
+	process_indicator="process_indicator"
+	next_chunk_link="morelink"
+	infinite_scroll_vars="{embed:infinite_scroll_vars}" 
+	infinite_scroll_values="{embed:infinite_scroll_values}" parse="inward"}
+
+
+{infinite_scroll_container_top}
+{if '{cookie:cat_view}' == "list"}
+<div id="ajax-container">
+{if:else}
+<div class="border-wrapper span-24 category-results-wrapper">
+<div class="category-results">
+<ul class="cat-selections" id="ajax-container">
+{/if}
+
+
+{if post:postmark == 'postmark'}
+
+{if:else}
+
+		{embed="venues/.priority-listings"}
+
+{/if}
+
+{/infinite_scroll_container_top}
+
+<?php
+//print_r($_POST);
+$today = date('Ymd');
+//get variables if ajax
+if(isset($_POST['ajax_pagination_values'])) {
+$ajax = explode('|',$_POST['ajax_pagination_values']);
+$noofresults = $ajax[0];
+$wherevalue = $ajax[1];
+$start_date = $ajax[2];
+$end_date = $ajax[3];
+$today = $ajax[4];
+$keywords = $ajax[5];
+$free = $ajax[6];
+$special = $ajax[7];
+$entrydate = $ajax[8];
+$todaytime = $ajax[9];
+$endingsoon = $ajax[10];
+}
+?>
+
+{exp:query paginate="bottom" limit="{infinite_scroll_embed_noofresults}" sql="
+SELECT * FROM ( 
+		SELECT exp_channel_titles.entry_id AS title_entry_id, exp_channel_titles.view_count_one AS views, exp_channel_data.entry_id AS channel_entry_id, exp_calendar_events.start_date, IF(recurs = 'n', exp_calendar_events.end_date, exp_calendar_events.last_date) AS generic_end_date, exp_calendar_events.entry_id as event_entry_id, exp_calendar_events.recurs AS recurs,exp_channel_titles.channel_id as channel_id, exp_channel_titles.entry_date as entry_date, exp_categories.cat_id AS cat_id
+			<?php if(isset($_POST['keywords']) || (isset($keywords) && $keywords != '')) { ?>
+			,
+			IF (MATCH(exp_channel_titles.title) AGAINST ('|{infinite_scroll_embed_keywords}|' IN BOOLEAN MODE), 20,
+				IF(MATCH(exp_channel_titles.title) AGAINST ('{infinite_scroll_embed_keywords}'), 10, 0)
+			)
+			AS title_weight,
+			IF (MATCH(exp_tagger.tag_name) AGAINST ('|{infinite_scroll_embed_keywords}|' IN BOOLEAN MODE), 15,
+				IF(MATCH(exp_tagger.tag_name) AGAINST ('{infinite_scroll_embed_keywords}'), 5, 0)
+			)
+			AS tag_weight
+			<?php } ?>
+		FROM exp_channel_titles
+		JOIN exp_channel_data ON exp_channel_titles.entry_id = exp_channel_data.entry_id
+		INNER JOIN exp_category_posts ON exp_category_posts.entry_id = exp_channel_titles.entry_id
+		INNER JOIN exp_categories ON exp_categories.cat_id = exp_category_posts.cat_id
+		<?php if(isset($_POST['free']) || (isset($free) && $free == 'free')) { ?>
+			INNER JOIN exp_matrix_data ON exp_matrix_data.entry_id = exp_channel_titles.entry_id AND exp_matrix_data.col_id_5 = 'Free'
+		<?php } ?>
+		LEFT JOIN exp_calendar_events ON exp_calendar_events.entry_id = exp_channel_titles.entry_id
+		LEFT JOIN exp_tagger_links ON exp_tagger_links.entry_id = exp_channel_titles.entry_id
+		LEFT JOIN exp_tagger ON exp_tagger_links.tag_id = exp_tagger.tag_id
+		WHERE (exp_categories.cat_id IN {infinite_scroll_embed_wherevalue})
+		<?php if((isset($_POST['keywords']) && $_POST['keywords'] != '') || (isset($keywords) && $keywords != '')) { ?>
+		AND (MATCH (exp_channel_titles.title) AGAINST('|{infinite_scroll_embed_keywords}|' IN BOOLEAN MODE) OR MATCH (exp_channel_titles.title) AGAINST('{infinite_scroll_embed_keywords}') OR MATCH (exp_tagger.tag_name) AGAINST ('|{infinite_scroll_embed_keywords}|' IN BOOLEAN MODE) OR MATCH (exp_tagger.tag_name) AGAINST ('{infinite_scroll_embed_keywords}'))
+		<?php } ?>
+		OR (exp_channel_titles.entry_id IS null)
+		<?php if((isset($_POST['keywords']) && $_POST['keywords'] != '') || (isset($keywords) && $keywords != '')) { ?>
+		ORDER BY title_weight+tag_weight DESC
+		<?php } else { ?> 
+		ORDER BY title_entry_id DESC		
+		<?php } ?>
+		) a 
+<?php if((isset($_POST['endingsoon']) && $_POST['endingsoon'] == 'endingsoon') || (isset($endingsoon) && $endingsoon == 'yes')) { ?>
+
+WHERE a.channel_id NOT IN ('11') AND cat_id NOT IN ('11') AND ((a.generic_end_date <= {infinite_scroll_embed_end_date} AND a.generic_end_date >= {infinite_scroll_embed_today}))
+
+<?php } elseif(isset($_POST['newdate'])) { ?>
+
+WHERE a.channel_id NOT IN ('11') AND cat_id NOT IN ('11') AND (a.entry_date >= {infinite_scroll_embed_entry_date} AND a.entry_date <= {infinite_scroll_embed_todaytotime})
+
+<?php } else { ?>
+WHERE a.channel_id NOT IN ('11') AND cat_id NOT IN ('11')
+AND a.generic_end_date <=20991231
+	AND (a.generic_end_date >= {infinite_scroll_embed_end_date} OR a.start_date <= {infinite_scroll_embed_start_date}
+	AND ((a.start_date between {infinite_scroll_embed_start_date} AND {infinite_scroll_embed_end_date}) OR (a.generic_end_date between {infinite_scroll_embed_start_date} AND {infinite_scroll_embed_end_date})))
+	OR (a.recurs IS null AND a.generic_end_date IS null AND a.start_date is NULL)
+	OR (a.recurs = 'y' AND a.generic_end_date = '0')
+<?php } ?>
+					<?php if(isset($_POST['specialoffer']) || (isset($special) && $special == 'yes')) { ?>
+					AND a.title_entry_id IN (  SELECT child_entry_id FROM exp_playa_relationships
+						JOIN exp_channel_titles ON exp_channel_titles.entry_id = exp_playa_relationships.parent_entry_id
+						WHERE parent_field_id = '87' AND exp_channel_titles.expiration_date >= unix_timestamp({infinite_scroll_embed_today})
+			)
+		
+					<?php } ?>
+GROUP BY a.title_entry_id
+<?php if(isset($_POST['keywords']) && $_POST['keywords'] != '' || (isset($keywords) && $keywords != '')) { ?>
+	ORDER BY a.title_weight+a.tag_weight DESC
+	<?php } elseif(isset($_POST['mostpopular'])) { ?>
+	   ORDER BY a.views DESC	
+	<?php } elseif((isset($_POST['endingsoon']) && $_POST['endingsoon'] == 'endingsoon') || (isset($endingsoon) && $endingsoon == 'yes')) { ?>
+		ORDER BY a.generic_end_date ASC	
+	<?php } else { ?>
+		ORDER BY title_entry_id DESC	
+	<?php } ?>
+
+"}
+{if no_results}{/if}
+{if no_results}
+<div class="error span-24" style="width:909px;">
+	<p>No events match your selections. Please try again!</p>
+</div>
+{/if}
+
+						
+						
+						{exp:channel:entries entry_id="{title_entry_id}" dynamic="no" show_expired="yes" show_future_entries="yes"}
+						
+						
+						{if '{cookie:cat_view}' == "list"}
+						
+						
+								{exp:channel_images:images entry_id="{entry_id}" cover_only="no"}
+							 	<div class="border-wrapper span-24 category-results-wrapper">
+								<div class="category-results">
+								
+									<div class="feature-list-image">
+										<a href="/{if channel_short_name == "calendar_events"}events{if:else}{channel_short_name}{/if}/{url_title}"> <img src="{image:url:170x170}" width="170" height="170" /></a>
+									</div>
+									
+									<div class="span-19 last whatsonentry">
+										
+										{if channel_short_name == "calendar_events"}
+									    <h3 class="whatsontitle {freebie_4}-title"><a href="/events/{url_title}" title="{title}">{title}</a></h3>
+									     {if:elseif channel_short_name == "venues"}
+									     <h3 class="whatsontitle {freebie_4}-title"><a href="/venues/{url_title}" title="{title}">{title}</a></h3>
+									     {if:elseif channel_short_name == "features"}
+									     <h3 class="whatsontitle {freebie_4}-title"><a href="/feautres/{url_title}" title="{title}">{title}</a></h3>
+									     {if:else}
+									     {/if}
+										
+										
+										{if channel_short_name == "calendar_events"}
+									     <p>{event_sub_title}</p>
+									     <p><a class="{freebie_4}-title readmore" href="/events/{url_title}" title="Read More">Read More</a></p>
+									     {if:elseif channel_short_name == "venues"}
+									     <p>{venue_sub_title}</p>
+									     <p><a class="{freebie_4}-title readmore" href="/venues/{url_title}" title="Read More">Read More</a></p>
+									     {if:elseif channel_short_name == "features"}
+									     <p><a class="{freebie_4}-title readmore" href="/features/{url_title}">{exp:eehive_hacksaw}{feature_sub_title}{/exp:eehive_hacksaw}</a></p>
+									     {if:else}
+									     {/if}
+										
+										 <div class="selection-actions whatsonactions">
+								     {if '{event_prices:total_rows}' > 0}
+									 	{event_prices}
+									 		{if price_band == "Free"}<a href="/{if channel_short_name == "calendar_events"}events{if:else}{channel_short_name}{/if}/{url_title}" title="Free Entry!" class="freeentry tooltip-cat"></a>{/if}
+									 	{/event_prices}
+									 {/if}
+								     {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
+								     <a href="/special-offers/detail/{url_title}" title="{title}" class="relspecialoffer tooltip"></a>
+								     {/exp:playa:parents}
+								     		
+
+													
+									</div>
+								
+								</div>
+							</div>
+							</div>
+							  {/exp:channel_images:images}
+							    
+							    
+						{if:else}
+						
+						
+							{exp:channel_images:images entry_id="{entry_id}" cover_only="no"}
+							     <li><div class="selection-container"><a class="image" href="/{if channel_short_name == "calendar_events"}events{if:else}{channel_short_name}{/if}/{url_title}"> <img src="{image:url:230x230}" width="230" height="230" /></a>
+									     <div class="selection-info"><h3><a href="/{if channel_short_name == "calendar_events"}events{if:else}{channel_short_name}{/if}/{url_title}">
+    									     
+    									     {if channel_short_name == "features"}
+                    				     	 	{if feature_home_page_title != ''}{feature_home_page_title}{if:else}{title}{/if}
+                    					     {if:elseif channel_short_name == "calendar_events"}
+                    					     	{if event_home_title != ''}{event_home_title}{if:else}{title}{/if}
+                    					     {if:elseif channel_short_name == "venues"}
+                    					     	{if venue_home_page_title != ''}{venue_home_page_title}{if:else}{title}{/if}
+                    					     {if:elseif channel_short_name == "events"}
+                    					     	{if event_home_title != ''}{event_home_title}{if:else}{title}{/if}
+                    					     {if:elseif channel_short_name == "special_offers"}
+                    						     {if so_home_page_title != ''}{so_home_page_title}{if:else}{title}{/if}
+                    					     {/if}
+    									     
+									     </a></h3>
+									     {if channel_short_name == "calendar_events"}
+									     <p><a href="/events/{url_title}">{event_sub_title}</a></p>
+									     {if:elseif channel_short_name == "venues"}
+									     <p><a href="/venues/{url_title}">{venue_sub_title}</a></p>
+									     {if:elseif channel_short_name == "features"}
+									     <p><a href="/venues/{url_title}">{exp:eehive_hacksaw}{feature_sub_title}{/exp:eehive_hacksaw}</a></p>
+									     {if:else}
+									     {/if}
+									     </div>
+								    </div>
+								     <div class="selection-actions">
+								     {if '{event_prices:total_rows}' > 0}
+									 	{event_prices}
+									 		{if price_band == "Free"}<a href="/{if channel_short_name == "calendar_events"}events{if:else}{channel_short_name}{/if}/{url_title}" title="Free Entry!" class="freeentry tooltip-cat"></a>{/if}
+									 	{/event_prices}
+									 {/if}
+								     {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="yes" status="open" limit="1" orderby="date" sort="desc"}
+								     <a href="/special-offers/detail/{url_title}" title="{title}" class="relspecialoffer tooltip-cat"></a>
+								     {/exp:playa:parents}
+								     								
+
+							    </li>
+							  {/exp:channel_images:images}
+						
+						
+						
+						{/if}
+						
+							    
+							    							    
+							{/exp:channel:entries}
+						
+						
+						{paginate}{exp:infinite_scroll:next_chunk_link}{if next_page}<li class="morelink"><a href="{auto_path}" class="next_chunk_link">More</a></li>{/if}{/exp:infinite_scroll:next_chunk_link}{/paginate}
+
+
+						
+					{/exp:query}
+							
+							
+
+{infinite_scroll_container_bottom}
+{if '{cookie:cat_view}' == "list"}
+</div>
+{if:else}
+</ul><!-- End of #ajax_container -->
+							</div>
+</div>
+{/if}
+
+{exp:query paginate="bottom" limit="1" sql="
+SELECT * FROM ( 
+		SELECT exp_channel_titles.entry_id AS title_entry_id, exp_channel_titles.view_count_one AS views, exp_channel_data.entry_id AS channel_entry_id, exp_calendar_events.start_date, IF(recurs = 'n', exp_calendar_events.end_date, exp_calendar_events.last_date) AS generic_end_date, exp_calendar_events.entry_id as event_entry_id, exp_calendar_events.recurs AS recurs,exp_channel_titles.channel_id as channel_id, exp_channel_titles.entry_date as entry_date, exp_categories.cat_id AS cat_id
+			<?php if(isset($_POST['keywords']) || (isset($keywords) && $keywords != '')) { ?>
+			,
+			IF (MATCH(exp_channel_titles.title) AGAINST ('|{infinite_scroll_embed_keywords}|' IN BOOLEAN MODE), 20,
+				IF(MATCH(exp_channel_titles.title) AGAINST ('{infinite_scroll_embed_keywords}'), 10, 0)
+			)
+			AS title_weight,
+			IF (MATCH(exp_tagger.tag_name) AGAINST ('|{infinite_scroll_embed_keywords}|' IN BOOLEAN MODE), 15,
+				IF(MATCH(exp_tagger.tag_name) AGAINST ('{infinite_scroll_embed_keywords}'), 5, 0)
+			)
+			AS tag_weight
+			<?php } ?>
+		FROM exp_channel_titles
+		JOIN exp_channel_data ON exp_channel_titles.entry_id = exp_channel_data.entry_id
+		INNER JOIN exp_category_posts ON exp_category_posts.entry_id = exp_channel_titles.entry_id
+		INNER JOIN exp_categories ON exp_categories.cat_id = exp_category_posts.cat_id
+		<?php if(isset($_POST['free']) || (isset($free) && $free == 'free')) { ?>
+			INNER JOIN exp_matrix_data ON exp_matrix_data.entry_id = exp_channel_titles.entry_id AND exp_matrix_data.col_id_5 = 'Free'
+		<?php } ?>
+		LEFT JOIN exp_calendar_events ON exp_calendar_events.entry_id = exp_channel_titles.entry_id
+		LEFT JOIN exp_tagger_links ON exp_tagger_links.entry_id = exp_channel_titles.entry_id
+		LEFT JOIN exp_tagger ON exp_tagger_links.tag_id = exp_tagger.tag_id
+		WHERE (exp_categories.cat_id IN {infinite_scroll_embed_wherevalue})
+		<?php if((isset($_POST['keywords']) && $_POST['keywords'] != '') || (isset($keywords) && $keywords != '')) { ?>
+		AND (MATCH (exp_channel_titles.title) AGAINST('|{infinite_scroll_embed_keywords}|' IN BOOLEAN MODE) OR MATCH (exp_channel_titles.title) AGAINST('{infinite_scroll_embed_keywords}') OR MATCH (exp_tagger.tag_name) AGAINST ('|{infinite_scroll_embed_keywords}|' IN BOOLEAN MODE) OR MATCH (exp_tagger.tag_name) AGAINST ('{infinite_scroll_embed_keywords}'))
+		<?php } ?>
+		AND exp_tagger_links.entry_id = exp_channel_titles.entry_id AND exp_tagger_links.entry_id = exp_channel_titles.entry_id OR (exp_channel_titles.entry_id IS null)
+		<?php if((isset($_POST['keywords']) && $_POST['keywords'] != '') || (isset($keywords) && $keywords != '')) { ?>
+		ORDER BY title_weight+tag_weight DESC
+		<?php } else { ?> 
+		ORDER BY title_entry_id DESC		
+		<?php } ?>
+		) a 
+<?php if((isset($_POST['endingsoon']) && $_POST['endingsoon'] == 'endingsoon') || (isset($endingsoon) && $endingsoon == 'yes')) { ?>
+
+WHERE a.channel_id NOT IN ('11') AND cat_id NOT IN ('11') AND ((a.generic_end_date <= {infinite_scroll_embed_end_date} AND a.generic_end_date >= {infinite_scroll_embed_today}))
+
+<?php } elseif(isset($_POST['newdate'])) { ?>
+
+WHERE a.channel_id NOT IN ('11') AND cat_id NOT IN ('11') AND (a.entry_date >= {infinite_scroll_embed_entry_date} AND a.entry_date <= {infinite_scroll_embed_todaytotime})
+
+<?php } else { ?>
+WHERE a.channel_id NOT IN ('11') AND cat_id NOT IN ('11')
+AND a.generic_end_date <=20991231
+	AND (a.generic_end_date >= {infinite_scroll_embed_end_date} OR a.start_date <= {infinite_scroll_embed_start_date}
+	AND ((a.start_date between {infinite_scroll_embed_start_date} AND {infinite_scroll_embed_end_date}) OR (a.generic_end_date between {infinite_scroll_embed_start_date} AND {infinite_scroll_embed_end_date})))
+	OR (a.recurs IS null AND a.generic_end_date IS null AND a.start_date is NULL)
+	OR (a.recurs = 'y' AND a.generic_end_date = '0')
+<?php } ?>
+					<?php if(isset($_POST['specialoffer']) || (isset($special) && $special == 'yes')) { ?>
+					AND a.title_entry_id IN (  SELECT child_entry_id FROM exp_playa_relationships
+						JOIN exp_channel_titles ON exp_channel_titles.entry_id = exp_playa_relationships.parent_entry_id
+						WHERE parent_field_id = '87' AND exp_channel_titles.expiration_date >= unix_timestamp({infinite_scroll_embed_today})
+			)
+		
+					<?php } ?>
+GROUP BY a.title_entry_id
+<?php if(isset($_POST['keywords']) && $_POST['keywords'] != '' || (isset($keywords) && $keywords != '')) { ?>
+	ORDER BY a.title_weight+a.tag_weight DESC
+	<?php } elseif(isset($_POST['mostpopular'])) { ?>
+	   ORDER BY a.views DESC	
+	<?php } else { ?>
+		ORDER BY title_entry_id DESC	
+	<?php } ?>
+
+"}
+{paginate}
+<div id="totalcount">
+{total_pages}
+</div>
+{/paginate}
+{/exp:query}
+
+<div id="plcount">
+{if post:postmark == 'postmark' || ajax}
+0
+{if:else}
+{exp:channel:entries channel="priority_listings" limit="1" show_expired="yes"}{{freebie_4}:total_children}{/exp:channel:entries}
+{/if}
+</div>
+
+
+{/infinite_scroll_container_bottom}
+
+
+{/exp:infinite_scroll:wrapper}
+
+
+					
+
+

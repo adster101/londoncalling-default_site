@@ -1,0 +1,32 @@
+{exp:switchee variable="{embed:cat_id}" parse="inward"}
+	{case value="4"}
+		{embed="includes/.ads" ad_group="attractions-{embed:size}" size="{embed:size}"}
+	{/case}
+	{case value="5"}
+		{embed="includes/.ads" ad_group="art-{embed:size}" size="{embed:size}"}
+	{/case}
+	{case value="6"}
+		{embed="includes/.ads" ad_group="entertainment-{embed:size}" size="{embed:size}"}
+	{/case}
+	{case value="7"}
+		{embed="includes/.ads" ad_group="families-{embed:size}" size="{embed:size}"}
+	{/case}
+	{case value="8"}
+		{embed="includes/.ads" ad_group="museums-{embed:size}" size="{embed:size}"}
+	{/case}
+	{case value="9"}
+		{embed="includes/.ads" ad_group="music-{embed:size}" size="{embed:size}"}
+	{/case}
+	{case value="10"}
+		{embed="includes/.ads" ad_group="theatre-{embed:size}" size="{embed:size}"}
+	{/case}
+	{case value="11"}
+		{embed="includes/.ads" ad_group="venues-{embed:size}" size="{embed:size}"}
+	{/case}
+	{case value="111"}
+		{embed="includes/.ads" ad_group="venues-{embed:size}" size="{embed:size}"}
+	{/case}
+	{case value="100"}
+		{embed="includes/.ads" ad_group="venues-{embed:size}" size="{embed:size}"}
+	{/case}
+{/exp:switchee}

@@ -1,0 +1,5 @@
+{exp:channel:entries entry_id="{embed:entry_id}"}
+	{exp:playa:children field="related_features" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" sort="desc"}
+		<a href="/features/{url_title}" title="{title}" class="features tooltip"></a>
+	{/exp:playa:children}
+{/exp:channel:entries}												

@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html
+	xml:lang="en"
+	lang="en"
+	xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+
+		<title>Venue Map</title>
+
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+		<script type="text/javascript" src="/themes/third_party/mx_google_map/mxgooglemap.js"></script>
+
+		<link media="screen, projection" rel="stylesheet" type="text/css" href="/assets/css/blueprint/v1.0/screen.css" />
+	</head>
+	<body>
+		{exp:channel:entries entry_id="{freebie_3}"}
+			{exp:switchee variable="{channel_short_name}" parse="inward"}
+				{case value="calendar_events"}
+					{if event_map}
+						{event_map:map mt_control_style="DROPDOWN_MENU" width="500px" height="500px"}
+					{if:else}
+						{exp:playa:children field="event_venue" limit="1"}
+							{venue_map:map mt_control_style="DROPDOWN_MENU" width="500px" height="500px"}
+						{/exp:playa:children}
+					{/if}
+				{/case}
+				{case value="venues"}
+					{venue_map:map mt_control_style="DROPDOWN_MENU" width="500px" height="500px"}
+				{/case}
+			{/exp:switchee}
+		{/exp:channel:entries}
+	</body>
+</html>

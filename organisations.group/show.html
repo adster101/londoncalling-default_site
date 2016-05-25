@@ -1,0 +1,5 @@
+{if '{freebie_3}' == 'category' && '{freebie_4}' != ''}
+	{embed="organisations/.show_{site_version}" cat_id="{exp:freebie:category_id segment='4'}"}
+{if:else}
+	{embed="organisations/.show_{site_version}"}
+{/if}

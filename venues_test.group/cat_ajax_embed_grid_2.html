@@ -1,0 +1,179 @@
+{exp:infinite_scroll:wrapper
+	ajax_container="ajax-container"
+	embed_template_url="{homepage}venues_v2/cat_ajax_embed_grid_2" 
+	process_indicator="process_indicator"
+	next_chunk_link="morelink"
+	infinite_scroll_vars="{embed:infinite_scroll_vars}" 
+	infinite_scroll_values="{embed:infinite_scroll_values}" parse="inward"}
+
+{infinite_scroll_container_top}
+{if freebie_5 == "list"}
+<div id="ajax-container">
+{if:else}
+<div class="border-wrapper span-24 category-results-wrapper">
+<div class="category-results">
+<ul class="cat-selections" id="ajax-container">
+{/if}
+{/infinite_scroll_container_top}
+
+{exp:query paginate="bottom" limit="1" sql="
+SELECT exp_channel_titles.entry_id AS title_entry_id, exp_channel_titles.view_count_one AS views, exp_channel_data.entry_id AS channel_entry_id, exp_categories.cat_id AS category_id, exp_category_posts.cat_id AS post_cat_id, exp_category_posts.entry_id AS cat_post_id, exp_calendar_events.start_date, exp_calendar_events.end_date, exp_calendar_events.entry_id as event_entry_id
+{infinite_scroll_embed_entryselect}
+FROM exp_channel_titles
+JOIN exp_channel_data
+ON exp_channel_titles.entry_id = exp_channel_data.entry_id
+INNER JOIN exp_category_posts
+ON exp_category_posts.entry_id = exp_channel_titles.entry_id
+INNER JOIN exp_categories
+ON exp_categories.cat_id = exp_category_posts.cat_id
+INNER JOIN exp_calendar_events
+ON exp_calendar_events.entry_id = exp_channel_titles.entry_id
+{infinite_scroll_embed_entryprice}
+WHERE {infinite_scroll_embed_wheresearch} {infinite_scroll_embed_whereoperator} {infinite_scroll_embed_wherevalue}
+{infinite_scroll_embed_keywords}
+AND exp_calendar_events.start_date >= '{infinite_scroll_embed_startdate}'
+AND exp_calendar_events.end_date <= '{infinite_scroll_embed_enddate}'
+{infinite_scroll_embed_specialoffer}
+ORDER BY {infinite_scroll_embed_orderfield} {infinite_scroll_embed_order_by}
+"}
+{paginate}
+<div id="totalcount">
+{total_pages}
+
+</div>
+{/paginate}
+{/exp:query}
+				 
+				 
+{exp:query paginate="bottom" limit="{infinite_scroll_embed_noofresults}" sql="
+SELECT exp_channel_titles.entry_id AS title_entry_id, exp_channel_titles.view_count_one AS views, exp_channel_data.entry_id AS channel_entry_id, exp_categories.cat_id AS category_id, exp_category_posts.cat_id AS post_cat_id, exp_category_posts.entry_id AS cat_post_id, exp_calendar_events.start_date, exp_calendar_events.end_date, exp_calendar_events.entry_id as event_entry_id
+FROM exp_channel_titles
+JOIN exp_channel_data
+ON exp_channel_titles.entry_id = exp_channel_data.entry_id
+INNER JOIN exp_category_posts
+ON exp_category_posts.entry_id = exp_channel_titles.entry_id
+INNER JOIN exp_categories
+ON exp_categories.cat_id = exp_category_posts.cat_id
+INNER JOIN exp_calendar_events
+ON exp_calendar_events.entry_id = exp_channel_titles.entry_id
+{infinite_scroll_embed_entryprice}
+WHERE {infinite_scroll_embed_wheresearch} {infinite_scroll_embed_whereoperator} {infinite_scroll_embed_wherevalue}
+{infinite_scroll_embed_keywords}
+AND exp_calendar_events.start_date >= '{infinite_scroll_embed_startdate}'
+AND exp_calendar_events.end_date <= '{infinite_scroll_embed_enddate}'
+{infinite_scroll_embed_specialoffer}
+ORDER BY {infinite_scroll_embed_orderfield} {infinite_scroll_embed_order_by}
+"}
+
+{if no_results}
+<li>There are no results</li>
+{/if}
+
+						
+						
+						{exp:channel:entries entry_id="{title_entry_id}" dynamic="no" show_expired="yes" show_future_entries="yes"}
+						
+						
+						{if freebie_5 == "list"}
+						
+						
+								{exp:channel_images:images entry_id="{entry_id}" cover_only="no"}
+							 	<div class="border-wrapper span-24 category-results-wrapper">
+								<div class="category-results">
+								
+									<div class="feature-list-image">
+										<a href="/{if channel_short_name == "calendar_events"}events_v2{if:else}{channel_short_name}{/if}/{url_title}"> <img src="{image:url:170x170}" width="170" height="170" /></a>
+									</div>
+									
+									<div class="span-19 last whatsonentry">
+
+										<h3 class="whatsontitle {freebie_4}-title"><a href="/events_v2/{url_title}" title="{title}">{title}</a></h3>
+										
+										{if channel_short_name == "calendar_events"}
+									     <p>{exp:eehive_hacksaw}{event_description}{/exp:eehive_hacksaw}</p>
+									     <p><a class="{freebie_4}-title readmore" href="/events_v2/{url_title}" title="Read More">Read More</a></p>
+									     {if:elseif channel_short_name == "venues"}
+									     <p>{exp:eehive_hacksaw}{venue_description}{/exp:eehive_hacksaw}</p>
+									     <p><a class="{freebie_4}-title readmore" href="/events_v2/{url_title}" title="Read More">Read More</a></p>
+									     {if:else}
+									     {/if}
+										
+										 <div class="selection-actions whatsonactions">
+								     {if '{event_prices:total_rows}' > 0}
+									 	{event_prices}
+									 		{if price_band == "Free"}<a href="/{if channel_short_name == "calendar_events"}events_v2{if:else}{channel_short_name}{/if}/{url_title}" title="Free Entry!" class="freeentry tooltip-cat"></a>{/if}
+									 	{/event_prices}
+									 {/if}
+								     {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
+								     <a href="/special-offers/detail/{url_title}" title="{title}" class="relspecialoffer tooltip-cat"></a>
+								     {/exp:playa:parents}
+                     </div>
+													
+									</div>
+								
+								</div>
+							</div>
+							  {/exp:channel_images:images}
+							    
+							    
+						{if:else}
+						
+						
+							{exp:channel_images:images entry_id="{entry_id}" cover_only="no"}
+							     <li><div class="selection-container"><a href="/{if channel_short_name == "calendar_events"}events_v2{if:else}{channel_short_name}{/if}/{url_title}"> <img src="{image:url:230x230}" width="230" height="230" /></a>
+									     <div class="selection-info"><h3><a href="/{if channel_short_name == "calendar_events"}events_v2{if:else}{channel_short_name}{/if}/{url_title}">{title}</a></h3>
+									     {if channel_short_name == "calendar_events"}
+									     <p><a href="/events_v2/{url_title}">{exp:eehive_hacksaw}{event_description}{/exp:eehive_hacksaw}</a></p>
+									     {if:elseif channel_short_name == "venues"}
+									     <p><a href="/venues_v2/{url_title}">{exp:eehive_hacksaw}{venue_description}{/exp:eehive_hacksaw}</a></p>
+									     {if:else}
+									     {/if}
+									     </div>
+								    </div>
+								     <div class="selection-actions">
+								     {if '{event_prices:total_rows}' > 0}
+									 	{event_prices}
+									 		{if price_band == "Free"}<a href="/{if channel_short_name == "calendar_events"}events_v2{if:else}{channel_short_name}{/if}/{url_title}" title="Free Entry!" class="freeentry tooltip-cat"></a>{/if}
+									 	{/event_prices}
+									 {/if}
+								     {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
+								     <a href="/special-offers/detail/{url_title}" title="{title}" class="relspecialoffer tooltip-cat"></a>
+								     {/exp:playa:parents}
+                     </div>
+							    </li>
+							  {/exp:channel_images:images}
+						
+						
+						
+						{/if}
+						
+							    
+							    							    
+							{/exp:channel:entries}
+						
+						
+						{paginate}{exp:infinite_scroll:next_chunk_link}{if next_page}<li class="morelink"><a href="{auto_path}" class="next_chunk_link">More</a></li>{/if}{/exp:infinite_scroll:next_chunk_link}{/paginate}
+						
+
+						
+					{/exp:query}
+							
+							
+
+{infinite_scroll_container_bottom}
+{if freebie_5 == "list"}
+</div>
+{if:else}
+</ul><!-- End of #ajax_container -->
+							</div>
+</div>
+{/if}
+{/infinite_scroll_container_bottom}
+
+
+{/exp:infinite_scroll:wrapper}
+
+
+					
+
+

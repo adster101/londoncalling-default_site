@@ -1,0 +1,25 @@
+{embed="includes/.header" page_title="{structure:page:title}"}
+				<div class="span-15 append-bottom">
+					<p class="mylc_links"><a href="/my-visit" title="About myLC">About myLC</a> &nbsp;|&nbsp; <a href="/mylc/favourites" title="Favourites">Favourites</a> &nbsp;|&nbsp; <a href="/mylc/planner" title="Plan a Trip">Plan a Trip</a> &nbsp;|&nbsp; <a href="/mylc/my-details" title="My Details">My Details</a> &nbsp;|&nbsp; <a href="/mylc/saved-trips" title="Saved Trips">Saved Trips</a>{if logged_in} &nbsp;|&nbsp; <a href="{path='LOGOUT'}" title="Logout">Logout</a>{/if}</p>
+					<h1 class="purple_h1">myLC - Home</h1>
+					<p>You are currently logged in to myLC. Please use the buttons below to go to your desired section.</p>
+					<div class="span-7 append-1">
+						<a href="{site_url}mylc/favourites" title="My Favourites"><img alt="My Favourites" src="/assets/images/buttons/mylc/favourites.jpg" /></a>
+					</div>
+					<div class="span-7 last">
+						<a href="{site_url}mylc/saved-trips" title="Saved Trips"><img alt="Saved Trips" src="/assets/images/buttons/mylc/saved_trips.jpg" /></a>
+					</div>
+
+					<div class="span-7 append-1">
+						<a href="{site_url}mylc/planner" title="Plan a Trip"><img alt="Plan a Trip" src="/assets/images/buttons/mylc/plan_a_trip.jpg" /></a>
+					</div>
+					<div class="span-7 last">
+						<a href="{site_url}mylc/my-details" title="My Details"><img alt="My Details" src="/assets/images/buttons/mylc/my_details.jpg" /></a>
+					</div>
+
+					<div class="span-7 append-8 last">
+						<a href="{path='LOGOUT'}" title="Logout"><img alt="Logout" src="/assets/images/buttons/mylc/logout.jpg" /></a>
+					</div>
+				</div>
+{embed="includes/.sidebar"}
+{embed="includes/.footer"}

@@ -1,0 +1,22 @@
+{embed="statistics/.header"}
+			<div class="span-24 prepend-top append-bottom">
+				<h1>Slideshows Report</h1>
+				<hr />
+
+				<h2><a id="homepage-slideshow"></a>Homepage Slideshow</h2>
+				{embed="statistics/.slideshows" category="78"}
+				<hr />
+
+				<h2><a id="cat-slideshow"></a>Category & Subcategory Slideshows</h2>
+				{exp:gwcode_categories group_id="2" style="linear"}
+					{if '{depth}' == '1'}
+						<h3 class="prepend-1"><strong>{cat_name}</strong></h3>
+						{embed="statistics/.slideshows" category="81&{cat_id}"}
+					{if:else}
+						<h4 class="prepend-2"><strong>{cat_name}</strong></h4>
+						{embed="statistics/.slideshows" category="82&{cat_id}"}
+					{/if}
+				{/exp:gwcode_categories}
+				<hr />
+			</div>
+{embed="statistics/.footer"}

@@ -1,0 +1,83 @@
+{embed="includes/.header" seo_plugin="yes"}
+
+
+<div id="homeheader" class="span-24 fixed-header">
+
+
+{exp:channel:entries entry_id="3735"}
+
+
+<div class="border-wrapper fullimage">
+
+{embed="pages/.weekend-image"}
+
+</div>
+
+
+{!-- Weekend --}
+
+
+{embed="pages/.weekend-copy"}
+
+<div class="border-wrapper span-24 category-results-wrapper">
+
+<div class="category-results">
+
+{embed="pages/.weekend-title"}
+
+<ul class="cat-selections" id="ajax-container">
+		{exp:playa:children field="your_weekend"}
+			{exp:channel_images:images entry_id="{entry_id}" cover_only="no"}
+							     <li><div class="selection-container"><a class="image" href="/{if channel_short_name == "calendar_events"}events{if:else}{channel_short_name}{/if}/{url_title}"> <img src="{image:url:230x230}" width="230" height="230" alt="weekend image" /></a>
+									     <div class="selection-info"><h3><a href="/{if channel_short_name == "calendar_events"}events{if:else}{channel_short_name}{/if}/{url_title}">
+    									     
+    									     {if channel_short_name == "features"}
+                    				     	 	{if feature_home_page_title != ''}{feature_home_page_title}{if:else}{title}{/if}
+                    					     {if:elseif channel_short_name == "calendar_events"}
+                    					     	{if event_home_title != ''}{event_home_title}{if:else}{title}{/if}
+                    					     {if:elseif channel_short_name == "venues"}
+                    					     	{if venue_home_page_title != ''}{venue_home_page_title}{if:else}{title}{/if}
+                    					     {if:elseif channel_short_name == "events"}
+                    					     	{if event_home_title != ''}{event_home_title}{if:else}{title}{/if}
+                    					     {if:elseif channel_short_name == "special_offers"}
+                    						     {if so_home_page_title != ''}{so_home_page_title}{if:else}{title}{/if}
+                    					     {/if}
+    									     
+									     </a></h3>
+									     {if channel_short_name == "calendar_events"}
+									     <p><a href="/events/{url_title}">{event_sub_title}</a></p>
+									     {if:elseif channel_short_name == "venues"}
+									     <p><a href="/venues/{url_title}">{venue_sub_title}</a></p>
+									     {if:elseif channel_short_name == "features"}
+									     <p><a href="/venues/{url_title}">{exp:eehive_hacksaw}{feature_sub_title}{/exp:eehive_hacksaw}</a></p>
+									     {if:else}
+									     {/if}
+									     </div>
+								    </div>
+								     <div class="selection-actions">
+								     {if '{event_prices:total_rows}' > 0}
+									 	{event_prices}
+									 		{if price_band == "Free"}<a href="/{if channel_short_name == "calendar_events"}events{if:else}{channel_short_name}{/if}/{url_title}" title="Free Entry!" class="freeentry tooltip-cat"></a>{/if}
+									 	{/event_prices}
+									 {/if}
+									 
+									 {embed="pages/.weekend-features" entry_id="{entry_id}"}
+								     
+									 			
+								     {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="yes" status="open" limit="1" orderby="date" sort="desc"}
+								     <a href="/special-offers/detail/{url_title}" title="Special Offer" class="relspecialoffer tooltip"></a>
+								     {/exp:playa:parents}
+					
+							    </li>
+							  {/exp:channel_images:images}
+		{/exp:playa:children}
+	</ul>
+	</div>
+</div>
+
+{/exp:channel:entries}
+
+
+<a class="your-weekend-subscribe" href="/newsletter"></a>
+
+{embed="includes/.footer"}

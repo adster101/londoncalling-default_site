@@ -1,0 +1,7 @@
+{exp:cat_info category_id="{embed:cat_id}"}
+	{if cat_info_parent_category_id == '0'}
+		{embed="includes/.ad_venues_cat" cat_id="{embed:cat_id}" size="{embed:size}"}
+	{if:else}
+		{embed="includes/.ad_venues_cat" cat_id="{cat_info_parent_category_id}" size="{embed:size}"}
+	{/if}
+{/exp:cat_info}

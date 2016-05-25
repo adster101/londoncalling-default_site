@@ -1,0 +1,183 @@
+{embed="includes/.header" page_title="{exp:channel:entries channel="organisations" limit="1" track_views="one"}{title}{/exp:channel:entries}" seo_plugin="yes"}
+				<div class="span-15 append-bottom">
+					<div class="span-8">
+						<p class="breadcrumbs"><a href="{site_url}" title="Home">Home</a> &raquo; <a href="{site_url}organisations/show" title="Organisations">Organisations</a> &raquo; {exp:channel:entries channel="organisations" limit="1"}{title}{/exp:channel:entries}</p>
+						<h2 class="purple_h2">{exp:channel:entries channel="organisations" limit="1"}{title}{/exp:channel:entries}</h2>
+					</div>
+					<div class="span-7 last" style="text-align: right;">&nbsp;</div>
+
+					{exp:channel:entries channel="organisations" limit="1"}
+						<div class="span-8 append-bottom" style="position: relative;">
+							{exp:channel_images:images entry_id="{entry_id}"}
+							{if image:total > 1}
+							<span style="display: block; height: 27px; width: 30px; background: url('/images/corner-gallery-bubbles.png') no-repeat 0 0; color: #FFFFFF; padding: 0; position: absolute; right: 5px; top: 5px; font-size: 10px;"><a class="venue_image_gallery" href="#" style="display: block; height: 22px; width: 30px; padding: 5px 0 0 0; text-align: center;">{image:total}</a></span>
+							{/if}
+							{/exp:channel_images:images}
+
+							{exp:channel_images:images entry_id="{entry_id}" limit="1"}
+								<a rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}"><img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}" height="252" src="{image:url:thumbnail_image}" width="310" /></a>
+							{/exp:channel_images:images}
+
+							<div style="display: none;">
+								{exp:channel_images:images entry_id="{entry_id}" offset="1"}
+									<a rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}">{image:url:gallery_image}</a>
+								{/exp:channel_images:images}
+							</div>
+						</div>
+					{/exp:channel:entries}
+					<div class="span-7 append-bottom last">
+						{exp:channel:entries channel="organisations" limit="1"}
+							{venue_map:map mt_control_style="DROPDOWN_MENU" width="270px" height="252px"}
+						{/exp:channel:entries}
+					</div>
+
+					<div class="span-8 append-bottom address">
+						{exp:channel:entries channel="organisations" limit="1"}
+							<p>
+								<strong>Address</strong><br />{venue_address_line_1}<br />
+
+								{if "{venue_address_line_2}" != ""}
+									{venue_address_line_2}<br />
+								{/if}
+
+								{if "{venue_address_line_3}" != ""}
+									{venue_address_line_3}<br />
+								{/if}
+
+								{venue_town_city}<br />{venue_postcode}
+							</p>
+
+							{if "{venue_telephone}" != "" OR "{venue_email_address}" != "" OR "{venue_url}" != "" OR "{venue_book_tickets_url}" != ""}
+								<p>
+									{if "{venue_telephone}" != ""}
+										<strong>Telephone</strong><br />{venue_telephone}<br />
+									{/if}
+
+									{if "{venue_email_address}" != ""}
+										<strong>Email Address</strong><br />{exp:md_spam_me_not email="{venue_email_address}" title="Click here to email this organisation" text="Click here to email this organisation"}<br />
+									{/if}
+
+									{if "{venue_url}" != ""}
+										<strong>Website</strong><br /><a href="{venue_url}" title="Click here to visit their website" target="_blank">Click here to visit their website</a><br />
+									{/if}
+
+									{if "{venue_book_tickets_url}" != ""}
+										<strong>Book Tickets</strong><br /><a href="{venue_book_tickets_url}" title="Click here to book tickets" target="_blank">Click here to book tickets</a><br />
+									{/if}
+								</p>
+							{/if}
+						{/exp:channel:entries}
+					</div>
+					<div id="venue_buttons" class="span-7 append-bottom last" style="text-align: center;">
+						{exp:channel:entries channel="organisations" limit="1"}
+							<a id="venue_image_gallery" href="#" title="Image Gallery"><img class="hover" alt="Image Gallery" src="/assets/images/buttons/image_gallery.png" /></a>
+							<a href="#whats-on" title="Related Events"><img class="hover" alt="What's On" src="/assets/images/buttons/related_events.png" /></a>
+							{exp:channel_videos:videos entry_id="{entry_id}"}
+								{if '{video:count}' == '1'}
+									<a id="launch_video_gallery" href="#" title="Video Gallery"><img class="hover" alt="Video Gallery" src="/assets/images/buttons/video_gallery.png" /></a>
+								{/if}
+							{/exp:channel_videos:videos}
+
+							<div style="display: none;">
+								{exp:channel_videos:videos entry_id="{entry_id}"}
+									{if '{video:service}' == 'youtube'}
+										<a rel="venue_video_gallery" href="http://www.youtube.com/v/{video:service_id}" title="{video:title}"></a>
+									{if:else}
+										<a rel="venue_video_gallery" href="http://player.vimeo.com/video/{video:service_id}" title="{video:title}"></a>
+									{/if}
+								{/exp:channel_videos:videos}
+							</div>
+
+							{if '{venue_book_tickets_url}' != ''}
+								<a href="{venue_book_tickets_url}" title="Book Tickets" target="_blank"><img class="hover" alt="Book Tickets" src="/assets/images/buttons/book_tickets.png" /></a>
+							{/if}
+
+							{if '{venue_brochure}' != ''}
+								<a href="{venue_brochure}" title="Download Brochure"><img class="hover" alt="Download Brochure" src="/assets/images/buttons/download_pdf.png" /></a>
+							{/if}
+						{/exp:channel:entries}
+					</div>
+					
+					<div class="span-15 append-bottom last content_separator">
+						{exp:channel:entries channel="organisations" limit="1"}
+							<p>{venue_description}</p>
+						{/exp:channel:entries}
+					</div>
+
+					{exp:channel:entries channel="organisations" limit="1"}
+						<div id="whats-on" class="span-15 append-bottom last content_separator">
+							<h3>Related Events</h3>
+							{if '{exp:playa:parent_ids field="event_venue"}' == ''}
+								<p>There are currently no events listed for this venue.</p>
+							{if:else}
+								{embed="venues/.index_full_embed_whats_on" event_ids="{exp:playa:parent_ids field="event_venue"}"}
+							{/if}
+						</div>
+					{/exp:channel:entries}
+
+					{!--
+					{exp:channel:entries channel="venues" limit="1"}
+					{if '{exp:playa:parent_ids field="feature_review" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}' != ''}
+						<div id="recommendations" class="span-15 append-bottom last content_separator">
+							<h3>Recommendations</h3>
+
+								{if '{exp:playa:parent_ids field="feature_review" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}' == ''}
+									<p>There are currently no recommendations for this venue.</p>
+								{if:else}
+									{exp:playa:parents field="feature_review" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
+										{if '{feature_review_rating}' != ''}
+											<div class="reviews_ratings_left">
+												<ul class="star_rating">
+													<li style="width: {feature_review_rating}16{/feature_review_rating}px;"><span>{feature_review_rating}/{feature_review_rating:scale}</span></li>
+												</ul>
+											</div>
+											<div class="reviews_ratings_right">
+												<p><a class="purple_link" href="/features/{url_title}" title="{title}" style="text-transform: none;">{title}</a> by {author}</p>
+											</div>
+											<div class="reviews_ratings_left">
+												<p><img alt="{author}" height="80" src="{exp:ce_gravatar:single email='{email}'}" width="80" /></p>
+											</div>
+											<div class="reviews_ratings_right">
+												<p>{exp:eehive_hacksaw words="45" append="&hellip;" allow="<a>"}{feature_body}{/exp:eehive_hacksaw} <a class="purple_link" href="/features/{url_title}" title="Read More">Read More</a></p>
+											</div>
+										{if:else}
+											<div class="reviews_ratings_left">
+												<p><img alt="{author}" height="80" src="{exp:ce_gravatar:single email='{email}'}" width="80" /></p>
+											</div>
+											<div class="reviews_ratings_right">
+												<p><a class="purple_link" href="/features/{url_title}" title="{title}" style="text-transform: none;">{title}</a> by {author}<br />{exp:eehive_hacksaw words="45" append="&hellip;" allow="<a>"}{feature_body}{/exp:eehive_hacksaw} <a class="purple_link" href="/features/{url_title}" title="Read More">Read More</a></p>
+											</div>
+										{/if}
+									{/exp:playa:parents}
+								{/if}
+						</div>
+					{/if}
+					{/exp:channel:entries}
+					--}
+
+					<div class="span-15 append-bottom last related">
+						<p class="related_heading">You may also be interested in...</p>
+
+						<div class="related_container">
+							{exp:channel:entries channel="organisations" limit="1"}
+								{if '{exp:playa:child_ids field="venue_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="4" orderby="date" sort="desc"}' == ''}
+									<p>There are currently no related Venues/Events/Organisations.</p>
+								{if:else}
+									{exp:playa:children field="venue_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="4" orderby="date" sort="desc"}
+										{exp:channel_images:images cover_only="yes" entry_id="{entry_id}"}
+											<div class="venue_related">
+												{if '{channel_short_name}' == 'calendar_events'}
+													<p><a href="/events/{url_title}" title="{title}"><img alt="{title}" src="{exp:ed_imageresizer image='{image:url:thumbnail_image}' maxWidth='110' href_only='yes'}" width="110" /></a><br /><a href="/events/{url_title}" title="{title}">{title}</a></p>
+												{if:else}
+													<p><a href="/{channel_short_name}/{url_title}" title="{title}"><img alt="{title}" src="{exp:ed_imageresizer image='{image:url:thumbnail_image}' maxWidth='110' href_only='yes'}" width="110" /></a><br /><a href="/{channel_short_name}/{url_title}" title="{title}">{title}</a></p>
+												{/if}
+											</div>
+										{/exp:channel_images:images}
+									{/exp:playa:children}
+								{/if}
+							{/exp:channel:entries}
+						</div>
+					</div>
+				</div>
+{embed="includes/.sidebar"}
+{embed="includes/.footer"}

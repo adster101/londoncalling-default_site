@@ -1,0 +1,26 @@
+<?php
+$start_time = $this->EE->localize->decode_date('%Y-%m-%d %H:%i', $this->EE->localize->now - 172800);
+?>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.co.uk/schemas/sitemap-news/0.9"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+       http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
+       http://www.google.co.uk/schemas/sitemap-news/0.9
+       http://www.google.co.uk/schemas/sitemap-news/0.9/sitemap-news.xsd">
+{exp:channel:entries channel="features" sort="desc" start_on="<?php echo $start_time; ?>" dynamic="off"}
+  <url>
+    <loc>{path=}features/{url_title}</loc>
+    <news:news>
+      <news:publication>
+        <news:name>London Calling</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:title>{title}</news:title>
+      <news:publication_date>{exp:stats}{entry_date format="{DATE_W3C}"}{/exp:stats}</news:publication_date>
+      <news:keywords>{google_news_keywords}</news:keywords>
+    </news:news>
+  </url>
+{/exp:channel:entries}
+</urlset> 

@@ -1,0 +1,289 @@
+{if '{freebie_3}' == 'category' && '{freebie_4}' != ''}
+	{embed="includes_v2/.header" page_title="Venues in London &mdash; {exp:freebie:category_name segment='4'}"}
+{if:else}
+	{embed="includes_v2/.header" page_title="Venues in London"}
+{/if}
+				<div class="span-24 append-bottom category">
+				
+				<h1 class="header-{freebie_4}">{if freebie_4 == 'arts'}{exp:low_replace find='s' replace=''}{freebie_4}{/exp:low_replace}{if:else}{freebie_4}{/if}</h1>
+				
+				<div class="gridlist">
+					<a class="grid-icon-{freebie_4} tooltip-cat" href="{homepage}venues_v2/show/category/{freebie_4}" title="Grid Format"></a><a class="list-icon-{freebie_4} tooltip-cat" href="{homepage}venues_v2/show/category/{freebie_4}/list" title="List Format"></a>
+				</div>
+				
+				<h2 id="totalresult"></h2>
+				
+					{if '{freebie_3}' == 'category' && '{freebie_4}' != ''}
+						
+						<div id="category-search" class="span-24 category-search-{freebie_4}">
+						
+						<form method="post" action="{current_url}" id="catfilter">
+						
+							<div class="search-options">
+								
+								
+
+								<h3>Tailor your results - <span>{freebie_4}</span></h3> <input type="text" name="keywords" id="keywords" placeholder="Keywords" class="keywords" {if post:keywords}value="{post:keywords}"{/if} /><input type="text" name="startdate" id="startdate" placeholder="Start Date" class="date datepicker" /><input type="text" name="enddate" id="enddate" placeholder="End Date" class="date datepicker" />
+								
+								<div class="checkboxoptions">
+								
+									<div class="categoryspec">								
+									
+									{if freebie_4 == 'attractions'}
+									
+										<input type="checkbox" name="subcat[]" id="families" value="13"  <?php if (in_array("13", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="families">Families</label>
+										<input type="checkbox" name="subcat[]" id="historicbuildings" value="15" <?php if (in_array("15", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="historicbuildings">Historic Buildings</label>
+										<input type="checkbox" name="subcat[]" id="landmarks" value="14" <?php if (in_array("14", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="landmarks">Landmarks</label>
+										<input type="checkbox" name="subcat[]" id="outdoors" value="12" <?php if (in_array("12", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="outdoors">Outdoors</label>
+										<input type="checkbox" name="subcat[]" id="outsidelondon" value="17" <?php if (in_array("17", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="outsidelondon">Out of London</label>
+									
+									
+									{if:elseif freebie_4 == 'art'}
+									
+										<input type="checkbox" name="subcat[]" id="designfashion" value="23" <?php if (in_array("23", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="designfashion">Design & Fashion</label>
+										<input type="checkbox" name="subcat[]" id="etw" value="24" <?php if (in_array("24", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="etw">Event, Talks &amp; Workshops</label>
+										<input type="checkbox" name="subcat[]" id="ff" value="25" <?php if (in_array("25", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="ff">Fairs &amp; Festivals</label>
+										<input type="checkbox" name="subcat[]" id="photography" value="22" <?php if (in_array("22", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="photography">Photography</label>
+										<input type="checkbox" name="subcat[]" id="visualart" value="21" <?php if (in_array("21", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="visualart">Visual Art</label>
+										<input type="checkbox" name="subcat[]" id="outsidelondon" value="27" <?php if (in_array("27", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="outsidelondon">Out of London</label>
+										
+									{if:elseif freebie_4 == 'entertainment'}
+									
+										<input type="checkbox" name="subcat[]" id="comedy" value="29" <?php if (in_array("29", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="comedy">Comedy</label>
+										<input type="checkbox" name="subcat[]" id="ff" value="33" <?php if (in_array("33", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="ff">Fairs &amp; Festivals</label>
+										<input type="checkbox" name="subcat[]" id="film" value="31" <?php if (in_array("31", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="film">Film</label>
+										<input type="checkbox" name="subcat[]" id="music" value="30" <?php if (in_array("30", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="music">Music</label>
+										<input type="checkbox" name="subcat[]" id="theatre" value="32" <?php if (in_array("32", $_POST['subcat'])) {echo 'checked="checked"';}?>/><label for="theatre">Theatre</label>
+										<input type="checkbox" name="subcat[]" id="outsidelondon" value="34" <?php if (in_array("34", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="outsidelondon">Out of London</label>
+										
+									{if:elseif freebie_4 == 'families'}
+									
+										<input type="checkbox" name="subcat[]" id="etw" value="" /><label for="etw">Event, Talks &amp; Workshops</label>
+										<input type="checkbox" name="subcat[]" id="freeentry" value="37" /><label for="freeentry">Free Entry</label>
+										<input type="checkbox" name="subcat[]" id="museumgalleries" value="36" /><label for="museumgalleries">Museum &amp; Galleries</label>
+										<input type="checkbox" name="subcat[]" id="theatre" value="39" /><label for="theatre">Theatre</label>
+										<input type="checkbox" name="subcat[]" id="outsidelondon" value="41" /><label for="outsidelondon">Out of London</label>
+										
+									{if:elseif freebie_4 == 'museums'}
+									
+										<input type="checkbox" name="subcat[]" id="artdesign" value="45" <?php if (in_array("45", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="artdesign">Art &amp; Design</label>
+										<input type="checkbox" name="subcat[]" id="etw" value="50" <?php if (in_array("50", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="etw">Event, Talks &amp; Workshops</label>
+										<input type="checkbox" name="subcat[]" id="ff" value="46" <?php if (in_array("46", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="ff">Family Friendly</label>
+										<input type="checkbox" name="subcat[]" id="freeentry" value="47" <?php if (in_array("47", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="freeentry">Free Entry</label>
+										<input type="checkbox" name="subcat[]" id="heritageculture" value="43" <?php if (in_array("43", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="heritageculture">Heritage &amp; Culture</label>
+										<input type="checkbox" name="subcat[]" id="science" value="44" <?php if (in_array("44", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="science">Science</label>
+										<input type="checkbox" name="subcat[]" id="outsidelondon" value="51" <?php if (in_array("51", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="outsidelondon">Out of London</label>
+										
+									{if:elseif freebie_4 == 'music'}
+									
+										<input type="checkbox" name="subcat[]" id="classicopera" value="53" /<?php if (in_array("53", $_POST['subcat'])) {echo 'checked="checked"';}?> ><label for="classicopera">Classical &amp; Opera</label>
+										<input type="checkbox" name="subcat[]" id="festivals" value="57" <?php if (in_array("57", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="festivals">Festivals</label>
+										<input type="checkbox" name="subcat[]" id="jazz" value="86" <?php if (in_array("86", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="jazz">Jazz</label>
+										<input type="checkbox" name="subcat[]" id="popular" value="54" <?php if (in_array("54", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="popular">Popular &amp; Comtemporary</label>
+										<input type="checkbox" name="subcat[]" id="outsidelondon" value="58" <?php if (in_array("58", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="outsidelondon">Out of London</label>
+										
+									{if:elseif freebie_4 == 'theatre'}
+									
+										<input type="checkbox" name="subcat[]" id="cabaret" value="62" <?php if (in_array("62", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="cabaret">Cabaret / Circus</label>
+										<input type="checkbox" name="subcat[]" id="comedy" value="" <?php if (in_array("", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="comedy">Comedy</label>
+										<input type="checkbox" name="subcat[]" id="dance" value="60" <?php if (in_array("60", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="dance">Dance &amp; Ballet</label>
+										<input type="checkbox" name="subcat[]" id="drama" value="" <?php if (in_array("", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="drama">Drama</label>
+										<input type="checkbox" name="subcat[]" id="families" value="64" <?php if (in_array("64", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="families">Families &amp; Children</label>
+										<input type="checkbox" name="subcat[]" id="fringe" value="67" <?php if (in_array("67", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="fringe">Fringe</label>
+										<input type="checkbox" name="subcat[]" id="musicals" value="66" <?php if (in_array("66", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="musicals">Musicals</label>
+										<input type="checkbox" name="subcat[]" id="offwestend" value="" <?php if (in_array("", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="offwestend">Off-West End</label>
+										<input type="checkbox" name="subcat[]" id="opera" value="" <?php if (in_array("", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="opera">Opera</label>
+										<input type="checkbox" name="subcat[]" id="westend" value="65" <?php if (in_array("65", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="westend">West End Stage</label>
+										<input type="checkbox" name="subcat[]" id="outsidelondon" value="70" <?php if (in_array("70", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="outsidelondon">Out of London</label>
+									
+									{if:elseif freebie_4 == 'festivals'}
+									
+										<input type="checkbox" name="subcat[]" id="music" value="57" <?php if (in_array("57", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="music">Music</label>
+										<input type="checkbox" name="subcat[]" id="theatre" value="63" <?php if (in_array("63", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="theatre">Theatre</label>
+										<input type="checkbox" name="subcat[]" id="art" value="25" <?php if (in_array("25", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="art">Art</label>
+										<input type="checkbox" name="subcat[]" id="literature" value="68" <?php if (in_array("68", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="literature">Literature</label>
+										<input type="checkbox" name="subcat[]" id="dance" value="" <?php if (in_array("", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="dance">Dance</label>
+										<input type="checkbox" name="subcat[]" id="food" value="" <?php if (in_array("", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="food">Food and Drink</label>
+										<input type="checkbox" name="subcat[]" id="families" value="" <?php if (in_array("", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="families">Families</label>
+										<input type="checkbox" name="subcat[]" id="film" value="31" <?php if (in_array("31", $_POST['subcat'])) {echo 'checked="checked"';}?> /><label for="film">Film</label>
+									{/if}
+									
+									</div>
+									
+									<div class="setcheck">
+									
+										<div class="setcheck-checkboxes">
+									
+											<input type="checkbox" name="free" id="free" value="free" {if post:free == 'free'}checked="checked"{/if} /><label for="free">FREE</label>
+											<input type="checkbox" name="specialoffer" id="specialoffer" value="specialoffer" {if post:specialoffer == 'specialoffer'}checked="checked"{/if} /><label for="specialoffer">Special Offers</label>
+											<input type="checkbox" name="newdate" id="newdate" value="newdate" {if post:newdate == 'newdate'}checked="checked"{/if} /><label for="newdate">New</label>
+											<input type="checkbox" name="endingsoon" id="endingsoon" value="endingsoon" {if post:endingsoon == 'endingsoon'}checked="checked"{/if} /><label for="endingsoon">Ending Soon</label>
+											<input type="checkbox" name="mostpopular" id="mostpopular" value="mostpopular" {if post:mostpopular == 'mostpopular'}checked="checked"{/if} /><label for="mostpopular">Most Popular</label>
+											
+										</div>
+										
+									</div>
+								
+								
+								</div>
+								
+							
+								
+							</div>
+							<input type="hidden" id="noresults" name="noresults" value="{if post:noresults}{post:noresults}{/if}" />
+							<input type="submit" id="refinecatresults" value="Refine Results" name="refinecatresults" />
+								</form>
+										<span class="resultsarrow"></span>	
+										
+								
+							
+							<div class="category-emailbox emailbox-{freebie_4}">
+								
+								<h2>Sign up FREE and be inspired</h2>
+								<p>We pride ourselves on finding inspirational places to go in London. We would love to share these with your via our e-newsletter.</p>
+								
+								<input type="text" placeholder="First name" name="firstname" id="firstname" />
+								<input type="text" placeholder="Email address" name="emailaddress" id="emailaddress" />
+								<a href="/assets/php/email-newsletter.php">Submit</a>
+							
+							</div>
+						
+						</div>
+								
+						<div id="cat-results">
+						
+						<img src="/assets/images/v2/template/refine-results-text.png" alt="Refine results" />
+						
+							<select id="noresultsselect" name="noresults">
+								<option value="" disabled="disabled" selected="selected">Results on Show</option>
+								<option value="8" <?php if($_POST['noresults'] == "8") { echo 'selected="selected"';}?>>8</option>
+								<option value="16" {if post:noresults == "16"}selected="selected"{/if}>16</option>
+								<option value="32" {if post:noresults == "32"}selected="selected"{/if}>32</option>
+								<option value="64" {if post:noresults == "64"}selected="selected"{/if}>64</option>	
+								<option value="96" {if post:noresults == "96"}selected="selected"{/if}>96</option>
+							</select>
+						<script type="text/javascript">
+							$('#noresultsselect').change(function(e) {
+								$('#noresults').val($('#noresultsselect').val());
+								$('#catfilter').submit();
+							})
+						</script>
+						
+						</div>
+						
+					
+					<?php
+					
+					//print_r($_POST);
+					// Change dates from dd/mm/yy to yyymmdd
+					
+					if(isset($_POST['newdate']) && $_POST['newdate'] != '' && $_POST['startdate'] == '') {
+						$pastdate = strtotime('-5 days'); // last 5 days
+						$startdate = date('Ymd',$pastdate);
+						
+					} elseif($_POST['startdate'] && $_POST['startdate'] != '') {
+						$startdate = explode('/',$_POST['startdate']);
+						$startdate = $startdate[2].$startdate[1].$startdate[0];
+					} else {
+						$startdate = '19700101';
+					}
+					
+					if(isset($_POST['endingsoon']) && $_POST['endingsoon'] != '' && $_POST['endate'] == '') {
+						$futuredate = strtotime('+5 days'); // 5 days from today
+						$enddate = date('Ymd',$futuredate);
+					} elseif($_POST['enddate'] && $_POST['enddate'] != '') {
+							$enddate = explode('/',$_POST['enddate']);
+							$enddate = $enddate[2].$enddate[1].$enddate[0];
+					} else {
+						$enddate = '20991231';
+					}
+					
+					// Order direction
+					$orderby = '';
+					
+					// If Most Popular
+					
+					if(isset($_POST['mostpopular']) && $_POST['mostpopular'] !== '') {
+						
+						$orderby = 'views';
+						$orderdir = 'DESC';
+					} else {
+						$orderby = 'title_entry_id'; // Default is channel entry ID desc
+						$orderdir = 'DESC';
+					}
+					
+					?>
+					
+					
+					<?php
+					if($_POST['subcat'] && $_POST['subcat'] != '') {
+					$subcats = '';
+					$subcats = implode(',',$_POST['subcat']);
+					
+					
+					?>
+						
+						{embed="venues_v2/cat_ajax_embed_grid" noofresults="{if post:noresults}{post:noresults}{if:else}8{/if}" wheresearch="exp_categories.cat_id" whereoperator="IN" wherevalue="(<?php echo $subcats; ?>)" startdate="<?php echo $startdate;?>" enddate="<?php echo $enddate;?>" {if post:keywords}keywords="AND (exp_channel_titles.title LIKE '%{post:keywords}%' OR exp_channel_data.field_id_29 LIKE '%{post:keywords}%')"{/if} order_is="<?php echo $orderdir; ?>" orderfield="<?php echo $orderby; ?>" {if post:free}entryprice="INNER JOIN exp_matrix_data
+ON exp_matrix_data.entry_id = exp_channel_titles.entry_id AND exp_matrix_data.col_id_5 = 'Free'"{/if} {if post:specialoffer}specialoffer="AND exp_channel_titles.entry_id IN ( SELECT child_entry_id FROM exp_playa_relationships WHERE parent_field_id = '87')"{/if}
+}
+					
+					<?php } else { ?>
+					
+						{if freebie_4 == "attractions"}
+					
+						{embed="venues_v2/cat_ajax_embed_grid" noofresults="{if post:noresults}{post:noresults}{if:else}8{/if}" wheresearch="exp_categories.cat_id" whereoperator="=" wherevalue="4" startdate="<?php echo $startdate;?>" enddate="<?php echo $enddate;?>" {if post:keywords}keywords="AND (exp_channel_titles.title LIKE '%{post:keywords}%' OR exp_channel_data.field_id_29 LIKE '%{post:keywords}%')"{/if} order_is="<?php echo $orderdir; ?>" orderfield="<?php echo $orderby; ?>" {if post:free}entryprice="INNER JOIN exp_matrix_data
+ON exp_matrix_data.entry_id = exp_channel_titles.entry_id AND exp_matrix_data.col_id_5 = 'Free'"{/if}
+{if post:specialoffer}specialoffer="AND exp_channel_titles.entry_id IN ( SELECT child_entry_id FROM exp_playa_relationships WHERE parent_field_id = '87')"{/if}
+}
+						
+						{if:elseif freebie_4 == "art"}
+						
+						{embed="venues_v2/cat_ajax_embed_grid" noofresults="{if post:noresults}{post:noresults}{if:else}8{/if}" wheresearch="exp_categories.cat_id" whereoperator="=" wherevalue="5" startdate="<?php echo $startdate;?>" enddate="<?php echo $enddate;?>" {if post:keywords}keywords="AND (exp_channel_titles.title LIKE '%{post:keywords}%' OR exp_channel_data.field_id_29 LIKE '%{post:keywords}%')"{/if} order_is="<?php echo $orderdir; ?>" orderfield="<?php echo $orderby; ?>" {if post:free}entryprice="INNER JOIN exp_matrix_data
+ON exp_matrix_data.entry_id = exp_channel_titles.entry_id AND exp_matrix_data.col_id_5 = 'Free'"{/if}
+{if post:specialoffer}specialoffer="AND exp_channel_titles.entry_id IN ( SELECT child_entry_id FROM exp_playa_relationships WHERE parent_field_id = '87')"{/if}
+}
+						
+						{if:elseif freebie_4 == "entertainment"}
+						
+						{embed="venues_v2/cat_ajax_embed_grid" noofresults="{if post:noresults}{post:noresults}{if:else}8{/if}" wheresearch="exp_categories.cat_id" whereoperator="=" wherevalue="6" startdate="<?php echo $startdate;?>" enddate="<?php echo $enddate;?>" {if post:keywords}keywords="AND (exp_channel_titles.title LIKE '%{post:keywords}%' OR exp_channel_data.field_id_29 LIKE '%{post:keywords}%')"{/if} order_is="<?php echo $orderdir; ?>" orderfield="<?php echo $orderby; ?> {if post:free}entryprice="AND exp_matrix_data.col_id_5 = 'FREE'"{/if}"
+						{if post:specialoffer}specialoffer="AND exp_channel_titles.entry_id IN ( SELECT child_entry_id FROM exp_playa_relationships WHERE parent_field_id = '87')"{/if}
+}
+						
+						{if:elseif freebie_4 == "families"}
+						
+						{embed="venues_v2/cat_ajax_embed_grid" noofresults="{if post:noresults}{post:noresults}{if:else}8{/if}" wheresearch="exp_categories.cat_id" whereoperator="=" wherevalue="7" startdate="<?php echo $startdate;?>" enddate="<?php echo $enddate;?>" {if post:keywords}keywords="AND (exp_channel_titles.title LIKE '%{post:keywords}%' OR exp_channel_data.field_id_29 LIKE '%{post:keywords}%')"{/if} order_is="<?php echo $orderdir; ?>" orderfield="<?php echo $orderby; ?> {if post:free}entryprice="AND exp_matrix_data.col_id_5 = 'FREE'"{/if}"
+						{if post:specialoffer}specialoffer="AND exp_channel_titles.entry_id IN ( SELECT child_entry_id FROM exp_playa_relationships WHERE parent_field_id = '87')"{/if}
+}
+						
+						{if:elseif freebie_4 == "museums"}
+						
+						{embed="venues_v2/cat_ajax_embed_grid" noofresults="{if post:noresults}{post:noresults}{if:else}8{/if}" wheresearch="exp_categories.cat_id" whereoperator="=" wherevalue="8" startdate="<?php echo $startdate;?>" enddate="<?php echo $enddate;?>" {if post:keywords}keywords="AND (exp_channel_titles.title LIKE '%{post:keywords}%' OR exp_channel_data.field_id_29 LIKE '%{post:keywords}%')"{/if} order_is="<?php echo $orderdir; ?>" orderfield="<?php echo $orderby; ?> {if post:free}entryprice="AND exp_matrix_data.col_id_5 = 'FREE'"{/if}"
+						{if post:specialoffer}specialoffer="AND exp_channel_titles.entry_id IN ( SELECT child_entry_id FROM exp_playa_relationships WHERE parent_field_id = '87')"{/if}
+}
+						
+						{if:elseif freebie_4 == "music"}
+						
+						{embed="venues_v2/cat_ajax_embed_grid" noofresults="{if post:noresults}{post:noresults}{if:else}8{/if}" wheresearch="exp_categories.cat_id" whereoperator="=" wherevalue="9" startdate="<?php echo $startdate;?>" enddate="<?php echo $enddate;?>" {if post:keywords}keywords="AND (exp_channel_titles.title LIKE '%{post:keywords}%' OR exp_channel_data.field_id_29 LIKE '%{post:keywords}%')"{/if} order_is="<?php echo $orderdir; ?>" orderfield="<?php echo $orderby; ?> {if post:free}entryprice="AND exp_matrix_data.col_id_5 = 'FREE'"{/if}"
+						{if post:specialoffer}specialoffer="AND exp_channel_titles.entry_id IN ( SELECT child_entry_id FROM exp_playa_relationships WHERE parent_field_id = '87')"{/if}
+}
+						
+						{if:elseif freebie_4 == "theatre"}
+						
+						{embed="venues_v2/cat_ajax_embed_grid" noofresults="{if post:noresults}{post:noresults}{if:else}8{/if}" wheresearch="exp_categories.cat_id" whereoperator="=" wherevalue="10" startdate="<?php echo $startdate;?>" enddate="<?php echo $enddate;?>" {if post:keywords}keywords="AND (exp_channel_titles.title LIKE '%{post:keywords}%' OR exp_channel_data.field_id_29 LIKE '%{post:keywords}%')"{/if} order_is="<?php echo $orderdir; ?>" orderfield="<?php echo $orderby; ?> {if post:free}entryprice="AND exp_matrix_data.col_id_5 = 'FREE'"{/if}"
+						{if post:specialoffer}specialoffer="AND exp_channel_titles.entry_id IN ( SELECT child_entry_id FROM exp_playa_relationships WHERE parent_field_id = '87')"{/if}
+}
+						
+						{if:elseif freebie_4 == "festivals"}
+						
+						{embed="venues_v2/cat_ajax_embed_grid" noofresults="{if post:noresults}{post:noresults}{if:else}8{/if}" wheresearch="exp_categories.cat_id" whereoperator="=" wherevalue="57" startdate="<?php echo $startdate;?>" enddate="<?php echo $enddate;?>" {if post:keywords}keywords="AND (exp_channel_titles.title LIKE '%{post:keywords}%' OR exp_channel_data.field_id_29 LIKE '%{post:keywords}%')"{/if} order_is="<?php echo $orderdir; ?>" orderfield="<?php echo $orderby; ?> {if post:free}entryprice="AND exp_matrix_data.col_id_5 = 'FREE'"{/if}"
+						{if post:specialoffer}specialoffer="AND exp_channel_titles.entry_id IN ( SELECT child_entry_id FROM exp_playa_relationships WHERE parent_field_id = '87')"{/if}
+}
+						
+						{/if}
+						
+						
+					<?php } ?>
+					
+					
+				</div>
+{embed="includes_v2/.footer"}
