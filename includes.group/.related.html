@@ -1,52 +1,61 @@
-      <div class="span-18 border-wrapper append-bottom features-wrapper">
-        <div class="related-content">
-          <h3>You may also like</h3>
+<div class="panel">
+  <h2 class="block-heading pink-bg">You may also like</h2>
+  <div class="panel__content">
           {exp:channel:entries limit="10" orderby="date" related_categories_mode="yes" category="{exp:cat2:id category_url_title='{segment_1}'}" custom_fields="yes"}
-          <div class="span-8 related-item">
+          <div class="media media--small palm-mb-- lap-mb- desk-mb">
             {if '{url_title}' != '{freebie_2}'}
 
             {exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
             {if '{channel_short_name}' == 'calendar_events'}
 
-
-            <a href="/events/{url_title}" title="{title}">
-              <img src="{image:url:homepage_image}" width="100" height="90" alt="editors pick feature" />
+            <a href="/events/{url_title}" title="{title}" class="media__img">
+              <img src="{image:url:homepage_image}" alt="editors pick feature" />
+              <span class="icon icon--free"></span>
             </a>
-            <h4>
-              <a class="featurescolour" href="/events/{url_title}" title="{title}">{title}</a>
+            <div class="media__body">
+
+            <h4 class="palm-mt0 lap-and-up-mt0 lap-mb--">
+              <a href="/events/{url_title}" title="{title}">{title}</a>
             </h4>
 	    {if event_sub_title}
 		{event_sub_title}
 	    {/if}
+    </div>
 
             {if:else}
             {if '{channel_short_name}' == 'special_offers'}
-            	<a href="/special-offers/detail/{url_title}" title="{title}">
+            	<a href="/special-offers/detail/{url_title}" title="{title}" class="media__img">
 	    {if:else}
-            	<a href="/{channel_short_name}/{url_title}" title="{title}">
+            	<a href="/{channel_short_name}/{url_title}" title="{title}" class="media__img">
 	    {/if}
               <img src="{image:url:homepage_image}" width="100" height="90" alt="editors pick feature" /></a>
-            <h4>
+              <div class="media__body">
+
+            <h4 class="palm-mt0 lap-and-up-mt0 lap-mb--">
             {if '{channel_short_name}' == 'special_offers'}
-              <a class="featurescolour" href="/special-offers/detail/{url_title}" title="{title}">{title}</a>
+              <a href="/special-offers/detail/{url_title}" title="{title}">{title}</a>
 	    {if:else}
-              <a class="featurescolour" href="/{channel_short_name}/{url_title}" title="{title}">{title}</a>
+              <a href="/{channel_short_name}/{url_title}" title="{title}">{title}</a>
 	    {/if}
 
             </h4>
+
+
+
             {if feature_excerpt}
             {feature_excerpt}
             {/if}
             {if special_offer_intro_sentence}
             {special_offer_intro_sentence}
             {/if}
+          </div>
             {/if}
             {/exp:channel_images:images}
 
-            {/if}
+            {/if}<!-- End of {url_title}' != '{freebie_2} -->
 
           </div>
           {/exp:channel:entries}
-        </div>
 
       </div>
+    </div>

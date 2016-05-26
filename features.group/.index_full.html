@@ -1,40 +1,14 @@
-{embed="includes/.header"
-{exp:channel:entries channel="features" show_future_entries="yes" limit="1" track_views="one"}
+{embed="includes/.header" {exp:channel:entries channel="features" show_future_entries="yes" limit="1" track_views="one"}
 page_title="{title}"
 google_standout="{google_news_standout_tag}"
 google_news_keywords="{google_news_keywords}"
 url_title="{url_title}"
 {/exp:channel:entries}"
-seo_plugin="yes"
-}
-<div class="span-24 append-bottom features fixed-header">
-  <h1>{exp:channel:entries channel="features" show_future_entries="yes" limit="1"}{title}{/exp:channel:entries}</h1>
-  {exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
+seo_plugin="yes"}
 
-  <div class="so-subtitle">
-
-    <h2 class="so-date">
-      {entry_date format="%j %F %Y"} |</h2>
-    <h2> <span class="blue">{if feature_author_3}
-        {related_entries id="feature_author_3"}
-        <a href="/features/authors/{url_title}">{title}</a>
-        {/related_entries}
-
-        {if:else}{feature_author}{/if}</span> | <span class="blue">{feature_category}<a href="/features/show/{item}" class="feature-list">{item}</a> {/feature_category}</span>
-
-
-      {/exp:channel:entries}
-    </h2>
-
-  </div>
-
-  <div id="event-main" class="span-16">
-
-    <div class="span-18 border-wrapper append-bottom features-wrapper">
-
-      <div class="features-content">
-
-
+<div class="wrapper">
+  <div class="layout">
+      <div class="layout__item u-2/3-desk u-2/3-lap">
         {exp:channel:entries channel="features" show_future_entries="yes" limit="1" require_entry="yes"}
         {if no_results}
 
@@ -42,12 +16,11 @@ seo_plugin="yes"
 
         {/if}
 
-        {if feature_template == "Template 3"}	
+        {if feature_template == "Template 3"}
 
         {exp:channel_images:images entry_id="{entry_id}" limit="2" skip_cover="yes"}
         <a rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}"><img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}" height="240" src="{image:url:320x240}" width="320" /></a>
         {/exp:channel_images:images}
-
 
         {if:elseif feature_template == "Template 2"}
         {exp:channel_images:images entry_id="{entry_id}" skip_cover="yes" limit="1"}
@@ -61,181 +34,69 @@ seo_plugin="yes"
 
         {if:elseif feature_template == "Template 1"}
         {exp:channel_images:images entry_id="{entry_id}" skip_cover="yes" limit="1"}
-        <div class="slide">
-          <div class="slide_img">
-            <a rel="venue_gallery" href="{image:url:gallery_image}" title="{if "{image:field:1}" != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}"><img alt="{title}" height="240" src="{image:url:647z240}" width="647" /></a>
-          </div>
+        <figure class="palm-mh0 palm-mt0 lap-and-up-mh0 lap-and-up-mt0">
+          <img alt="{title}" src="{image:url:647z240}" />
+          {if '{image:field:1}' != ''}
+            <figcaption>Image credit: {image:field:1}</figcaption>
+          {/if}
+        </figure>
 
-        </div>
         {/exp:channel_images:images}
         {/if}
         {/exp:channel:entries}
 
-        {exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
 
-        <div class="selection-actions feature-actions right">
-
-          {embed="features/.embed_favs" entry_id="{entry_id}"}
-
-
-          {exp:channel_images:images entry_id="{entry_id}" limit="1"}
-          <a class="imagegallery tooltip" href="#" title="Gallery"></a>
-          {/exp:channel_images:images}
+        <div class="panel">
+          <div class="panel__content">
+              <h1>{exp:channel:entries channel="features" show_future_entries="yes" limit="1"}{title}{/exp:channel:entries}</h1>
+  {exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
 
 
-          {exp:playa:children field="features_so_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
-          <a href="/special-offers/detail/{url_title}" title="Special Offer" class="relspecialoffer tooltip"></a>
-          {/exp:playa:children}
+    <p>
+      {entry_date format="%j %F %Y"} <span class="blue">{if feature_author_3}
+        {related_entries id="feature_author_3"}
+        <a href="/features/authors/{url_title}">{title}</a>
+        {/related_entries}
+
+        {if:else}{feature_author}{/if}</span> | <span class="blue">{feature_category}<a href="/features/show/{item}" class="feature-list">{item}</a> {/feature_category}</span>
 
 
-        </div>
+      {/exp:channel:entries}
+    </p>
 
-        <div class="feature_imagecredit">
-          {if feature_template == "Template 3"}
-
-
-
-          {exp:channel_images:images entry_id="{entry_id}" skip_cover="yes" limit="1"}
-          {if image:field:1 != ''}
-          <div class="f_ic_left">Image credit: {image:field:1}</div>
-          {/if}
-          {/exp:channel_images:images}
-
-          {exp:channel_images:images entry_id="{entry_id}" skip_cover="yes" offset="1" limit="1"}
-          {if '{image:field:1}' != ''}
-          <div class="f_ic_right">Image credit: {image:field:1}</div>
-          {/if}
-          {/exp:channel_images:images}
-
-
-          {if:elseif feature_template == "Template 1"}
-
-          {exp:channel_images:images entry_id="{entry_id}" skip_cover="yes" limit="1"}
-
-          {if image:field:1 != ''}
-          <div class="f_ic_left">Image credit: {image:field:1}</div>
-          {/if}
-          {/exp:channel_images:images}
-
-          {if:else}
-
-          {exp:channel_images:images entry_id="{entry_id}" skip_cover="yes" limit="1"}
-
-          {if image:field:1 != ''}
-          <div class="f_ic_normal">Image credit: {image:field:1}</div>
-          {/if}
-          {/exp:channel_images:images}
-
-
-          {/if}
-
-        </div>
-        {/exp:channel:entries}
+      <!-- This is the author bit that needs sorting out -->
         {exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
         {if feature_excerpt}
-        <div class="feature_excerpt {if feature_template == "Template 2"}template2{/if}">
-
-             <p>{feature_excerpt}</p>
-                         </div>
-                         {/if}
-                         {/exp:channel:entries}
-
-                         {exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
-
-
-
-
-
-
-                         <div class="video-{feature_video_align}">
-
-                           {exp:channel_videos:videos entry_id="{entry_id}" embed_width="320" embed_height="240"}
-                           {video:embed_code}
-                           {/exp:channel_videos:videos}
-
-                         </div>
-
-
-                         <div style="display: none;">
-                           {if feature_template == "Template 3"}
-                           {exp:channel_images:images entry_id="{entry_id}" offset="2"}
-                           <a rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}">{image:url:gallery_image}</a>
-                           {/exp:channel_images:images}
-
-                           {if:else}
-                           {exp:channel_images:images entry_id="{entry_id}" offset="1"}
-                           <a rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}">{image:url:gallery_image}</a>
-                           {/exp:channel_images:images}
-                           {/if}
-                         </div>
-
-
-                         <div class="featurecontent">
-                           <!-- po.st begin -->
-                           <div class="pw-widget pw-counter-show  pw-size-large">
-                             <a class="pw-button-twitter"></a>
-                             <a class="pw-button-facebook"></a>
-                             <a class="pw-button-email"></a>
-                             <a class="pw-button-print"></a>
-                             <a class="pw-button-post"></a>
-                           </div>
-                           <script src="http://i.po.st/share/script/post-widget.js#publisherKey=9ebhofj2b8lse7eqsksc" type="text/javascript" charset="utf-8"></script>
-                           <!-- po.st END -->
-                           <br />
-                           <p>
-                             {if feature_template == "Template 2" && feature_excerpt_2}
-                           <div class="template2excerpt">
+          <!-- Possibly need to vary this with template -->
+          <p class="lede">{feature_excerpt}</p>
+        {/if}
+        {/exp:channel:entries}
+        {exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
+       {if feature_template == "Template 2" && feature_excerpt_2}
+                     <div class="template2excerpt">
                              <h3>{feature_excerpt_2}</h3>
                            </div>
                            {/if}
-
                            {feature_body}
-                           </p>
                          </div>
-
                          {/exp:channel:entries}
-
-                         <!--<div id="muzu-video-player"></div> ​-->
-
-                         <!-- po.st begin -->
-                         <div class="pw-widget pw-counter-show  pw-size-large">
-                           <a class="pw-button-twitter"></a>
-                           <a class="pw-button-facebook"></a>
-                           <a class="pw-button-email"></a>
-                           <a class="pw-button-print"></a>
-                           <a class="pw-button-post"></a>
-                         </div> 
-                         <script src="http://i.po.st/share/script/post-widget.js#publisherKey=9ebhofj2b8lse7eqsksc" type="text/javascript" charset="utf-8"></script>
-                         <!-- po.st END -->
-
         </div>
 
-
-      </div>
-
-
-
-
-      <div id="comments" class="span-16 append-bottom border-wrapper event-content-wrapper">
-
-        <div class="event-comments">
-
-          <h2>Tell us what you think...</h2>
-
-
-          <div class="fb-comments" data-href="{exp:channel:entries show_expired="yes" channel="features" limit="1"}http://londoncalling.com/features/{url_title}{/exp:channel:entries}" data-num-posts="20" data-width="647"></div>
+      <div id="comments" class="panel">
+        <h2 class="block-heading pink-bg">Tell us what you think</h2>
+        <div class="panel__content">
+            <div class="fb-comments" data-href="{exp:channel:entries show_expired="yes" channel="features" limit="1"}http://londoncalling.com/features/{url_title}{/exp:channel:entries}" data-num-posts="20" data-width="647"></div>
         </div>
-
       </div>
 
-
- 
     {embed="includes/.related"}
 
 
-    </div>
-
+  </div><!--
+--><div class="layout__item u-1/3-desk u-1/3-lap">
     {embed="features/.sidebar"}
+  </div>
+  </div>
+
 
     {embed="includes/.footer"}
-
