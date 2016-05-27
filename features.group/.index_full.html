@@ -48,23 +48,35 @@ seo_plugin="yes"}
 
         <div class="panel">
           <div class="panel__content">
-              <h1>{exp:channel:entries channel="features" show_future_entries="yes" limit="1"}{title}{/exp:channel:entries}</h1>
-  {exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
+              <h1>
+                {exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
+                  {title}
+                {/exp:channel:entries}
+              </h1>
+
+              <!-- This is the author bit that needs sorting out -->
+              {exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
+              <p>
+                {entry_date format="%j %F %Y"}
+                  {if feature_author_3}
+                    {related_entries id="feature_author_3"}
+                      <a href="/features/authors/{author_type}">
+                        {title}
+                      </a>
+                    {/related_entries}
+                  {if:else}
+                    {feature_author}
+                  {/if} |
+                  {feature_category}
+                    <a href="/features/show/{item}" class="feature-list">
+                      {item}
+                    </a>
+                  {/feature_category}
 
 
-    <p>
-      {entry_date format="%j %F %Y"} <span class="blue">{if feature_author_3}
-        {related_entries id="feature_author_3"}
-        <a href="/features/authors/{url_title}">{title}</a>
-        {/related_entries}
-
-        {if:else}{feature_author}{/if}</span> | <span class="blue">{feature_category}<a href="/features/show/{item}" class="feature-list">{item}</a> {/feature_category}</span>
-
-
+      </p>
       {/exp:channel:entries}
-    </p>
 
-      <!-- This is the author bit that needs sorting out -->
         {exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
         {if feature_excerpt}
           <!-- Possibly need to vary this with template -->

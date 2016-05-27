@@ -1,61 +1,62 @@
 <div class="panel">
   <h2 class="block-heading pink-bg">You may also like</h2>
   <div class="panel__content">
-          {exp:channel:entries limit="10" orderby="date" related_categories_mode="yes" category="{exp:cat2:id category_url_title='{segment_1}'}" custom_fields="yes"}
-          <div class="media media--small palm-mb-- lap-mb- desk-mb">
-            {if '{url_title}' != '{freebie_2}'}
-
-            {exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
+    {exp:channel:entries limit="10" orderby="date" related_categories_mode="yes" category="{exp:cat2:id category_url_title='{segment_1}'}" custom_fields="yes"}
+      <div class="media media--small palm-mb-- lap-mb- desk-mb">
+        {if '{url_title}' != '{freebie_2}'}
+          {exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
             {if '{channel_short_name}' == 'calendar_events'}
-
-            <a href="/events/{url_title}" title="{title}" class="media__img">
-              <img src="{image:url:homepage_image}" alt="editors pick feature" />
-              <span class="icon icon--free"></span>
-            </a>
-            <div class="media__body">
-
-            <h4 class="palm-mt0 lap-and-up-mt0 lap-mb--">
-              <a href="/events/{url_title}" title="{title}">{title}</a>
-            </h4>
-	    {if event_sub_title}
-		{event_sub_title}
-	    {/if}
-    </div>
-
-            {if:else}
-            {if '{channel_short_name}' == 'special_offers'}
-            	<a href="/special-offers/detail/{url_title}" title="{title}" class="media__img">
-	    {if:else}
-            	<a href="/{channel_short_name}/{url_title}" title="{title}" class="media__img">
-	    {/if}
-              <img src="{image:url:homepage_image}" width="100" height="90" alt="editors pick feature" /></a>
+              <a href="/events/{url_title}" title="{title}" class="media__img">
+              {if:elseif '{channel_short_name}' == 'special_offers'}
+                <a href="/special-offers/detail/{url_title}" title="{title}" class="media__img">
+	            {if:else}
+            	  <a href="/{channel_short_name}/{url_title}" title="{title}" class="media__img">
+	            {/if}
+                <img src="{image:url:180x180}" alt="{title}" />
+                  <span class="icon icon--free"></span>
+                </a>
               <div class="media__body">
-
-            <h4 class="palm-mt0 lap-and-up-mt0 lap-mb--">
-            {if '{channel_short_name}' == 'special_offers'}
-              <a href="/special-offers/detail/{url_title}" title="{title}">{title}</a>
-	    {if:else}
-              <a href="/{channel_short_name}/{url_title}" title="{title}">{title}</a>
-	    {/if}
-
-            </h4>
-
-
-
-            {if feature_excerpt}
-            {feature_excerpt}
-            {/if}
-            {if special_offer_intro_sentence}
-            {special_offer_intro_sentence}
-            {/if}
-          </div>
-            {/if}
-            {/exp:channel_images:images}
-
-            {/if}<!-- End of {url_title}' != '{freebie_2} -->
-
-          </div>
-          {/exp:channel:entries}
-
+                <h4 class="palm-mt0 lap-and-up-mt0 lap-mb--">
+                  {if '{channel_short_name}' == 'calendar_events'}
+                    <a href="/events/{url_title}" title="{title}" class="media__img">
+                      {title}
+                    </a>
+                  {if:elseif '{channel_short_name}' == 'special_offers'}
+                    <a href="/special-offers/detail/{url_title}" title="{title}">
+                      {title}
+                    </a>
+	                {if:else}
+                    <a href="/{channel_short_name}/{url_title}" title="{title}">
+                      {title}
+                    </a>
+	                {/if}
+                </h4>
+                <p class="palm-mv0 lap-mv-- hidden-palm">
+                  {if feature_excerpt}
+                    {exp:eehive_hacksaw words="25" append="..."}
+                      {feature_excerpt}
+                    {/exp:eehive_hacksaw}
+                  {/if}
+                  {if special_offer_intro_sentence}
+                    {exp:eehive_hacksaw words="25" append="..."}
+                      {special_offer_intro_sentence}
+                    {/exp:eehive_hacksaw}
+                  {/if}
+                  {if event_sub_title}
+                    {exp:eehive_hacksaw words="25" append="..."}
+                      {event_sub_title}
+                    {/exp:eehive_hacksaw}
+                  {/if}
+                  {if venue_description}
+                    {exp:eehive_hacksaw words="25" append="..."}
+                      {venue_description}
+                    {/exp:eehive_hacksaw}
+                  {/if}
+                </p>
+              </div>
+          {/exp:channel_images:images}
+        {/if}<!-- End of {url_title}' != '{freebie_2} -->
       </div>
-    </div>
+    {/exp:channel:entries}
+  </div>
+</div>
