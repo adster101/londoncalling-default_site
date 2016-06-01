@@ -7,70 +7,70 @@
 						<h1 class="event_title">{title}</h1>
 						<h2 class="event_subtitle">{venue_sub_title}</h2>
 
-						
+
 						{/exp:channel:entries}
 					</div>
 
 					{exp:channel:entries show_expired="yes" channel="venues" limit="1" disable="categories|member_data|pagination" cache="yes" refresh="600"}
-										
+
 					<div id="event-main" class="span-16">
 						<div class="span-16 append-bottom border-wrapper event-content-wrapper">
 							<div class="event-content">
-							
-							{if venue_template == "Template 1 - 1 x 647 x 240"}	
+
+							{if venue_template == "Template 1 - 1 x 647 x 240"}
 
 								{exp:channel_images:images entry_id="{entry_id}" limit="1"}
-								
+
 									<a class="{if venue_template == 'Template 1 - 1 x 647 x 240'}cboxElement-template-1{/if}"rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}"><img src="{image:url:647x240}" alt="gallery image" title="" /></a>
-									
+
 								{/exp:channel_images:images}
 							{/if}
-							
-							{if venue_template == "Template 2 - 1 x 320 x 240"}	
+
+							{if venue_template == "Template 2 - 1 x 320 x 240"}
 
 								{exp:channel_images:images entry_id="{entry_id}" limit="1"}
-								
+
 									<a class="cboxElement-template-1"rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}"><img src="{image:url:320x240}" title="" alt="gallery image" /></a>
-									
+
 								{/exp:channel_images:images}
 							{/if}
-							
-							{if venue_template == "Template 3 - 2 x 320 x 240"}	
+
+							{if venue_template == "Template 3 - 2 x 320 x 240"}
 
 								{exp:channel_images:images entry_id="{entry_id}" limit="2"}
-								
+
 									<a class="{if venue_template == 'Template 1 - 1 x 647 x 240'}cboxElement-template-1{/if}"rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}"><img src="{image:url:320x240}" title="" alt="gallery image" /></a>
-									
+
 								{/exp:channel_images:images}
 							{/if}
 
 							<div style="display: none;">
-							
-							{if venue_template == "Template 3 - 2 x 320 x 240"}	
-							
+
+							{if venue_template == "Template 3 - 2 x 320 x 240"}
+
 								{exp:channel_images:images entry_id="{entry_id}" offset="2"}
 									<a rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}">{image:url:gallery_image}</a>
 								{/exp:channel_images:images}
-								
+
 							{if:else}
-							
+
 								{exp:channel_images:images entry_id="{entry_id}" offset="1"}
 									<a rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}">{image:url:gallery_image}</a>
 								{/exp:channel_images:images}
 							{/if}
 							</div>
-							
+
 							<div class="event-dates {if venue_template == 'Template 2 - 1 x 320 x 240'}event-dates-template-1{/if}">
-							
+
 								<div class="selection-actions event-actions {if venue_template == 'Template 2 - 1 x 320 x 240'}event-actions-template-1{/if}">
 								     {if '{event_prices:total_rows}' > 0}
 									 	{event_prices}
 									 		{if price_band == "Free"}<a href="/{channel_short_name}/{url_title}" title="Free Entry!" class="freeentry"></a>{/if}
 									 	{/event_prices}
 									 {/if}
-									 
-									 
-									 
+
+
+
 								     {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
 								     <a href="/special-offers/detail/{url_title}" title="Special Offer" class="relspecialoffer tooltip"></a>
 								     {/exp:playa:parents}
@@ -92,15 +92,15 @@
 							     </div>
 
 							</div>
-							
+
 					<div class="span-16 append-bottom event-description {if venue_template == 'Template 2 - 1 x 320 x 240'}event-description-template-1{/if}">
 						{exp:channel:entries show_expired="yes" channel="venues" limit="1"}
-						
-							
-							
+
+
+
 							{venue_description}
 						{/exp:channel:entries}
-						
+
 						<!-- po.st begin -->
 							<div class="pw-widget pw-counter-show  pw-size-large">
 								<a class="pw-button-twitter"></a>
@@ -108,72 +108,72 @@
   								<a class="pw-button-email"></a>
   								<a class="pw-button-print"></a>
 								<a class="pw-button-post"></a>
-							</div> 
+							</div>
 							<script src="http://i.po.st/share/script/post-widget.js#publisherKey=9ebhofj2b8lse7eqsksc" type="text/javascript" charset="utf-8"></script>
 						<!-- po.st END -->
-						
+
 					</div>
-					
-					
+
+
 							</div>
 						</div>
-						
+
 						{exp:channel:entries show_expired="yes" channel="venues" limit="1"}
-						
+
 						  {exp:playa:parents field="event_venue" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
-							
+
 								{exp:calendar:occurrences event_id="{entry_id}" date_range_end="2 years" occurrences_limit="1" show_expired="no"}
-								
+
 										<div id="event-whatson" class="span-16 append-bottom border-wrapper event-content-wrapper">
-						
+
     										<div class="event-comments">
-										
+
         										<h2>What's On?</h2>
-										
-									
-								
+
+
+
 								{/exp:calendar:occurrences}
-							
+
 							{/exp:playa:parents}
-							
-							
-							{embed="venues/.events" event_id="{exp:playa:parent_ids field="event_venue"}"}	
-						
-							
-							
+
+
+							{embed="venues/.events" event_id="{exp:playa:parent_ids field="event_venue"}"}
+
+
+
 						{exp:playa:parents field="event_venue" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
 
 						{exp:calendar:occurrences event_id="{entry_id}" date_range_end="2 years" occurrences_limit="1" show_expired="no"}
-								
+
 										</div>
-						
+
 						</div>
-										
+
 								{/exp:calendar:occurrences}
-						
+
 						{/exp:playa:parents}
 						{/exp:channel:entries}
-						
+
 						<div id="comments" class="span-16 append-bottom border-wrapper event-content-wrapper">
-						
+
 							<div class="event-comments">
-					
+
 								<h2>Tell us what you think...</h2>
-								
+
 								<div class="fb-comments" data-href="{exp:channel:entries show_expired="yes" channel="venues" limit="1"}http://londoncalling.com/venues/{url_title}{/exp:channel:entries}" data-num-posts="20" data-width="647"></div>
 							</div>
-					
+
 						</div>
 
 					</div>
-						
+
 					<div id="event-sidebar" class="span-7">
 						<div class="span-7 border-wrapper event-sidebar-wrapper">
 							<div class="event-sidebar">
 								{exp:channel:entries show_expired="yes" channel="venues" limit="1"}
-									{venue_map:map mt_control_style="DROPDOWN_MENU" width="259px" height="240px" id="event-map""}	
+									{venue_map:map mt_control_style="DROPDOWN_MENU" width="259px" height="240px" id="event-map""}
 								{/exp:channel:entries}
-								
+
 								{exp:channel:entries show_expired="yes" channel="venues" limit="1"}
 								{if venue_address_line_1}
 										<p>
@@ -188,31 +188,31 @@
 										{/if}
 									{/exp:channel:entries}
 
-		
+
 									<p>{if venue_url}
 												<span class="event-www"></span><a href="{venue_url}" title="Visit their website" target="_blank">Visit website</a>
 											{/if}
-		
+
 											{if venue_book_tickets_url}
 												<br /><span class="event-book"></span><a href="{venue_book_tickets_url}" title="Click here to book tickets" target="_blank">Book tickets</a>
 											{/if}
 									</p>
 								{/exp:channel:entries}
-								
+
 							</div>
 
 						</div>
 
-					
+
 					<div id="inspiration" class="span-7 border-wrapper event-sidebar-wrapper">
-						
+
 						<div class="event-sidebar">
-						
+
 							<h3>More inspiration...</h3>
-	
+
 							{exp:channel:entries channel="home" dynamic="no"}
-							
-							
+
+
 								<ul id="events-inspiration">
 								{exp:playa:children field="venue_section_more_inspiration" limit="4" orderby="random"}
 								    {exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
@@ -221,13 +221,13 @@
 								    {/exp:channel_images:images}
 								{/exp:playa:children}
 								</ul>
-							
+
 							{/exp:channel:entries}
-							
+
 						</div>
 					</div>
-					
+
 						</div>
-					
+
 				</div>
 {embed="includes/.footer"}

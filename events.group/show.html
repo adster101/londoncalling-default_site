@@ -3,50 +3,17 @@
 {if:else}
 	{embed="includes/.header" page_title="What's On in London"}
 {/if}
-				
 
 
-<div class="span-24 append-bottom category fixed-header">
-				
-				<h1 class="header-whatson">What's on in London?</h1>
-				
-						
-						<div id="whatson-header-image">
-						
-							{exp:channel_images:images entry_id="3616" orderby="random" limit="1"}
-								<img alt="{title}" src="{image:url:980x240}" alt="whats on in london" />
-							
-							{if image:description}
-								<div class="wo-image-credit">Image courtesy of {image:description}</div>
-							{/if}
-							{/exp:channel_images:images}
-						</div>
-																	
-						<h2 class="whatsontoday">What's On 
-						
-						<?php if(isset($_POST['today']) && !isset($_POST['tomorrow']) && !isset($_POST['next7'])) {
-						
-							echo "Today";
-						
-						} elseif(isset($_POST['tomorrow']) && !isset($_POST['today']) && !isset($_POST['next7'])) {
-						
-							echo "Tomorrow";
-						
-						} elseif(isset($_POST['tomorrow']) && isset($_POST['today']) && !isset($_POST['next7'])) {
-							echo "Today and Tomorrow";
-						} elseif(isset($_POST['tomorrow']) && isset($_POST['today']) && isset($_POST['next7'])) {
-							echo "Today, Tomorrow and the next 7 days";
-						} elseif(isset($_POST['tomorrow']) && !isset($_POST['today']) && isset($_POST['next7'])) {
-							echo "Tomorrow and the next 7 days";
-						} elseif(!isset($_POST['tomorrow']) && isset($_POST['today']) && isset($_POST['next7'])) {
-							echo "Today and the next 7 days";
-						} elseif(!isset($_POST['tomorrow']) && !isset($_POST['today']) && isset($_POST['next7'])) {
-							echo "over the next 7 days";
-						}
-						
-						?>
-						</h2>
-						
+
+<div class="wrapper">
+
+				<h1 class="block-heading palm-mb-- lap-mb- desk-mb pink-bg">What's on in London?</h1>
+
+
+
+
+
 					<?php
 $today = date('Ymd');
 $todaytotime = strtotime('now');
@@ -87,11 +54,11 @@ if(isset($_POST['subcat'])) {
 	$subcats = '';
 	$subcats = implode(',',$_POST['subcat']);
 
-	
+
 } else {
 
       $subcats = "4,5,6,7,8,9,10,94";
-      
+
 }
 $keywords = '';
 if(isset($_POST['keywords'])) {
@@ -103,7 +70,7 @@ if(isset($_POST['keywords'])) {
 }
 
 if(isset($_POST['free'])) {
-	
+
 	$free = 'Yes';
 } else {
 	$free = '';
@@ -136,9 +103,9 @@ if(isset($_POST['endingsoon'])) {
 					todaytotime="<?php echo $todaytotime; ?>"
 					endingsoon="<?php echo $endingsoon; ?>"
 				}
-				
- 
+
+
 				</div>
 
-				
+
 {embed="includes/.footer"}

@@ -1,20 +1,17 @@
-<div class="span-24 features fixed-header">
-					<h1>{embed:title}{if embed:segment3} - {embed:segment3}{/if}</h1>
-
-				</div>
-				
-				{if embed:page_content}
-					<div class="so_header_text">{embed:page_content}</div>
+	<div class="panel">
+		<h1 class="block-heading pink-bg">
+			{embed:title}
+			{if embed:segment3} - {embed:segment3}
+			{/if}
+		</h1>
+		<div class="panel__content">
+			{if embed:page_content}
+				{embed:page_content}
 				{/if}
-				
-				<div id="event-main" class="span-16">
-				
-				
-				{!--
-				{embed="features/ajax_results" category_id="{embed:category_id}" entry_id="{entry_id}" segment3="{embed:segment3}" segment4="{embed:segment4}"}
-				--}
-				
-				{exp:switchee variable = "{embed:segment3}" parse="inward"}
+		</div>
+	</div>
+
+{exp:switchee variable = "{embed:segment3}" parse="inward"}
 
 					{case value="2012|2013|2014|2015|2011"}
 						{switchee variable = "{embed:segment4}" parse="inward"}
@@ -60,11 +57,11 @@
 						{/switchee}
 						{!--{exp:channel:entries channel="features" orderby="date" sort="desc" show_expired="no" show_future_entries="no" status="open" limit="8" start_on="{embed:segment3}-01-01-00:01"}--}
 					{/case}
-					
+
 					{case value=""}
 						{embed="features/ajax_results" infinite_scroll_vars="start_on|stop_before" infinite_scroll_values="{current_time format="%%Y"}-01-01 00:01|{current_time format="%Y"}-12-31 00:01"}
 					{/case}
-					
+
 					{case value="search"}
 						{embed="features/ajax_results" infinite_scroll_vars="start_on|stop_before|search_term" infinite_scroll_values="{current_time format="%%Y"}-01-01 00:01|{current_time format="%Y"}-12-31 00:01|{post:searchterm}\W"}
 					{/case}
@@ -75,5 +72,3 @@
 						  {redirect="404"}
 					{/case}
 				{/exp:switchee}
-					
-</div>

@@ -1,3 +1,8 @@
 {exp:channel_images:images cover_only="yes" entry_id="{embed:imageid}"}
-										<a href="/{embed:url}" title="Read More"><img alt="{title}" src="{image:url:170x170}" width="170" height="170" /></a>
-									{/exp:channel_images:images}
+	{if image:no_images}
+		<p><em>Awaiting Image</em></p>
+	{/if}
+	<a href="{embed:url}" title="Read More - {title}" class="block__img">
+		<img alt="{title}" src="{image:url:230x230}" />
+	</a>
+{/exp:channel_images:images}
