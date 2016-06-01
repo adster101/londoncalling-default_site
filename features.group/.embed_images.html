@@ -2,7 +2,12 @@
 	{if image:no_images}
 		<p><em>Awaiting Image</em></p>
 	{/if}
-	<a href="{embed:url}" title="Read More - {title}" class="block__img">
-		<img alt="{title}" src="{image:url:230x230}" />
+	<a href="/{embed:url}" title="Read More - {title}" class="media__img">
+		<img alt="{title}" src="{image:url:180x180}" />
+		{if free_entry == "Yes"}
+			<span class="icon icon--free"></span>
+		{if:else}
+			<span class="icon icon--{channel_short_name}"></span>
+		{/if}
 	</a>
 {/exp:channel_images:images}

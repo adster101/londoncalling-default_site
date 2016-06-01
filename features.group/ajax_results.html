@@ -8,9 +8,9 @@ infinite_scroll_values="{embed:infinite_scroll_values}"
 parse="inward"}
 
 {infinite_scroll_container_top}
-<div class="brick" id="ajax-container">
+<div class="panel" id="ajax-container">
 {/infinite_scroll_container_top}
-
+<div class="panel__content">
 		{exp:channel:entries channel="features" orderby="date" sort="desc" show_expired="no" show_future_entries="no" status="open" limit="8" {if infinite_scroll_embed_start_on}start_on="{infinite_scroll_embed_start_on}" stop_before="{infinite_scroll_embed_stop_before}"{/if} search:feature_category="{infinite_scroll_embed_feature_category}" {if infinite_scroll_embed_search_term !=''} search:feature_home_page_title="{infinite_scroll_embed_search_term}"{/if} paginate="bottom"}
 
 						{if no_results}{/if}
@@ -18,21 +18,15 @@ parse="inward"}
 							<p>Sorry there are currently no features that match your search</p>
 						{/if}
 
-									<div class="brick__item">
-										<div class="block block--flush">
+						<div class="media media--small palm-mb-- lap-mb- desk-mb">
+										{embed="features/.embed_images" imageid="{entry_id}" url="{channel_short_name}/{url_title}"}
 
-											{embed="features/.embed_images" imageid="{entry_id}" url="{channel_short_name}/{url_title}"}
-											{if free_entry == "Yes"}
-												<span class="icon icon--free"></span>
-											{if:else}
-												<span class="icon icon--{channel_short_name}"></span>
-											{/if}
-											<div class="block__body pink-bg palm-p-- lap-and-up-p-  ">
-												<h2 class="block-heading palm-p0 lap-and-up-p0">
+											<div class="media__body">
+												<h3 class="palm-mt0 lap-and-up-mt0 lap-mb--">
 													<a href="/events/{url_title}" title="{title}">
-														{event_home_title}
+														{title}
 													</a>
-												</h2>
+												</h3>
 									<div class="authordate">
 									{entry_date format="%j %F %Y"} | <span class="blue">{if feature_author_3}
 										{related_entries id="feature_author_3"}
@@ -42,7 +36,11 @@ parse="inward"}
 									{if:else}{feature_author}{/if}</span> | <span class="blue"><a href="/features/show/{exp:low_replace find='SPACE' replace='-'}{lead_feature_category}{/exp:low_replace}" class="feature-list">{lead_feature_category}</a></span>
 
 									</div>
-									<p>{feature_excerpt}</p>
+									<p>
+										{exp:eehive_hacksaw words="25" append="..."}
+											{feature_excerpt}
+											{/exp:eehive_hacksaw}
+										</p>
 
 
 
@@ -54,7 +52,6 @@ parse="inward"}
 								</div>
 
 								</div>
-							</div>
 						{paginate}{exp:infinite_scroll:next_chunk_link}{if next_page}
 						<div class="morelink"><a href="{auto_path}" class="next_chunk_link">More</a></div>
 						{/if}{/exp:infinite_scroll:next_chunk_link}{/paginate}
@@ -62,8 +59,9 @@ parse="inward"}
 							    	<div class="process_indicator"></div>
 
 					{/exp:channel:entries}
-
+				</div>
 {infinite_scroll_container_bottom}
+</div><!-- End of #ajax_container -->
 {/infinite_scroll_container_bottom}
 
 {/exp:infinite_scroll:wrapper}

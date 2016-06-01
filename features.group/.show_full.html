@@ -1,18 +1,29 @@
+{exp:channel:entries entry_id="20" limit="1" dynamic="no"}
 
 {embed="includes/.header" seo_plugin="yes"}
-
 <div class="wrapper">
 	<div class="layout">
-		<div class="layout__item u-lap-2/3 u-desk-2/3">
-			{exp:channel:entries entry_id="20" limit="1" dynamic="no"}
-
-					{embed="features/.embed_show_cat" segment3="{exp:low_replace find="-" replace="SPACE"}{freebie_3}{/exp:low_replace}" segment4="{freebie_4}" title="{title}" page_content='{page_content}'}
-{/exp:channel:entries}
-
+		<div class="layout__item u-2/3-lap u-2/3-desk">
+			<div class="panel">
+				<h1 class="block-heading pink-bg">
+					{title}
+				</h1>
+				<div class="panel__content">
+					{if page_content}
+						{page_content}
+						{/if}
+				</div>
+			</div>
+			{embed="features/.embed_show_cat"
+				segment3="{exp:low_replace find="-" replace="SPACE"}{freebie_3}{/exp:low_replace}"
+				segment4="{freebie_4}"
+				title="{title}"
+				page_content='{page_content}'}
 		</div><!--
-	--><div class="layout__item u-lap-1/3 u-desk-1/3">
+--><div class="layout__item u-1/3-lap u-1/3-desk">
 		{embed="features/.sidebar"}
 	</div>
 	</div>
 </div>
 {embed="includes/.footer"}
+{/exp:channel:entries}
