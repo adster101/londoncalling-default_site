@@ -1,102 +1,81 @@
 {embed="includes/.header" seo_plugin="yes" page_title="Special Offers from London Calling"}
 
-{exp:channel:entries dynamic="no" show_expired="no" show_future_entries="no" entry_id="19"}
 
-<div class="span-24 append-bottom fixed-header">
-  <div class="span-24 category">
-    <h1 class="header-so">{title} </h1>
-  </div>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('.offerdownload').click(function (e) {
+      e.preventDefault();
 
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $('.offerdownload').click(function (e) {
-        e.preventDefault();
+      var ithis = $(this);
 
-        var ithis = $(this);
+      $(this).parent().parent().find('.offer_success, .offer_error').css('display', 'none');
 
-        $(this).parent().parent().find('.offer_success, .offer_error').css('display', 'none');
+      $.post('/assets/php/special-offers.php', $(this).parent().find('.offer_form').serialize(), function (data) {
+        console.log(data);
+        if (data.result == 'success') {
 
-        $.post('/assets/php/special-offers.php', $(this).parent().find('.offer_form').serialize(), function (data) {
-          console.log(data);
-          if (data.result == 'success') {
-
-            ithis.parent().parent().find('.offer_success').fadeIn('slow');
-          } else {
-            ithis.parent().parent().find('.offer_error').fadeIn('slow');
-          }
-        }, 'json');
-      });
+          ithis.parent().parent().find('.offer_success').fadeIn('slow');
+        } else {
+          ithis.parent().parent().find('.offer_error').fadeIn('slow');
+        }
+      }, 'json');
     });
-  </script>
+  });
+</script>
 
-
-  <div class="header_text so_header_text">{page_content}</div>
-
+<div class="wrapper">
+  {exp:channel:entries dynamic="no" show_expired="no" show_future_entries="no" entry_id="19"}
+  <div class="panel">
+    <h1 class="block-heading pink-bg">
+      {title} 
+    </h1>
+    <div class="panel__content">
+      <p>
+        {exp:eehive_hacksaw allow="<a>"}
+          {page_content}
+        {/exp:eehive_hacksaw}
+      </p>
+    </div>
+  </div>
   {/exp:channel:entries}
 
-  <div id="ajax-container">
+  <div class="brick" id="ajax-container">
 
     {exp:channel:entries channel="special_offers" dynamic="no" show_expired="no" show_future_entries="no" status="open" orderby="date" sort="desc" disable="categories|pagination" cache="yes" refresh="7200"}
 
     {if entry_id != '6705' && hide_entry !=1}
 
-
-
     {if no_results}
-    <div class="border-wrapper span-24 category-results-wrapper">
-      <div class="category-results">
-        <p>There are currently no special offers available.</p>
-      </div>
-    </div>
+      <p class="lede">There are currently no special offers available.</p>
     {/if}
-
-
-    <div class="border-wrapper span-24 category-results-wrapper">
-      <div class="category-results specialoffers">
-
-        <div class="so-list-image">
-
+      <div class="brick__item">
+        <div class="block block--flush">
           {exp:channel_images:images cover_only="yes" entry_id="{entry_id}"}
-          <a onClick="ga('send', 'event', 'SpecialOffer_ViewOffer', 'click', {'page': '/special-offers/detail/{url_title}'});" href="/special-offers/detail/{url_title}" title="View Offer"><img alt="{title}" src="{image:url:180x180}" /></a>
+            <a href="/special-offers/detail/{url_title}" title="View Offer" class="block__img">
+              <img alt="{title}" src="{image:url:230x230}" />
+              <span class="icon icon--special_offers"></span>
+
+            </a>
           {/exp:channel_images:images}
-
-
-        </div>
-        <div class="span-18 last whatsonentry">
-          <h3 class="sotitle">{special_offer_place} - {title}</h3>
-          <h4 class="soend">{if special_offer_type == 'Competition'}Competition{if:elseif special_offer_type == 'Survey'}Survey{if:else}Offer{/if} Ends {expiration_date format="%d/%m/%Y"}</h4>
-
-          <p>{special_offer_intro_sentence}</p>
-
+          <div class="block__body green-bg palm-p-- lap-and-up-p-">
+            <h3 class="palm-mt0 lap-and-up-mt0 lap-mb--">
+              <a href="/special-offers/detail/{url_title}" title="View Offer">
+              {special_offer_place} - {title}
+            </a>
+            </h3>
+          <p class="soend">{if special_offer_type == 'Competition'}Competition{if:elseif special_offer_type == 'Survey'}Survey{if:else}Offer{/if} Ends {expiration_date format="%d/%m/%Y"}</p>
           <p>
-            {exp:eehive_hacksaw words="20" append="..."}
-            {special_offer_details}
-            {/exp:eehive_hacksaw}
+            {special_offer_intro_sentence}
           </p>
 
-          <div class="selection-actions whatsonactions">
-
-            <a class="viewoffer" onClick="ga('send', 'event', 'SpecialOffer_ViewOffer', 'click', {'page': '/special-offers/detail/{url_title}'});" href="/special-offers/detail/{url_title}" title="View Offer">view offer</a>
-
-            {!-- voucher icon --}
-
-
-            {exp:playa:parent_ids field="event_venue"}
-            {exp:playa:children field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" sort="desc"}
-
-            {embed="special_offers/.features" entry_id="{exp:playa:child_ids field="related_features"}"}
-
-            {/exp:playa:children}
-
-          </div>
         </div>
-      </div>
-    </div>
+        </div>
+        </div>
 
-    <!-- End of #ajax_container -->
+
     {/if}
-
     {/exp:channel:entries}
   </div>
+</div>
 
   {embed="includes/.footer"}
