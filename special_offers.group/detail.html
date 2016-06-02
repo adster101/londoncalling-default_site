@@ -56,66 +56,58 @@
 
 {/if}
 
-<div class="span-24 category fixed-header">
-  <h1 class="header-so">{special_offer_place} - {title}</h1>
+<div class="wrapper">
+  <div class="layout">
+    <div class="layout__item u-2/3-lap u-2/3-desk">
+  {if special_offer_template == "Template 2"}
+    {exp:channel_images:images skip_cover="yes" entry_id="{entry_id}" limit="2"}
+    <a rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}">
+      <img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}" height="240" src="{image:url:320x240}" width="320" />
+    </a>
+  {/exp:channel_images:images}
+  {if:else}
 
+  {exp:channel_images:images skip_cover="yes" entry_id="{entry_id}" limit="1"}
+
+  <a class="{if special_offer_template == 'Template 3'}cboxElement-template-1{/if}"rel="venue_gallery" href="{if entry_id == '7984'}{image:url}{if:else}{image:url:gallery_image}{/if}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}">
+
+
+    {if special_offer_template == "Template 3"}
+
+    {if entry_id == '7984'}
+
+    <img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}" src="{image:url}" width="320" />
+
+    {if:else}
+
+    <img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}" height="240" src="{image:url:320x240}" width="320" />
+
+    {/if}
+
+    {if:elseif special_offer_template == "Template 1" }
+
+    <img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}" height="240" src="{image:url:647x240}" width="647" />
+
+
+    {/if}
+
+  </a>
+
+  {/exp:channel_images:images}
+  {/if}
+  <div class="panel">
+
+    <div class="panel__content">
+  <h1 class="green">
+    {special_offer_place} - {title}
+  </h1>
   <h2 class="so-subtitle">{if special_offer_type == 'Competition'}Competition{if:elseif special_offer_type == 'Survey'}Survey{if:else}Offer{/if} Ends: {expiration_date format="%d/%m/%Y"}</h2>
-</div>
 
-{if expiration_date > 0}
-
-{if '{expiration_date format="%Y%m%d"}' < '{current_time format="%Y%m%d"}'}
-<div class="span-24 last error">This offer has expired.</div>
-{/if}
-{/if}
-
-<div id="event-main" class="span-16">
-  <div class="span-16 append-bottom border-wrapper event-content-wrapper">
-    <div class="event-content">
-
-
-
-
-      {if special_offer_template == "Template 2"}
-
-      {exp:channel_images:images skip_cover="yes" entry_id="{entry_id}" limit="2"}
-      <a rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}">
-        <img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}" height="240" src="{image:url:320x240}" width="320" />
-      </a>
-      {/exp:channel_images:images}
-
-
-      {if:else}
-
-      {exp:channel_images:images skip_cover="yes" entry_id="{entry_id}" limit="1"}
-
-      <a class="{if special_offer_template == 'Template 3'}cboxElement-template-1{/if}"rel="venue_gallery" href="{if entry_id == '7984'}{image:url}{if:else}{image:url:gallery_image}{/if}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}">
-
-
-        {if special_offer_template == "Template 3"}
-
-        {if entry_id == '7984'}
-
-        <img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}" src="{image:url}" width="320" />
-
-        {if:else}
-
-        <img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}" height="240" src="{image:url:320x240}" width="320" />
-
-        {/if}
-
-        {if:elseif special_offer_template == "Template 1" }
-
-        <img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}" height="240" src="{image:url:647x240}" width="647" />
-
-
-        {/if}
-
-      </a>
-
-      {/exp:channel_images:images}
-      {/if}
-
+  {if expiration_date > 0}
+    {if '{expiration_date format="%Y%m%d"}' < '{current_time format="%Y%m%d"}'}
+      <p class="lede">This offer has expired.</p>
+    {/if}
+    {/if}
       <div style="display: none;">
         {if special_offer_template == "Template 2"}
 
@@ -131,12 +123,8 @@
 
         {/if}
       </div>
-
-      <div class="event-dates {if special_offer_template == 'Template 3'}event-dates-template-1{/if}">
-
+      <div class='event-dates {if special_offer_template == "Template 3"}event-dates-template-1{/if}'>
         {if special_offer_template == "Template 2"}
-
-        <div class="feature_imagecredit">
 
           {exp:channel_images:images entry_id="{entry_id}" skip_cover="yes" limit="1"}
           {if image:field:1 != ''}
@@ -149,15 +137,12 @@
           <div class="f_ic_right">Image credit: {image:field:1}</div>
           {/if}
           {/exp:channel_images:images}
-        </div>
 
         {if:else}
         {exp:channel_images:images entry_id="{entry_id}" skip_cover="yes" limit="1"}
 
-
-
         {if image:field:1 != ''}
-        <div class="f_ic_left">Image credit: {image:field:1}</div>
+          Image credit: {image:field:1}
         {/if}
         {/exp:channel_images:images}
 
@@ -179,44 +164,17 @@
 
           {/exp:playa:children}
           <a class="imagegallery tooltip" href="#" title="Gallery"></a>
-
         </div>
-
       </div>
-
-
-
-      <div class="span-16 append-bottom event-description {if special_offer_template == 'Template 3'}event-description-template-1{/if}">
-
-        <!-- po.st begin -->
-        <div class="pw-widget pw-counter-show  pw-size-large">
-          <a class="pw-button-twitter"></a>
-          <a class="pw-button-facebook"></a>
-          <a class="pw-button-email"></a>
-          <a class="pw-button-print"></a>
-          <a class="pw-button-post"></a>
-        </div>
-        <script src="http://i.po.st/share/script/post-widget.js#publisherKey=9ebhofj2b8lse7eqsksc" type="text/javascript" charset="utf-8"></script>
-        <!-- po.st END -->
-
         <p>{special_offer_details}</p>
+        {exp:channel:entries show_expired="yes" show_future_entries="yes" channel="special_offers" dynamic="no" status="open" url_title="{freebie_3}" track_views="one" require_entry="yes"}
+        {if special_offer_map}
+          {if special_offer_map}
+            {special_offer_map:map mt_control_style="DROPDOWN_MENU" width="100%" height="240px" id="event-map"}
+          {/if}
+        {/if}
+        {/exp:channel:entries}
 
-
-        <!-- po.st begin -->
-        <div class="pw-widget pw-counter-show  pw-size-large">
-          <a class="pw-button-twitter"></a>
-          <a class="pw-button-facebook"></a>
-          <a class="pw-button-email"></a>
-          <a class="pw-button-print"></a>
-          <a class="pw-button-post"></a>
-        </div>
-        <script src="http://i.po.st/share/script/post-widget.js#publisherKey=9ebhofj2b8lse7eqsksc" type="text/javascript" charset="utf-8"></script>
-        <!-- po.st END -->
-
-      </div>
-
-    </div>
-  </div>
 
   <div id="so-form" {if freebie_3 == 'save-over-40-off-tickets-to-the-baby-show'}style="display:none;"{/if}>
 
@@ -251,10 +209,10 @@
 
         <div class="append-bottom" style="background: url('/assets/images/v2/template/speech-bubble.png') no-repeat 0 0; width: 590px; height: 436px; position: relative;">
 
-          <input id="offer_first_name" class="default_value" type="text" name="offer_first_name" style="position: absolute; top: 57px; left: 173px; height: 34px; width: 390px; margin: 0; padding: 0 5px 0 5px; border: 0;" value="First Name" />
-          <input id="offer_last_name" class="default_value" type="text" name="offer_last_name" style="position: absolute; top: 97px; left: 173px; height: 34px; width: 390px; margin: 0; padding: 0 5px 0 5px; border: 0;" value="Last Name" />
-          <input id="offer_email_address" class="default_value required email" type="text" name="offer_email_address" style="position: absolute; top: 138px; left: 172px; height: 34px; width: 390px; margin: 0; padding: 0 5px 0 5px; border: 0;" value="Email Address" />
-          <select id="offer_age" name="offer_age" style="width:400px;position:absolute;left:172px;top:175px;" class="default_value required">
+          <input id="offer_first_name" class="default_value" type="text" name="offer_first_name" value="First Name" />
+          <input id="offer_last_name" class="default_value" type="text" name="offer_last_name" value="Last Name" />
+          <input id="offer_email_address" class="default_value required email" type="text" name="offer_email_address" value="Email Address" />
+          <select id="offer_age" name="offer_age" class="default_value required">
             <option value="Under 20">Under 20</option>
             <option value="21-30">21-30</option>
             <option value="31-40">31-40</option>
@@ -262,8 +220,8 @@
             <option value="51-60">51-60</option>
             <option value="61+">61+</option>
           </select>
-          <input id="offer_postcode" class="default_value required" type="text" name="offer_postcode" style="position: absolute; top: 223px; left: 172px; height: 34px; width: 390px; margin: 0; padding: 0 5px 0 5px; border: 0;" value="Postcode" />
-          <select id="offer_heard" name="offer_heard" style="width: 210px;position: absolute;left: 360px;top: 267px;" class="default_value required">
+          <input id="offer_postcode" class="default_value required" type="text" name="offer_postcode" value="Postcode" />
+          <select id="offer_heard" name="offer_heard" class="default_value required">
             <option value="Email">Email</option>
             <option value="Website">Website</option>
             <option value="Postcard">Postcard</option>
@@ -271,10 +229,10 @@
             <option value="Twitter">Twitter</option>
             <option value="Other">Other (please specify)</option>
           </select>
-          <input id="offer_other" class="default_value required" type="text" name="offer_other" style="position: absolute; top: 307px; left: 172px; height: 34px; width: 390px; margin: 0; padding: 0 5px 0 5px; border: 0;" value="" />
+          <input id="offer_other" class="default_value required" type="text" name="offer_other" value="" />
 
           <input type="hidden" name="so_refer" id="so_refer" value="{segment_1}/{segment_2}/{freebie_3}" />
-          <a style="position: absolute; top: 355px; left: 359px; height: 33px; width: 215px; display: block;" href="#" id="offer_submit"><span style="display: none;">Go</span></a>
+          <a href="#" id="offer_submit"><span style="display: none;">Go</span></a>
         </div>
         <p><input class="special_checkbox" id="offer_subscribe" type="checkbox" name="offer_subscribe" value="1" checked="checked" /> {if future_mailing_wording}  {future_mailing_wording}  {if:else}Please tick here if you would like to receive news and offers from London Calling.{/if}</p>
         <input type="hidden" name="action" id="offer_action" value="{special_offer_place} - {title}" />
@@ -351,11 +309,11 @@ $("#RPO-content").load("/assets/php/RPO-bluebeard-competition/")
 
                 <h2 class="speech-header">Simply enter your name and address below to enter this competition</h2>
 
-                <input id="offer_first_name" class="default_value" type="text" name="offer_first_name" style="position: absolute; top: 115px; height: 45px; width: 300px; margin: 0; padding: 0 5px 0 5px;" placeholder="First Name" />
-                <input id="offer_last_name" class="default_value" type="text" name="offer_last_name" style="position: absolute; top: 115px; left: 340px; height: 45px; width: 300px; margin: 0; padding: 0 5px 0 5px; ;" placeholder="Last Name" />
-                <input id="offer_email_address" class="default_value required email" type="text" name="offer_email_address" style="position: absolute; top: 175px; left: 19px; height: 45px; width: 620px; margin: 0; padding: 0 5px 0 5px; ;" placeholder="Email Address" />
+                <input id="offer_first_name" class="default_value" type="text" name="offer_first_name" placeholder="First Name" />
+                <input id="offer_last_name" class="default_value" type="text" name="offer_last_name" placeholder="Last Name" />
+                <input id="offer_email_address" class="default_value required email" type="text" name="offer_email_address" placeholder="Email Address" />
                 <input type="hidden" name="so_refer" id="so_refer" value="{segment_1}/{segment_2}/{freebie_3}" />
-                <div class="g-recaptcha" style="position: absolute;top: 240px;left: 20px;" data-sitekey="6LfsSP8SAAAAAK9tAPgigwLuxeLUEM2Ko2EXy60O"></div>
+                <div class="g-recaptcha" data-sitekey="6LfsSP8SAAAAAK9tAPgigwLuxeLUEM2Ko2EXy60O"></div>
 
                 <a style="position: absolute; top: 240px; left: 340px; height: 75px; width: 311px; display: block;background:#ec008c;color:#fff;font-size:2em;text-align: center;line-height:72px;text-decoration: none;" href="#" id="offer_submit">ENTER</a>
                 {if:elseif special_offer_type == 'Survey'}{if:else}
@@ -405,51 +363,29 @@ $("#RPO-content").load("/assets/php/RPO-bluebeard-competition/")
               <textarea name="twitter_share" style="display: none;">{if special_offer_type == 'Competition'}I just entered this competition to win{if:else}I have just signed up to this offer for{/if} {twitter_share_link}</textarea>
               {/if}
               </form>
-
               {/if}
-
               {/if}
-
-              <p style="font-size: 11px;"><strong>Terms and conditions:</strong><br />{special_offer_terms}</p>
-
+              <p><strong>Terms and conditions:</strong><br />{special_offer_terms}</p>
             </div>
-
-            <div id="comments" class="span-16 append-bottom border-wrapper event-content-wrapper">
-
-              <div class="event-comments">
-
-                <h2>Tell us what you think...</h2>
-
-                <div class="fb-comments" data-href="http://londoncalling.com/special-offers/detail/{url_title}" data-num-posts="20" data-width="647"></div>
-              </div>
-
-            </div>
+          </div>
 
           </div>
-          {/exp:channel:entries}
-          {exp:channel:entries show_expired="yes" show_future_entries="yes" channel="special_offers" dynamic="no" status="open" url_title="{freebie_3}" track_views="one" require_entry="yes"}          {if special_offer_map}
-            {if special_offer_map}
-              <div id="event-sidebar" class="span-7">
-                <div class="span-7 border-wrapper event-sidebar-wrapper">
-                  <div class="event-sidebar">
-                    {special_offer_map:map mt_control_style="DROPDOWN_MENU" width="259px" height="240px" id="event-map"}
-                  </div>
+            <div id="comments" class="panel">
+              <h2 class="block-heading pink-bg">Tell us what you think...</h2>
+              <div class="panel__content">
+                <div class="fb-comments" data-href="http://londoncalling.com/special-offers/detail/{url_title}" data-num-posts="20" data-width="647">
                 </div>
               </div>
-            {/if}
-            {/if}
+            </div>
+          </div>
           {/exp:channel:entries}
-          <div class="span-16 append-bottom border-wrapper event-content-wrapper">
-            <div class="related-content">
-              <h3>You may also like</h3>
+          <div class="panel">
+            <h3 class="block-heading pink-bg">You may also like</h3>
+            <div class="panel__content">
               {exp:channel:entries channel="special_offers|features|calendar_events" limit="10" dynamic="no" show_expired="no" show_future_entries="no" status="open" orderby="date" sort="desc"}
-
               <div class="related-item">
-
                 {exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
                 {if '{channel_short_name}' == 'calendar_events'}
-
-
                 <a href="/events/{url_title}" title="{title}">
                   <img src="{image:url:homepage_image}" width="100" height="90" alt="editors pick feature" />
                 </a>
@@ -459,7 +395,6 @@ $("#RPO-content").load("/assets/php/RPO-bluebeard-competition/")
                 {if event_sub_title}
                 {event_sub_title}
                 {/if}
-
                 {if:else}
                 {if '{channel_short_name}' == 'special_offers'}
                 <a href="/special-offers/detail/{url_title}" title="{title}">
@@ -470,9 +405,9 @@ $("#RPO-content").load("/assets/php/RPO-bluebeard-competition/")
                   <h4>
             {if '{channel_short_name}' == 'special_offers'}
               <a class="" href="/special-offers/detail/{url_title}" title="{title}">{title}</a>
-	    {if:else}
+	          {if:else}
               <a class="" href="/{channel_short_name}/{url_title}" title="{title}">{title}</a>
-	    {/if}
+	          {/if}
                   </h4>
                   {if feature_excerpt}
                   {feature_excerpt}
@@ -482,9 +417,6 @@ $("#RPO-content").load("/assets/php/RPO-bluebeard-competition/")
                   {/if}
                   {/if}
                   {/exp:channel_images:images}
-
-
-
               </div>
               {/exp:channel:entries}
             </div>

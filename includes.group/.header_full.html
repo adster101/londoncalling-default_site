@@ -22,16 +22,21 @@
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" />
 	<link rel="apple-touch-startup-image" href="/assets/images/apple-touch-startup-image.png" /> {if embed:google_standout == 'Yes'}
-	<link rel="standout" href="http://londoncalling.com/{embed:url_title}" /> {/if} {exp:minimee:css}
+	<link rel="standout" href="http://londoncalling.com/{embed:url_title}" /> {/if}
 
-	<link media="screen, projection, print" rel="stylesheet" type="text/css" href="/assets/css/inuit/main.css" /> {/exp:minimee:css} {if embed:page_title}
-	<link media="print" rel="stylesheet" type="text/css" href="/assets/css/print-favourites.css" /> {/if} {exp:minimee:js}
+	{exp:minimee:css}
+		<link media="screen, projection, print" rel="stylesheet" type="text/css" href="/assets/css/inuit/main.css" />
+	{/exp:minimee:css}
 
+{if embed:page_title}
+	<link media="print" rel="stylesheet" type="text/css" href="/assets/css/print-favourites.css" />
+{/if}
+
+{exp:minimee:js}
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-
-	{/exp:minimee:js}
+{/exp:minimee:js}
 
 	<script type="text/javascript" src="/themes/third_party/mx_google_map/mxgooglemap.js"></script>
 

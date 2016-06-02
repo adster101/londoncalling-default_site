@@ -10,24 +10,31 @@
       <div class="trending">
         {exp:playa:children field="staff_picks"}
         {if channel_short_name == "features"}
-        <a class="trending__item" href='/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}'>
+        <a data-slide-number="{count}" class="trending__item" href='/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}'>
 					{feature_home_page_title}
-				</a> {if:elseif channel_short_name == "calendar_events"}
-        <a class="trending__item" href="/{if channel_short_name == " calendar_events "}events{if:elseif channel_short_name == "special_offers "}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}">
+				</a>
+        {if:elseif channel_short_name == "calendar_events"}
+        <a data-slide-number="{count}"  class="trending__item" href="/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers "}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}">
 					{event_home_title}
-				</a> {if:elseif channel_short_name == "venues"}
-        <a class="trending__item" href="/{if channel_short_name == " calendar_events "}events{if:elseif channel_short_name == "special_offers "}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}">
+				</a>
+        {if:elseif channel_short_name == "venues"}
+        <a data-slide-number="{count}"  class="trending__item" href="/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers "}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}">
 					{venue_home_page_title}
-				</a> {if:elseif channel_short_name == "events"}
-        <a class="trending__item" href="/{if channel_short_name == " calendar_events "}events{if:elseif channel_short_name == "special_offers "}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}">
+				</a>
+        {if:elseif channel_short_name == "events"}
+        <a data-slide-number="{count}"  class="trending__item" href="/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name == "special_offers "}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}">
 					{event_home_title}
-				</a> {if:elseif channel_short_name == "special_offers"}
-        <a class="trending__item" href="/{if channel_short_name == " calendar_events "}events{if:elseif channel_short_name == "special_offers "}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}">
+				</a>
+        {if:elseif channel_short_name == "special_offers"}
+        <a data-slide-number="{count}"  class="trending__item" href="/{if channel_short_name == " calendar_events "}events{if:elseif channel_short_name == "special_offers "}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}">
 					{so_home_page_title}
-				</a> {if:elseif channel_short_name == "pages" || channel_short_name == "london_lates"}
-        <a class="trending__item" href="/{if url_title==" features-show "}features/show{if:elseif url_title=="free "}venues/free{if:else}{url_title}{/if}">
+				</a>
+        {if:elseif channel_short_name == "pages" || channel_short_name == "london_lates"}
+        <a data-slide-number="{count}"  class="trending__item" href="/{if url_title=="features-show"}features/show{if:elseif url_title=="free "}venues/free{if:else}{url_title}{/if}">
 					{title}
-				</a> {/if} {/exp:playa:children}
+				</a>
+        {/if}
+      {/exp:playa:children}
       </div>
     </div><!--
 --><div class="layout__item u-2/3-desk u-2/3-lap">
@@ -53,7 +60,6 @@
                 {/exp:channel_images:images}
                  {/if}
                 <div class="slide__image--caption lap-and-up-pl- palm-pl--">
-
                   {if channel_short_name == "features"}
                   <p>{feature_sub_title}</p>
                   {if:elseif channel_short_name == "calendar_events"}
@@ -127,7 +133,6 @@
     <a onClick="ga('send', 'event', 'Optional image link', 'click', {'page': '{optional_image_link}'});" href="{optional_image_link}"><img src="{951x}" class="left" width="946px" alt="optional image link" /></a>
   </div>
   {/if}
-</div>
 
 {/if}
 {!-- Inspiration --}
@@ -175,17 +180,19 @@
           </h4>
           </div>
         </div>
-        </div><!---->{/exp:playa:children}</div>
-</div>
-</div>
+        </div><!---->{/exp:playa:children}
+      </div>
+    </div>
+  </div>
 
 
 
 {!-- Social and Weather --}
-<div class="border-wrapper-selection">
-  <div class="homepage-selection">
-    <h2 class="block-heading pink-bg">Social &amp; Weather</h2>
-    <div style="float:left;width:32%;height:400px;">
+<div class="panel">
+  <h2 class="block-heading pink-bg">Social &amp; Weather</h2>
+  <div class="panel__content">
+    <div class="layout">
+      <div class="layout__item u-1/3-lap u-1/3-desk">
       <style type="text/css">
         .fb-page,
         .fb-page iframe[style],
@@ -211,9 +218,9 @@
           <blockquote cite="http://www.facebook.com/LondonCallingUK"><a href="http://www.facebook.com/LondonCallingUK">London Calling</a></blockquote>
         </div>
       </div>
-    </div>
-
-    <div style="float:left;width:32%;margin-left:10px;height:400px;">
+    </div><!--
+--><div class="layout__item u-1/3-lap u-1/3-desk">
+    <div>
       <style type="text/css">
         #twitter-widget-0 {
           width: 100% !important;
@@ -234,7 +241,9 @@
         }(document, "script", "twitter-wjs");
       </script>
     </div>
-    <div style="float:left;width:32%;margin-left:10px;height:400px;">
+  </div><!--
+--><div class="layout__item u-1/3-lap u-1/3-desk">
+    <div>
       <script type="text/javascript">
         moWWidgetParams =
           "moAllowUserLocation:false~moBackgroundColour:white~moColourScheme:white~moDays:5~moDomain:www.metoffice.gov.uk~moFSSI:350928~moListStyle:vertical~moMapDisplay:none~moShowFeelsLike:true~moShowUV:true~moShowWind:true~moSpeedUnits:M~moStartupLanguage:en~moTemperatureUnits:C~moTextColour:black~moGridParams:weather,temperature,wind,feelslike,warnings~";
@@ -242,8 +251,12 @@
       <script type="text/javascript" src="http://www.metoffice.gov.uk/public/pws/components/yoursite/loader.js">
       </script>
     </div>
-    <div class="clear"></div>
+  </div>
+  </div>
+  </div>
   </div>
 </div>
 
-{/exp:channel:entries} {embed="includes/.footer"}
+{/exp:channel:entries}
+
+{embed="includes/.footer"}
