@@ -27,16 +27,11 @@ parse="inward"}
 													</a>
 												</h3>
 									<div class="authordate">
-									{entry_date format="%j %F %Y"} | <span class="blue">{if feature_author_3}
-										{related_entries id="feature_author_3"}
-										<a onClick="ga('send', 'event', 'Feature author link', 'click', {'page': '/features/authors/{url_title}'});" href="/features/authors/{url_title}">{title}</a>
-										{/related_entries}
-
-									{if:else}{feature_author}{/if}</span> | <span class="blue"><a href="/features/show/{exp:low_replace find='SPACE' replace='-'}{lead_feature_category}{/exp:low_replace}" class="feature-list">{lead_feature_category}</a></span>
+									{entry_date format="%j %F %Y"}  | <span class="blue"><a href="/features/show/{exp:low_replace find='SPACE' replace='-'}{lead_feature_category}{/exp:low_replace}" class="feature-list">{lead_feature_category}</a></span>
 
 									</div>
 									<p>
-											{feature_excerpt}
+											{feature_sub_title}
 										</p>
 
 

@@ -7,7 +7,7 @@
       {if event_template == "Template 1 - 2 x 320x240 images"}
       <div class="layout layout--flush">
         {exp:channel_images:images entry_id="{entry_id}" limit="2"}
-        <div class="layout__item u-1/2-lap u-1/2-desk u-1/2-palm">
+        <div class="layout__item u-1/2-lap u-1/2-desk">
           <figure class="palm-mh0 palm-mt0 lap-and-up-mh0 lap-and-up-mt0">
           <img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}" src="{image:url:events_320}" />
           <figcaption>
@@ -17,13 +17,16 @@
       </div><!-- -->{/exp:channel_images:images}</div>
       {if:else}
       {exp:channel_images:images entry_id="{entry_id}" limit="1"}
-        <a class="{if event_template == 'Template 3 - 1 x 320x240 image'}cboxElement-template-1{/if}" rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}">
+      <figure class="palm-mh0 palm-mt0 lap-and-up-mh0 lap-and-up-mt0">
           {if event_template == "Template 3 - 1 x 320x240 image"}
             <img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}" src="{image:url:events_320}" />
           {if:elseif event_template == "Template 2 - 1 x 647x240 image" }
             <img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}"  src="{image:url:events_647}" />
           {/if}
-          </a>
+          <figcaption>
+            {if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}
+          </figcaption>
+        </figure>
         {/exp:channel_images:images}
       {/if}
       {/exp:channel:entries}
@@ -46,13 +49,14 @@
         {redirect="404"}
         {/if}
 
-        <div class="event-dates {if event_template == 'Template 3 - 1 x 320x240 image'}event-dates-template-1{/if}">
+        <p>
           {if event_book_until_date} Booking until {event_book_until_date format="%j %F %Y"} {if:else} {exp:calendar:occurrences event_id="{entry_id}" show_future_entries="yes" date_range_end="2 years" occurrences_limit="1"} {if calendar_no_results} There are no
           dates/times listed for this event {/if} {if occurrence_total != '1'} {if '{current_time format="%Y"}' != '{occurrence_start_date format="%Y"}'} {occurrence_start_date format="%j %F %Y"} {if:else} {occurrence_start_date format="%j %F"} {/if}
           {if '{event_last_date}' != '{occurrence_start_date}'} - {event_last_date format="%j %F %Y"} {if:else} until further notice {/if} {if:else} {if '{occurrence_start_date format="%j %F %Y"}' == '{event_last_date format="%j %F %Y"}'} {event_last_date
           format="%j %F %Y"} {if:else} {if '{current_time format="%Y"}' != '{occurrence_start_date format="%Y"}'} {occurrence_start_date format="%j %F %Y"} {if:else} {occurrence_start_date format="%j %F %Y"} {/if} - {event_last_date format="%j %F %Y"}
           {/if} {/if} {/exp:calendar:occurrences} {/if}
 
+        </p>
           <div class="selection-actions event-actions {if event_template == 'Template 3 - 1 x 320x240 image'}event-actions-template-1{/if}">
             {if free_entry == "Yes"}
               <a href="/{channel_short_name}/{url_title}" title="Free Entry!" class="freeentry tooltip"></a>
@@ -68,29 +72,13 @@
             <a class="videogallery tooltip" href="#" title="Video"></a>
             {/if} {/exp:channel_videos:videos}
           </div>
-        </div>
-        <div style="display: none;">
-          {if event_template == "Template 1 - 2 x 320x240 images"} {exp:channel_images:images entry_id="{entry_id}" offset="2"}
-          <a rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}">{image:url:gallery_image}</a> {/exp:channel_images:images}
-          {if:else} {exp:channel_images:images entry_id="{entry_id}" offset="1"}
-          <a rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}">{image:url:gallery_image}</a> {/exp:channel_images:images}
-          {/if}
-        </div>
-        <div style="display: none;">
-          {exp:channel_videos:videos entry_id="{entry_id}"}
-            {if '{video:service}' == 'youtube'}
-              <a rel="venue_video_gallery" href="http://www.youtube.com/v/{video:service_id}" title="{video:title}"></a>
-            {if:else}
-              <a rel="venue_video_gallery" href="http://player.vimeo.com/video/{video:service_id}" title="{video:title}"></a>
-            {/if}
-          {/exp:channel_videos:videos}
-        </div>
+
       {exp:channel:entries show_expired="yes" show_future_entries="yes" channel="calendar_events" limit="1"}
         {event_description}
 
 
-      <h4>Location</h4>
       {if event_map}
+      <h4>Location</h4>
         {event_map:map mt_control_style="DROPDOWN_MENU" width="100%" height="240px" id="event-map"}
       {if:else}
         {exp:playa:children field="event_venue" limit="1"}
@@ -146,7 +134,7 @@
       <h2 class="block-heading pink-bg">Tell us what you think...</h2>
       <div class="panel__content">
         <div class="event-comments">
-        <div class="fb-comments" data-href="{exp:channel:entries show_expired="yes" channel="calendar_events" limit="1"}http://londoncalling.com/events/{url_title}{/exp:channel:entries}" data-num-posts="20" data-width="647">
+        <div class="fb-comments" data-href="{exp:channel:entries show_expired="yes" channel="calendar_events" limit="1"}http://londoncalling.com/events/{url_title}{/exp:channel:entries}" data-num-posts="20" >
         </div>
       </div>
     </div>

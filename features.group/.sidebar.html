@@ -10,7 +10,13 @@
 								<a class="block__img" href="/events/{url_title}" title="{title}">
 									<img src="{image:url:260x161}"  alt="{title}" />
 								</a>
-								<span class="icon icon--feature"></span>
+								{if feature_category *= 'Top 5'}
+									<span class="icon icon--top-5"></span>
+								{if:elseif free_entry == "Yes"}
+									<span class="icon icon--free"></span>
+								{if:else}
+									<span class="icon icon--{channel_short_name}"></span>
+								{/if}
 								<div class="block__body">
 									<h4>
 										<a href="/events/{url_title}" title="{title}">
@@ -28,8 +34,14 @@
 							{if:else}
 								<a class="block__img" href="/{channel_short_name}/{url_title}" title="{title}">
 									<img src="{image:url:homepage_image}" alt="{title}" />
+									{if feature_category *= 'Top 5'}
+										<span class="icon icon--top-5"></span>
+									{if:elseif free_entry == "Yes"}
+										<span class="icon icon--free"></span>
+									{if:else}
+										<span class="icon icon--{channel_short_name}"></span>
+									{/if}
 								</a>
-								<span class="icon icon--feature"></span>
 								<div class="block__body">
 									<h4>
 										<a class="" href="/{channel_short_name}/{url_title}" title="{title}">
@@ -60,8 +72,13 @@
 								<a class="block__img" href="/events/{url_title}" title="{title}">
 									<img src="{image:url:260x161}" alt="editors pick feature" />
 								</a>
-								<span class="icon icon--feature"></span>
-								<div class="block__body">
+								{if feature_category *= 'Top 5'}
+									<span class="icon icon--top-5"></span>
+								{if:elseif free_entry == "Yes"}
+									<span class="icon icon--free"></span>
+								{if:else}
+									<span class="icon icon--{channel_short_name}"></span>
+								{/if}													<div class="block__body">
 									<h4>
 										<a href="/events/{url_title}" title="{title}">
 											{title}
@@ -79,8 +96,13 @@
 								<a class="block__img" href="/{channel_short_name}/{url_title}" title="{title}">
 									<img src="{image:url:260x161}"  alt="{title}" />
 								</a>
-								<span class="icon icon--feature"></span>
-								<div class="block__body">
+								{if feature_category *= 'Top 5'}
+									<span class="icon icon--top-5"></span>
+								{if:elseif free_entry == "Yes"}
+									<span class="icon icon--free"></span>
+								{if:else}
+									<span class="icon icon--{channel_short_name}"></span>
+								{/if}													<div class="block__body">
 									<h4>
 										<a href="/{channel_short_name}/{url_title}" title="{title}">
 											{title}

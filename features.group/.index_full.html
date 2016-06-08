@@ -3,9 +3,8 @@ page_title="{title}"
 google_standout="{google_news_standout_tag}"
 google_news_keywords="{google_news_keywords}"
 url_title="{url_title}"
-{/exp:channel:entries}"
 seo_plugin="yes"}
-
+{/exp:channel:entries}
 <div class="wrapper">
   <div class="layout">
       <div class="layout__item u-2/3-desk u-2/3-lap">
@@ -17,28 +16,39 @@ seo_plugin="yes"}
         {/if}
 
         {if feature_template == "Template 3"}
-
+        <div class="layout layout--flush">
         {exp:channel_images:images entry_id="{entry_id}" limit="2" skip_cover="yes"}
-        <a rel="venue_gallery" href="{image:url:gallery_image}" title="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}"><img alt="{if image:field:1 != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}" height="240" src="{image:url:320x240}" width="320" /></a>
-        {/exp:channel_images:images}
+          <div class="layout__item u-1/2-lap u-1/2-desk">
+            <figure class="palm-mh0 palm-mt0 lap-and-up-mh0 lap-and-up-mt0">
+              <img alt="{title}" src="{image:url:320x240}" />
+                {if image:field:1 != ''}
+                <figcaption>
+                  Image Credit: {image:field:1}
+
+                </figcaption>
+                {/if}
+
+      </figure>
+      </div><!-- -->{/exp:channel_images:images}</div>
 
         {if:elseif feature_template == "Template 2"}
         {exp:channel_images:images entry_id="{entry_id}" skip_cover="yes" limit="1"}
-        <div class="slide template2">
-          <div class="slide_img">
-            <a rel="venue_gallery" href="{image:url:gallery_image}" title="{if '{image:field:1}' != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}"><img alt="{title}" height="240" src="{image:url:320x240}" width="320" /></a>
-          </div>
+        <figure class="palm-mh0 palm-mt0 lap-and-up-mh0 lap-and-up-mt0">
+          <img alt="{title}" src="{image:url:320x240}" /></a>
+          <figcaption>
 
-        </div>
+          {if '{image:field:1}' != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}
+          </figcaption>
+        </figure>
         {/exp:channel_images:images}
 
         {if:elseif feature_template == "Template 1"}
         {exp:channel_images:images entry_id="{entry_id}" skip_cover="yes" limit="1"}
         <figure class="palm-mh0 palm-mt0 lap-and-up-mh0 lap-and-up-mt0">
           <img alt="{title}" src="{image:url:647z240}" />
-          {if '{image:field:1}' != ''}
-            <figcaption>Image credit: {image:field:1}</figcaption>
-          {/if}
+          <figcaption>
+                    {if '{image:field:1}' != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}
+            </figcaption>
         </figure>
 
         {/exp:channel_images:images}
@@ -97,7 +107,7 @@ seo_plugin="yes"}
       <div id="comments" class="panel">
         <h2 class="block-heading pink-bg">Tell us what you think</h2>
         <div class="panel__content">
-            <div class="fb-comments" data-href="{exp:channel:entries show_expired="yes" channel="features" limit="1"}http://londoncalling.com/features/{url_title}{/exp:channel:entries}" data-num-posts="20" data-width="647"></div>
+            <div class="fb-comments" data-href="{exp:channel:entries show_expired="yes" channel="features" limit="1"}http://londoncalling.com/features/{url_title}{/exp:channel:entries}" data-num-posts="20" ></div>
         </div>
       </div>
 

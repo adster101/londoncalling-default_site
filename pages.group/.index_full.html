@@ -5,7 +5,7 @@
   {exp:channel:entries channel="home" dynamic="no"} {!-- Staff Picks --}
   <!-- Start trending panel -->
   <h2 class="block-heading pink-bg palm-mb-- palm-pl-- lap-and-up-pl- lap-and-up-mb-">{staff_pick_title_text}</h2>
-  <div class="layout layout--rev layout--small">
+  <div class="layout layout--rev layout--small palm-mb-- lap-mb- desk-mb">
     <div class="layout__item layout__item--hidden-palm u-1/3-desk u-1/3-lap">
       <div class="trending">
         {exp:playa:children field="staff_picks"}
@@ -46,7 +46,11 @@
               <div class="slide__image--container">
                 {if channel_short_name == 'pages'}
                 <a class="image" href="/{if url_title=="features-show"}features/show{if:elseif url_title=="free"}venues/free{if:else}{url_title}{/if}">
-                  <img src="{homepage_image}" width="180" height="180" alt="homepage this week image" />
+                  <img
+                    src="{image:url:320x180}"
+                    srcset="{image:url:492x277} 492w, {image:url:640x360} 640w, {image:url:694x390} 694w"
+                    sizes="(min-width: 720px) 65vw, (min-width: 1024) 70vw, 100vw"
+                    alt="homepage this week image" />
                 </a>
                 {if:elseif channel_short_name == 'london_lates'}
                 <a class="image" href="/london-lates">
@@ -55,7 +59,11 @@
                 {if:else}
                 {exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
                 <a class="image" href='/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name =="special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}'>
-                  <img src="{image:url:gallery_image}" alt="homepage this week image" />
+                  <img
+                    src="{image:url:320x180}"
+                    srcset="{image:url:492x277} 492w, {image:url:640x360} 640w, {image:url:694x390} 694w"
+                    sizes="(min-width: 720px) 65vw, (min-width: 1024) 70vw, 100vw"
+                    alt="homepage this week image" />
                 </a>
                 {/exp:channel_images:images}
                  {/if}
@@ -88,10 +96,20 @@
     </div>
   </div>
 
-  {!-- Template 1 --} {if template == "Homepage Template 1"} {if text} {text} {/if} {if:elseif template == "Homepage Template 2" } {!-- Template 2 --}
+  {!-- Template 1 --}
+  {if template == "Homepage Template 1"}
+    {if text}
+      <div class="panel">
+      <div class="panel__content">
+      {text}
+    </div>
+    </div>
+    {/if}
+  {if:elseif template == "Homepage Template 2" } {!-- Template 2 --}
 
   <div class="border-wrapper fullimage">
-    <a onClick="ga('send', 'event', '951x240 link', 'click', {'page': '{951x240_link}'});" href="{951x240_link}"><img src="{951x240}" class="left" width="946" height="239" alt="homepage featured image" /></a>
+    <a href="{951x240_link}"><img src="{951x240}" class="left" alt="homepage featured image" />
+    </a>
   </div>
 
   {if text}
@@ -112,7 +130,7 @@
 
   {if:else} {exp:channel_videos:videos entry_id="{entry_id}" embed_width="320" embed_height="240"} {if video:no_videos}
   <div class="border-wrapper right">
-    <a onClick="ga('send', 'event', 'Ad_Videobox', 'click', {'page': '{320x240_link}'});" href="{320x240_link}"><img src="{320x240}" class="right" alt="video advertisement box" /></a>
+    <a href="{320x240_link}"><img src="{320x240}" class="right" alt="video advertisement box" /></a>
   </div>
   {/if}
   <div class="border-wrapper right video">
@@ -120,20 +138,20 @@
       {video:embed_code}
     </div>
   </div>
-  {/exp:channel_videos:videos} {/if} {if 951x}
-  <div class="border-wrapper optionalimage">
-    <a onClick="ga('send', 'event', 'Optional image link', 'click', {'page': '{optional_image_link}'});" href="{optional_image_link}"><img src="{951x}" class="left" width="946px" alt="optional image link" /></a>
-  </div>
-  {/if} {if:elseif template == "Homepage Template 4" } {!-- Template 4 --}
-  <div class="border-wrapper fullimage">
-    <a onClick="ga('send', 'event', '951x240 link', 'click', {'page': '{951x240_link}'});" href="{951x240_link}"><img src="{951x240}" class="left" width="946" height="239" alt="homepage featured image" /></a>
-  </div>
+  {/exp:channel_videos:videos} {/if}
   {if 951x}
-  <div class="border-wrapper optionalimage">
-    <a onClick="ga('send', 'event', 'Optional image link', 'click', {'page': '{optional_image_link}'});" href="{optional_image_link}"><img src="{951x}" class="left" width="946px" alt="optional image link" /></a>
-  </div>
+    <div class="border-wrapper optionalimage">
+      <a href="{optional_image_link}"><img src="{951x}" class="left" width="946px" alt="optional image link" /></a>
+    </div>
+  {/if} {if:elseif template == "Homepage Template 4" } {!-- Template 4 --}
+    <div class="border-wrapper fullimage">
+      <a href="{951x240_link}"><img src="{951x240}" class="left" width="946" height="239" alt="homepage featured image" /></a>
+    </div>
+  {if 951x}
+    <div class="border-wrapper optionalimage">
+      <a href="{optional_image_link}"><img src="{951x}" class="left" width="946px" alt="optional image link" /></a>
+    </div>
   {/if}
-
 {/if}
 {!-- Inspiration --}
 <div class="panel">
@@ -144,9 +162,11 @@
       <div class="layout__item u-1/4-desk u-1/4-lap u-1/2">
         <div class="inspired">
           <a class="inspired__item" href="/{if url_title=="features-show"}features/show{if:elseif url_title=="free"}venues/free{if:else}{url_title}{/if}">
-						{title}
+						{title}{segment_2}
 					</a>
-          <img src="{homepage_image}" alt="homepage inspiration image" />
+          {exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
+            <img src="{image:url}" alt="homepage inspiration image" />
+          {/exp:channel_images:images}
         </div>
       </div><!-- -->{/exp:playa:children}</div>
   </div>
@@ -162,18 +182,20 @@
       <div class="layout__item u-1/4-desk u-1/4-lap u-1/2 ">
         <div class="block block--flush palm-mb-">
           {if channel_short_name == 'pages'}
-          <a class="image" href="/{if url_title==" features-show "}features/show{if:elseif url_title=="free "}venues/free{if:else}{url_title}{/if}">
+          <a class="image" href="/{if url_title=="features-show"}features/show{if:elseif url_title=="free"}venues/free{if:else}{url_title}{/if}">
             <img src="{homepage_image}" alt="homepage top 5 image" />
           </a>
           {if:elseif channel_short_name == 'london_lates'}
           <a class="image" onClick="ga('send', 'event', 'Top5_{count}', 'click', {'page': '/london-lates'});" href="/london-lates">
             <img src="{homepage_image_lates}" alt="top 5 London lates image" />
           </a>
-          {if:else} {exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
+          {if:else}
+          {exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
           <a class="image" href='/special-offers/detail/{url_title}'>
             <img src="{image:url:230x230}" alt="top 5 image" />
           </a>
-          {/exp:channel_images:images} {/if}
+          {/exp:channel_images:images}
+          {/if}
           <div class="block__body block__body--fixed-height grey-bg p-">
             <h4 class="block-heading block-heading--small m0 p0">
           <a class="white" href="#">{title}</a>
@@ -213,7 +235,7 @@
         }(document, 'script', 'facebook-jssdk'));
       </script>
 
-      <div class="fb-page" data-href="http://www.facebook.com/LondonCallingUK" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true">
+      <div class="fb-page" data-href="http://www.facebook.com/LondonCallingUK" data-width="100%" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true">
         <div class="fb-xfbml-parse-ignore">
           <blockquote cite="http://www.facebook.com/LondonCallingUK"><a href="http://www.facebook.com/LondonCallingUK">London Calling</a></blockquote>
         </div>

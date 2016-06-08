@@ -7,18 +7,24 @@
           {exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
             {if '{channel_short_name}' == 'calendar_events'}
               <a href="/events/{url_title}" title="{title}" class="media__img">
-              {if:elseif '{channel_short_name}' == 'special_offers'}
-                <a href="/special-offers/detail/{url_title}" title="{title}" class="media__img">
-	            {if:else}
-            	  <a href="/{channel_short_name}/{url_title}" title="{title}" class="media__img">
-	            {/if}
-                <img src="{image:url:180x180}" alt="{title}" />
-                  <span class="icon icon--free"></span>
+            {if:elseif '{channel_short_name}' == 'special_offers'}
+              <a href="/special-offers/detail/{url_title}" title="{title}" class="media__img">
+	          {if:else}
+              <a href="/{channel_short_name}/{url_title}" title="{title}" class="media__img">
+	          {/if}
+              <img src="{image:url:180x180}" alt="{title}" />
+              {if feature_category *= 'Top 5'}
+                <span class="icon icon--top-5"></span>
+              {if:elseif free_entry == "Yes"}
+                <span class="icon icon--free"></span>
+              {if:else}
+                <span class="icon icon--{channel_short_name}"></span>
+              {/if}
                 </a>
               <div class="media__body">
                 <h4 class="palm-mt0 lap-and-up-mt0 lap-mb--">
                   {if '{channel_short_name}' == 'calendar_events'}
-                    <a href="/events/{url_title}" title="{title}" class="media__img">
+                    <a href="/events/{url_title}" title="{title}">
                       {title}
                     </a>
                   {if:elseif '{channel_short_name}' == 'special_offers'}
@@ -55,7 +61,7 @@
                 </p>
               </div>
           {/exp:channel_images:images}
-        {/if}<!-- End of {url_title}' != '{freebie_2} -->
+        {/if}
       </div>
     {/exp:channel:entries}
   </div>
