@@ -4,10 +4,10 @@ parse="inward" }
 {infinite_scroll_embed_category_id}
 {infinite_scroll_container_top}
 	<div class="brick" id="ajax-container">
-{/infinite_scroll_container_top} {infinite_scroll_embed_category_id}
+{/infinite_scroll_container_top}
+{infinite_scroll_embed_category_id}
 
 <?php
-
 //get variables if ajax
 if(isset($_POST['ajax_pagination_values'])) {
 $ajax = explode('|',$_POST['ajax_pagination_values']);
@@ -84,27 +84,32 @@ $endingsoon = $ajax[10];
 										'{event_last_date format="%j %F %Y"}'} {event_last_date format="%j %F %Y"} {if:else} {if '{current_time format="%Y"}' != '{occurrence_start_date format="%Y"}'} {occurrence_start_date format="%j %F %Y"} {if:else} {occurrence_start_date format="%j
 										%F"} {/if} - {event_last_date format="%j %F %Y"} {/if} {/if} {/exp:calendar:occurrences} {/if}
 									</div>
-
-
-
-
-
 								</div>
-
 							</div>
-
 						{/exp:channel:entries}
 						{paginate}
 							{exp:infinite_scroll:next_chunk_link}
 							{if next_page}
-								<div class="morelink">
-									<a href="{auto_path}" class="next_chunk_link">More</a>
+								<div class="morelink" style="position:absolute;margin:0 auto;bottom:-48px;left:-50%;right:-50%;width:150px">
+									<a href="{auto_path}" class="btn next_chunk_link">View More</a>
 								</div>
 							{/if}
 							{/exp:infinite_scroll:next_chunk_link}
 							{/paginate}
-						<div class="process_indicator"></div>
-						{/exp:query}
+							{/exp:query}
+						<div class="process_indicator">
+							<div class="sk-cube-grid">
+							  <div class="sk-cube sk-cube1"></div>
+							  <div class="sk-cube sk-cube2"></div>
+							  <div class="sk-cube sk-cube3"></div>
+							  <div class="sk-cube sk-cube4"></div>
+							  <div class="sk-cube sk-cube5"></div>
+							  <div class="sk-cube sk-cube6"></div>
+							  <div class="sk-cube sk-cube7"></div>
+							  <div class="sk-cube sk-cube8"></div>
+							  <div class="sk-cube sk-cube9"></div>
+							</div>
+						</div>
 					{infinite_scroll_container_bottom}
 </div>
 <!-- End of #ajax_container -->

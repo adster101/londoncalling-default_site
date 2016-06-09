@@ -7,17 +7,11 @@
 
 
 <div class="wrapper">
+	<h1 class="block-heading palm-mb-- lap-mb- desk-mb pink-bg">What's on in London?</h1>
 
-				<h1 class="block-heading palm-mb-- lap-mb- desk-mb pink-bg">
-					What's on in London?</h1>
-
-
-
-
-
-					<?php
-$today = date('Ymd');
-$todaytotime = strtotime('now');
+	<?php
+		$today = date('Ymd');
+		$todaytotime = strtotime('now');
 
 if(isset($_POST['startdate']) && $_POST['startdate'] != '') {
 	$startdate = explode('/',$_POST['startdate']);

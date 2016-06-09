@@ -86,32 +86,15 @@
   <h1 class="green">
     {special_offer_place} - {title}
   </h1>
-  <h2 class="so-subtitle">{if special_offer_type == 'Competition'}Competition{if:elseif special_offer_type == 'Survey'}Survey{if:else}Offer{/if} Ends: {expiration_date format="%d/%m/%Y"}</h2>
+  <p class="lede">{if special_offer_type == 'Competition'}Competition{if:elseif special_offer_type == 'Survey'}Survey{if:else}Offer{/if} Ends: {expiration_date format="%d/%m/%Y"}</p>
 
   {if expiration_date > 0}
     {if '{expiration_date format="%Y%m%d"}' < '{current_time format="%Y%m%d"}'}
-      <p class="lede">This offer has expired.</p>
+      <p>This offer has expired.</p>
     {/if}
   {/if}
 
-        <div class="selection-actions event-actions {if special_offer_template == 'Template 3'}event-actions-template-1{/if}">
-          {if '{event_prices:total_rows}' > 0}
-          {event_prices}
-          {if price_band == "Free"}<a href="/{channel_short_name}/{url_title}" title="Free Entry!" class="freeentry"></a>{/if}
-          {/event_prices}
-          {/if}
-          {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
-          <a href="/special-offers/detail/{url_title}" title="Special Offer" class="relspecialoffer tooltip-top"></a>
-          {/exp:playa:parents}
-          {exp:playa:children field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" sort="desc"}
-
-          {embed="special_offers/.features" entry_id="{exp:playa:child_ids field="related_features"}"}
-
-          {/exp:playa:children}
-          <a class="imagegallery tooltip" href="#" title="Gallery"></a>
-        </div>
-
-        <p>{special_offer_details}</p>
+  <p>{special_offer_details}</p>
         {exp:channel:entries show_expired="yes" show_future_entries="yes" channel="special_offers" dynamic="no" status="open" url_title="{freebie_3}" track_views="one" require_entry="yes"}
         {if special_offer_map}
           {if special_offer_map}
@@ -120,11 +103,8 @@
           {/if}
         {/if}
         {/exp:channel:entries}
-      </div>
-      </div>
-      <div class="panel panel--competition">
-        <div class="panel__content">
-  <div id="so-form">
+
+  <div id="so-form" class="green-border-thick palm-p-- lap-p- desk-p">
     {if special_offer_type == 'Survey'}
       <div id="form_success" class="success" style="display: none;">
       <p>Thank you for leaving your details.</p>
@@ -142,7 +122,7 @@
     {/if}
     {if {current_time format="%Y%m%d"} <= {expiration_date format="%Y%m%d"}}
       <form action="/" method="post" id="main_form">
-        <h2 class="palm-mt0 lap-and-up-mt0">Simply enter your name and address below to enter this competition</h2>
+        <h2 class="green palm-mt0 lap-and-up-mt0">Simply enter your name and address below to enter this competition</h2>
         <p id="form_error" style="display:none" class="error">Unfortunately an error occurred. Please check that you have filled in all required fields.</p>
         <input type="hidden" name="so_refer" id="so_refer" value="{segment_1}/{segment_2}/{freebie_3}" />
         {if special_offer_type == 'Competition'}
@@ -153,18 +133,22 @@
 
         {if special_offer_type == 'Competition'}
           <div class="layout">
-            <div class="layout__item u-1/3-lap u-1/3-desk">
+            <div class="layout__item u-1/2-lap u-1/2-desk">
               <input id="offer_first_name" class="palm-mb-- lap-and-up-mb text" type="text" name="offer_first_name" placeholder="First Name" />
             </div><!--
-            --><div class="layout__item u-1/3-lap u-1/3-desk">
+            --><div class="layout__item u-1/2-lap u-1/2-desk">
               <input id="offer_last_name" class="palm-mb-- lap-and-up-mb text" type="text" name="offer_last_name" placeholder="Last Name" />
             </div><!--
-          --><div class="layout__item u-1/3-lap u-1/3-desk">
+          --><div class="layout__item">
           <input id="offer_email_address" class="palm-mb-- lap-and-up-mb text" required type="email" name="offer_email_address" placeholder="Email Address" />
             </div>
+            <div class="layout__item u-2/3-lap u-2/3-desk">
+              <div class="g-recaptcha palm-mb-- lap-and-up-mb" data-size="normal" data-sitekey="6LfsSP8SAAAAAK9tAPgigwLuxeLUEM2Ko2EXy60O"></div>
+            </div><!--
+            --><div class="layout__item u-1/3-lap u-1/3-desk">
+            <button id="offer_submit" class="btn btn--full btn--green btn--large">ENTER</button>
+            </div>
           </div>
-          <div class="g-recaptcha palm-mb-- lap-and-up-mb" data-size="normal" data-sitekey="6LfsSP8SAAAAAK9tAPgigwLuxeLUEM2Ko2EXy60O"></div>
-          <button id="offer_submit" class="btn btn--full">ENTER</button>
         {if:elseif special_offer_type == 'Survey'}
         {if:else}
           <style type="text/css">
@@ -173,6 +157,7 @@
             }
           </style>
         {/if}
+      </div>
         {!--if freebie_3 == 'win-a-crate-of-old-speckled-hen-ale'}
           <p><input class="special_checkbox" id="over_18" type="checkbox" name="over_18" value="0" /> Tick here to indicate you’re over 18 and in the UK. ID will be required.</p>
         {/if--}
@@ -210,9 +195,7 @@
                 <strong>Terms and conditions:</strong>
               </h5>
                 <p>{special_offer_terms}</p>
-            </div>
           </div>
-
           </div>
             <div id="comments" class="panel">
               <h2 class="block-heading pink-bg">Tell us what you think...</h2>
@@ -221,77 +204,151 @@
                 </div>
               </div>
             </div>
-          {/exp:channel:entries}
-          <div class="panel">
-            <h3 class="block-heading pink-bg">You may also like</h3>
-            <div class="panel__content">
-              {exp:channel:entries channel="special_offers|features|calendar_events" limit="10" dynamic="no" show_expired="no" show_future_entries="no" status="open" orderby="date" sort="desc"}
-              <div class="media media--small palm-mb-- lap-mb- desk-mb">
-                {if '{url_title}' != '{freebie_2}'}
-                  {exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
-                    {if '{channel_short_name}' == 'calendar_events'}
-                      <a href="/events/{url_title}" title="{title}" class="media__img">
-                    {if:elseif '{channel_short_name}' == 'special_offers'}
-                      <a href="/special-offers/detail/{url_title}" title="{title}" class="media__img">
-        	          {if:else}
-                      <a href="/{channel_short_name}/{url_title}" title="{title}" class="media__img">
-        	          {/if}
-                      <img src="{image:url:180x180}" alt="{title}" />
-                      {if feature_category *= 'Top 5'}
-                        <span class="icon icon--top-5"></span>
-                      {if:elseif free_entry == "Yes"}
-                        <span class="icon icon--free"></span>
+            <div class="panel"><!--You may also like... -->
+              <h3 class="block-heading pink-bg">You may also like</h3>
+              <div class="panel__content">
+                {exp:channel:entries channel="special_offers|features|calendar_events" limit="10" dynamic="no" show_expired="no" show_future_entries="no" status="open" orderby="date" sort="desc"}
+                <div class="media media--small palm-mb-- lap-mb- desk-mb">
+                  {if '{url_title}' != '{freebie_2}'}
+                    {exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
+                      {if '{channel_short_name}' == 'calendar_events'}
+                        <a href="/events/{url_title}" title="{title}" class="media__img">
+                      {if:elseif '{channel_short_name}' == 'special_offers'}
+                        <a href="/special-offers/detail/{url_title}" title="{title}" class="media__img">
                       {if:else}
-                        <span class="icon icon--{channel_short_name}"></span>
+                        <a href="/{channel_short_name}/{url_title}" title="{title}" class="media__img">
                       {/if}
-                        </a>
-                      <div class="media__body">
-                        <h4 class="palm-mt0 lap-and-up-mt0 lap-mb--">
-                          {if '{channel_short_name}' == 'calendar_events'}
-                            <a href="/events/{url_title}" title="{title}">
-                              {title}
-                            </a>
-                          {if:elseif '{channel_short_name}' == 'special_offers'}
-                            <a href="/special-offers/detail/{url_title}" title="{title}">
-                              {title}
-                            </a>
-        	                {if:else}
-                            <a href="/{channel_short_name}/{url_title}" title="{title}">
-                              {title}
-                            </a>
-        	                {/if}
-                        </h4>
-                        <p class="palm-mv0 lap-mv-- hidden-palm">
-                          {if feature_excerpt}
-                            {exp:eehive_hacksaw words="25" append="..."}
-                              {feature_excerpt}
-                            {/exp:eehive_hacksaw}
-                          {/if}
-                          {if special_offer_intro_sentence}
-                            {exp:eehive_hacksaw words="25" append="..."}
-                              {special_offer_intro_sentence}
-                            {/exp:eehive_hacksaw}
-                          {/if}
-                          {if event_sub_title}
-                            {exp:eehive_hacksaw words="25" append="..."}
-                              {event_sub_title}
-                            {/exp:eehive_hacksaw}
-                          {/if}
-                          {if venue_description}
-                            {exp:eehive_hacksaw words="25" append="..."}
-                              {venue_description}
-                            {/exp:eehive_hacksaw}
-                          {/if}
-                        </p>
-                      </div>
-                  {/exp:channel_images:images}
-                {/if}
+                        <img src="{image:url:180x180}" alt="{title}" />
+                        {if feature_category *= 'Top 5'}
+                          <span class="icon icon--top-5"></span>
+                        {if:elseif free_entry == "Yes"}
+                          <span class="icon icon--free"></span>
+                        {if:else}
+                          <span class="icon icon--{channel_short_name}"></span>
+                        {/if}
+                          </a>
+                        <div class="media__body">
+                          <h4 class="palm-mt0 lap-and-up-mt0 lap-mb--">
+                            {if '{channel_short_name}' == 'calendar_events'}
+                              <a href="/events/{url_title}" title="{title}">
+                                {title}
+                              </a>
+                            {if:elseif '{channel_short_name}' == 'special_offers'}
+                              <a href="/special-offers/detail/{url_title}" title="{title}">
+                                {title}
+                              </a>
+                            {if:else}
+                              <a href="/{channel_short_name}/{url_title}" title="{title}">
+                                {title}
+                              </a>
+                            {/if}
+                          </h4>
+                          <p class="palm-mv0 lap-mv-- hidden-palm">
+                            {if feature_excerpt}
+                              {exp:eehive_hacksaw words="25" append="..."}
+                                {feature_excerpt}
+                              {/exp:eehive_hacksaw}
+                            {/if}
+                            {if special_offer_intro_sentence}
+                              {exp:eehive_hacksaw words="25" append="..."}
+                                {special_offer_intro_sentence}
+                              {/exp:eehive_hacksaw}
+                            {/if}
+                            {if event_sub_title}
+                              {exp:eehive_hacksaw words="25" append="..."}
+                                {event_sub_title}
+                              {/exp:eehive_hacksaw}
+                            {/if}
+                            {if venue_description}
+                              {exp:eehive_hacksaw words="25" append="..."}
+                                {venue_description}
+                              {/exp:eehive_hacksaw}
+                            {/if}
+                          </p>
+                        </div>
+                    {/exp:channel_images:images}
+                  {/if}
+                </div>
+                {/exp:channel:entries}
               </div>
-              {/exp:channel:entries}
-            </div>
-          </div>
-        </div>
+            </div><!-- End of you may also like...-->
+          {/exp:channel:entries}
+        </div><!-- End of layout__item
+      --><div class="layout__item u-1/3-lap u-1/3-desk">
+        <div class="panel"><!--You may also like... -->
+          <h3 class="block-heading pink-bg">More inspiration...</h3>
+          <div class="panel__content">
+            <?php $start_time = date('Y-m-d H:i', strtotime('-30 days')); ?>
 
+            {exp:channel:entries show_expired="no" show_future_entries="no" dynamic="no" channel="calendar_events|features|special_offers" orderby="random" limit="5" start_on="
+            <?php echo $start_time; ?>" status="open"}
+            <div class="block block--flush">
+              {if '{url_title}' != '{freebie_2}'}
+                {exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
+                  {if '{channel_short_name}' == 'calendar_events'}
+                    <a href="/events/{url_title}" title="{title}" class="block__img">
+                  {if:elseif '{channel_short_name}' == 'special_offers'}
+                    <a href="/special-offers/detail/{url_title}" title="{title}" class="block__img">
+                  {if:else}
+                    <a href="/{channel_short_name}/{url_title}" title="{title}" class="block__img">
+                  {/if}
+                    <img src="{image:url:260x161}" alt="{title}" />
+                    {if feature_category *= 'Top 5'}
+                      <span class="icon icon--top-5"></span>
+                    {if:elseif free_entry == "Yes"}
+                      <span class="icon icon--free"></span>
+                    {if:else}
+                      <span class="icon icon--{channel_short_name}"></span>
+                    {/if}
+                      </a>
+                    <div class="block__body">
+                      <h4>
+                        {if '{channel_short_name}' == 'calendar_events'}
+                          <a href="/events/{url_title}" title="{title}">
+                            {title}
+                          </a>
+                        {if:elseif '{channel_short_name}' == 'special_offers'}
+                          <a href="/special-offers/detail/{url_title}" title="{title}">
+                            {title}
+                          </a>
+                        {if:else}
+                          <a href="/{channel_short_name}/{url_title}" title="{title}">
+                            {title}
+                          </a>
+                        {/if}
+                      </h4>
+                      <p>
+                        {if feature_excerpt}
+                          {exp:eehive_hacksaw words="25" append="..."}
+                            {feature_excerpt}
+                          {/exp:eehive_hacksaw}
+                        {/if}
+                        {if special_offer_intro_sentence}
+                          {exp:eehive_hacksaw words="25" append="..."}
+                            {special_offer_intro_sentence}
+                          {/exp:eehive_hacksaw}
+                        {/if}
+                        {if event_sub_title}
+                          {exp:eehive_hacksaw words="25" append="..."}
+                            {event_sub_title}
+                          {/exp:eehive_hacksaw}
+                        {/if}
+                        {if venue_description}
+                          {exp:eehive_hacksaw words="25" append="..."}
+                            {venue_description}
+                          {/exp:eehive_hacksaw}
+                        {/if}
+                      </p>
+                    </div>
+                {/exp:channel_images:images}
+              {/if}
+            </div>
+            {/exp:channel:entries}
+          </div>
+        </div><!-- End of you may also like...-->
+      </div>
+    </div>
+    </div>
 
 
     {embed="includes/.footer"}
