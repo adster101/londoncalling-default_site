@@ -12,7 +12,6 @@ parse="inward"}
 {/infinite_scroll_container_top}
 		{exp:channel:entries channel="features" orderby="date" sort="desc" show_expired="no" show_future_entries="no" status="open" limit="8" {if infinite_scroll_embed_start_on}start_on="{infinite_scroll_embed_start_on}" stop_before="{infinite_scroll_embed_stop_before}"{/if} search:feature_category="{infinite_scroll_embed_feature_category}" {if infinite_scroll_embed_search_term !=''} search:feature_home_page_title="{infinite_scroll_embed_search_term}"{/if} paginate="bottom"}
 
-						{if no_results}{/if}
 						{if no_results}
 							<p>Sorry there are currently no features that match your search</p>
 						{/if}
@@ -22,7 +21,7 @@ parse="inward"}
 									{embed="features/.embed_images" imageid="{entry_id}" url="{channel_short_name}/{url_title}" title="{title}" channel="{channel_short_name}"}
 									<div class="block__body pink-bg palm-p-- lap-and-up-p-  ">
 												<h3 class="palm-mt0 lap-and-up-mt0 lap-mb--">
-													<a href="/events/{url_title}" title="{title}">
+													<a href="/features/{url_title}" title="{title}">
 														{title}
 													</a>
 												</h3>
@@ -33,25 +32,35 @@ parse="inward"}
 									<p>
 											{feature_sub_title}
 										</p>
+								</div>
 
+								</div>
+								</div>
+								{paginate}
+									{exp:infinite_scroll:next_chunk_link}
+										{if next_page}
+											<div class="viewmore">
+												<a href="{auto_path}" class="btn next_chunk_link">View More</a>
+											</div>
+										{/if}
+									{/exp:infinite_scroll:next_chunk_link}
+								{/paginate}
 
-
-									<div class="selection-actions">
-										{exp:playa:children field="features_so_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
-											<a href="/special-offers/detail/{url_title}" title="Special Offer" class="relspecialoffer tooltip"></a>
-								    {/exp:playa:children}
+								{/exp:channel:entries}
+								<div class="process_indicator">
+									<div class="sk-cube-grid">
+										<div class="sk-cube sk-cube1"></div>
+										<div class="sk-cube sk-cube2"></div>
+										<div class="sk-cube sk-cube3"></div>
+										<div class="sk-cube sk-cube4"></div>
+										<div class="sk-cube sk-cube5"></div>
+										<div class="sk-cube sk-cube6"></div>
+										<div class="sk-cube sk-cube7"></div>
+										<div class="sk-cube sk-cube8"></div>
+										<div class="sk-cube sk-cube9"></div>
 									</div>
 								</div>
 
-								</div>
-								</div>
-						{paginate}{exp:infinite_scroll:next_chunk_link}{if next_page}
-						<div class="morelink"><a href="{auto_path}" class="next_chunk_link">More</a></div>
-						{/if}{/exp:infinite_scroll:next_chunk_link}{/paginate}
-
-							    	<div class="process_indicator"></div>
-
-					{/exp:channel:entries}
 {infinite_scroll_container_bottom}
 </div><!-- End of #ajax_container -->
 {/infinite_scroll_container_bottom}

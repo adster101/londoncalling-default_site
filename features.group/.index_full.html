@@ -10,11 +10,8 @@ seo_plugin="yes"}
       <div class="layout__item u-2/3-desk u-2/3-lap">
         {exp:channel:entries channel="features" show_future_entries="yes" limit="1" require_entry="yes"}
         {if no_results}
-
-        {redirect="404"}
-
+          {redirect="404"}
         {/if}
-
         {if feature_template == "Template 3"}
         <div class="layout layout--flush">
         {exp:channel_images:images entry_id="{entry_id}" limit="2" skip_cover="yes"}
@@ -22,39 +19,36 @@ seo_plugin="yes"}
             <figure class="palm-mh0 palm-mt0 lap-and-up-mh0 lap-and-up-mt0">
               <img alt="{title}" src="{image:url:320x240}" />
                 {if image:field:1 != ''}
+                  <figcaption>
+                    Image Credit: {image:field:1}
+                  </figcaption>
+                {/if}
+              </figure>
+            </div><!-- -->{/exp:channel_images:images}</div>
+        {if:elseif feature_template == "Template 2"}
+          {exp:channel_images:images entry_id="{entry_id}" skip_cover="yes" limit="1"}
+            <figure class="palm-mh0 palm-mt0 lap-and-up-mh0 lap-and-up-mt0">
+              <img alt="{title}" src="{image:url:320x240}" /></a>
+              {if '{image:field:1}' != ''}
                 <figcaption>
                   Image Credit: {image:field:1}
-
                 </figcaption>
-                {/if}
-
-      </figure>
-      </div><!-- -->{/exp:channel_images:images}</div>
-
-        {if:elseif feature_template == "Template 2"}
-        {exp:channel_images:images entry_id="{entry_id}" skip_cover="yes" limit="1"}
-        <figure class="palm-mh0 palm-mt0 lap-and-up-mh0 lap-and-up-mt0">
-          <img alt="{title}" src="{image:url:320x240}" /></a>
-          <figcaption>
-
-          {if '{image:field:1}' != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}
-          </figcaption>
-        </figure>
-        {/exp:channel_images:images}
-
+              {/if}
+            </figure>
+          {/exp:channel_images:images}
         {if:elseif feature_template == "Template 1"}
-        {exp:channel_images:images entry_id="{entry_id}" skip_cover="yes" limit="1"}
-        <figure class="palm-mh0 palm-mt0 lap-and-up-mh0 lap-and-up-mt0">
-          <img alt="{title}" src="{image:url:647z240}" />
-          <figcaption>
-                    {if '{image:field:1}' != ''}Image Credit: {image:field:1}{if:else}{if image:description != ''}{image:description}{if:else}{title}{/if}{/if}
-            </figcaption>
-        </figure>
-
-        {/exp:channel_images:images}
+          {exp:channel_images:images entry_id="{entry_id}" skip_cover="yes" limit="1"}
+          <figure class="palm-mh0 palm-mt0 lap-and-up-mh0 lap-and-up-mt0">
+            <img alt="{title}" src="{image:url:647z240}" />
+            {if '{image:field:1}' != ''}
+              <figcaption>
+                Image Credit: {image:field:1}
+              </figcaption>
+            {/if}
+          </figure>
+          {/exp:channel_images:images}
         {/if}
         {/exp:channel:entries}
-
 
         <div class="panel">
           <div class="panel__content">
@@ -63,28 +57,18 @@ seo_plugin="yes"}
                   {title}
                 {/exp:channel:entries}
               </h1>
-
               <!-- This is the author bit that needs sorting out -->
               {exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
               <p>
                 {entry_date format="%j %F %Y"}
-                  {if feature_author_3}
-                    {related_entries id="feature_author_3"}
-                      <a href="/features/authors/{author_type}">
-                        {title}
-                      </a>
-                    {/related_entries}
-                  {if:else}
-                    {feature_author}
-                  {/if} |
+
+                  {feature_author_3}
+                    <a href="/features/authors/{feature_author_3:url_title}">{feature_author_3:title}</a>
+                  {/feature_author_3}
                   {feature_category}
-                    <a href="/features/show/{item}" class="feature-list">
-                      {item}
-                    </a>
+                    &nbsp;|&nbsp;<a href="/features/show/{exp:low_replace find="SPACE" replace="-"}{item}{/exp:low_replace}" class="feature-list">{item}</a>
                   {/feature_category}
-
-
-      </p>
+              </p>
       {/exp:channel:entries}
 
         {exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
@@ -93,16 +77,17 @@ seo_plugin="yes"}
           <p class="lede">{feature_excerpt}</p>
         {/if}
         {/exp:channel:entries}
+
         {exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
-       {if feature_template == "Template 2" && feature_excerpt_2}
-                     <div class="template2excerpt">
-                             <h3>{feature_excerpt_2}</h3>
-                           </div>
-                           {/if}
-                           {feature_body}
-                         </div>
-                         {/exp:channel:entries}
+          {if feature_template == "Template 2" && feature_excerpt_2}
+            <div class="template2excerpt">
+              <h3>{feature_excerpt_2}</h3>
+            </div>
+          {/if}
+          {feature_body}
         </div>
+      </div>
+      {/exp:channel:entries}
 
       <div id="comments" class="panel">
         <h2 class="block-heading pink-bg">Tell us what you think</h2>

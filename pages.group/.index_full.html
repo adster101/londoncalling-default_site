@@ -58,27 +58,41 @@
                 </a>
                 {if:else}
                 {exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
-                <a class="image" href='/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name =="special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}'>
-                  <img
-                    src="{image:url:320x180}"
-                    srcset="{image:url:492x277} 492w, {image:url:640x360} 640w, {image:url:694x390} 694w"
-                    sizes="(min-width: 720px) 65vw, (min-width: 1024) 70vw, 100vw"
-                    alt="homepage this week image" />
-                </a>
-                {/exp:channel_images:images}
-                 {/if}
+                  <a class="image" href='/{if channel_short_name == "calendar_events"}events{if:elseif channel_short_name =="special_offers"}special-offers/detail{if:else}{channel_short_name}{/if}/{url_title}'>
+                    <img
+                      src="{image:url:320x180}"
+                      srcset="{image:url:492x277} 492w, {image:url:640x360} 640w, {image:url:694x390} 694w"
+                      sizes="(min-width: 720px) 65vw, (min-width: 1024) 70vw, 100vw"
+                      alt="homepage this week image" />
+                  </a>
+                  {/exp:channel_images:images}
+                {/if}
                 <div class="slide__image--caption lap-and-up-pl- palm-pl--">
                   {if channel_short_name == "features"}
-                  <p>{feature_sub_title}</p>
-                  {if:elseif channel_short_name == "calendar_events"}
-                  <p>{event_sub_title}</p>
-                  {if:elseif channel_short_name == "venues"}
-                  <p>{venue_sub_title}</p>
-                  {if:elseif channel_short_name == "events"}
-                  <p>{event_sub_title}</p>
-                  {if:elseif channel_short_name == "special_offers"}
-                  <p>{special_offers_sub_title}</p>
-                  {if:elseif channel_short_name == "pages"} {if:else} {/if}
+                  <p class="palm-mv--">
+                    {if channel_short_name == "features"}
+                        {exp:eehive_hacksaw chars="125" append="..."}
+                          {feature_sub_title}
+                        {/exp:eehive_hacksaw}
+                    {if:elseif channel_short_name == "calendar_events"}
+                        {exp:eehive_hacksaw chars="125" append="..."}
+                          {event_sub_title}
+                        {/exp:eehive_hacksaw}
+                    {if:elseif channel_short_name == "venues"}
+                        {exp:eehive_hacksaw chars="125" append="..."}
+                          {venue_sub_title}
+                          {/exp:eehive_hacksaw}
+                    {if:elseif channel_short_name == "events"}
+                        {exp:eehive_hacksaw chars="125" append="..."}
+                          {event_sub_title}
+                        {/exp:eehive_hacksaw}
+                    {if:elseif channel_short_name == "special_offers"}
+                        {exp:eehive_hacksaw chars="125" append="..."}
+                          {special_offers_sub_title}
+                        {/exp:eehive_hacksaw}
+                    {/if}
+                  </p>
+                  {/if}
                 </div>
               </div>
             </li>
@@ -101,7 +115,9 @@
     {if text}
       <div class="panel">
       <div class="panel__content">
-      {text}
+        {exp:eehive_hacksaw}
+          {text}
+        {/exp:eehive_hacksaw}
     </div>
     </div>
     {/if}
@@ -161,7 +177,7 @@
       {exp:playa:children field="inspiration"}
       <div class="layout__item u-1/4-desk u-1/4-lap u-1/2">
         <div class="inspired">
-          <a class="inspired__item" href="/{if url_title=="features-show"}features/show{if:elseif url_title=="free"}venues/free{if:else}{url_title}{/if}">
+          <a class="inspired__item" href="/{if url_title=="features-show"}features/show{if:elseif url_title=="free"}venues/free{if:else}{exp:low_replace find="-" replace="/"}{url_title}{/exp:low_replace}{/if}">
 						{title}{segment_2}
 					</a>
           {exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
@@ -196,7 +212,7 @@
           </a>
           {/exp:channel_images:images}
           {/if}
-          <div class="block__body block__body--fixed-height grey-bg p-">
+          <div class="block__body block__body--fixed-height green-bg p-">
             <h4 class="block-heading block-heading--small m0 p0">
           <a class="white" href="#">{title}</a>
           </h4>
@@ -215,41 +231,20 @@
   <div class="panel__content">
     <div class="layout">
       <div class="layout__item u-1/3-lap u-1/3-desk">
-      <style type="text/css">
-        .fb-page,
-        .fb-page iframe[style],
-        .fb-page span {
-          width: 100% !important;
-          height: 100% !important;
-        }
-      </style>
-      <div id="fb-root"></div>
-      <script>
-        (function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s);
-          js.id = id;
-          js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.4&appId=211245028948013";
-          fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-      </script>
+          <div id="fb-root"></div>
+          <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.4&appId=211245028948013";
+            fjs.parentNode.insertBefore(js, fjs);
+          }(document, 'script', 'facebook-jssdk'));</script>
 
-      <div class="fb-page" data-href="http://www.facebook.com/LondonCallingUK" data-width="100%" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true">
-        <div class="fb-xfbml-parse-ignore">
-          <blockquote cite="http://www.facebook.com/LondonCallingUK"><a href="http://www.facebook.com/LondonCallingUK">London Calling</a></blockquote>
-        </div>
-      </div>
+          <div class="fb-page" data-href="http://www.facebook.com/LondonCallingUK" data-height="408" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="http://www.facebook.com/LondonCallingUK"><a href="http://www.facebook.com/LondonCallingUK">London Calling</a></blockquote></div></div>
     </div><!--
 --><div class="layout__item u-1/3-lap u-1/3-desk">
     <div>
-      <style type="text/css">
-        #twitter-widget-0 {
-          width: 100% !important;
-          height: 100% !important;
-        }
-      </style>
-      <a class="twitter-timeline" href="https://twitter.com/LondonCallingUK" data-widget-id="650954480800919552">Tweets by @LondonCallingUK</a>
+      <a class="twitter-timeline" href="https://twitter.com/LondonCallingUK" data-link-color="#ec008c" height="408" data-widget-id="650954480800919552">Tweets by @LondonCallingUK</a>
       <script>
         ! function(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0],

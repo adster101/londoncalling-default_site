@@ -3,8 +3,8 @@
   <div class="panel__content">
     {exp:channel:entries limit="10" orderby="date" related_categories_mode="yes" category="{exp:cat2:id category_url_title='{segment_1}'}" custom_fields="yes"}
       <div class="media media--small palm-mb-- lap-mb- desk-mb">
+        {exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
         {if '{url_title}' != '{freebie_2}'}
-          {exp:channel_images:images entry_id="{entry_id}" cover_only="yes"}
             {if '{channel_short_name}' == 'calendar_events'}
               <a href="/events/{url_title}" title="{title}" class="media__img">
             {if:elseif '{channel_short_name}' == 'special_offers'}
@@ -60,8 +60,8 @@
                   {/if}
                 </p>
               </div>
-          {/exp:channel_images:images}
         {/if}
+        {/exp:channel_images:images}
       </div>
     {/exp:channel:entries}
   </div>

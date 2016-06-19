@@ -5,6 +5,8 @@
 	<meta property="fb:app_id" content="410780328976610" />
 	<meta property="twitter:account_id" content="4503599627499914" />
 
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="apple-itunes-app" content="app-id=632004717, app-argument={exp:current_url:full_url}"> {if '{embed:google_news_keywords}' != ''}
 	<meta name="news_keywords" content="{embed:google_news_keywords}"> {/if} {if '{freebie_1}' == 'special-offers' AND '{freebie_2}' == 'detail'} {exp:channel:entries show_expired="yes" show_future_entries="yes" channel="special_offers" dynamic="no" status="open" url_title="{freebie_3}" track_views="one" require_entry="yes"}
 	{exp:seo_lite entry_id="{entry_id}"} {if facebook_share_link} {if special_offer_type == 'Competition'}
@@ -34,11 +36,11 @@
 
 {exp:minimee:js}
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script> -->
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBj9IVUQqZeuFBxcSDjTw2NMvGDpyFR8Ls&sensor=false"></script>
+	<script type="text/javascript" src="/themes/third_party/mx_google_map/mxgooglemap.js"></script>
 {/exp:minimee:js}
 
-	<script type="text/javascript" src="/themes/third_party/mx_google_map/mxgooglemap.js"></script>
 
 	<!-- Use this for critical path CSS -->
 	<style type="text/css">
@@ -74,6 +76,33 @@
 </head>
 
 <body>
+	<nav class="offcanvas-nav" id="offcanvas-nav">
+	  <ul class="offcanvas-nav__items palm-pt palm-pl">
+			<li class="offcanvas-nav__item"><a class="offcanvas-nav__link" href="/whats-on-in-london">What's on</a></li>
+			<li class="offcanvas-nav__item"><a class="offcanvas-nav__link" href="/features/show">Featured</a></li>
+			<li class="offcanvas-nav__item"><a class="offcanvas-nav__link" href="/special-offers">Win</a></li>
+			<li class="offcanvas-nav__item"><a class="offcanvas-nav__link" href="/newsletter">Sign up</a> </li>
+			<li class="offcanvas-nav__item"><a class="offcanvas-nav__link" href="/contact">Contact</a> </li>
+			<li class="offcanvas-nav__item">
+	      <a class="offcanvas-nav__link social-icon facebook palm-ml0" href="https://www.facebook.com/LondonCallingUK"></a>
+	      <a class="offcanvas-nav__link social-icon twitter" href="https://twitter.com/LondonCallingUK"></a>
+	      <a class="offcanvas-nav__link social-icon instagram" href="https://www.instagram.com/londoncallingarts/?hl=en"></a>
+	    </li>
+			<li class="offcanvas-nav__item"><a class="offcanvas-nav__link" href="/venues/show/category/art">Art &amp; Design</a></li>
+			<li class="offcanvas-nav__item"><a class="offcanvas-nav__link" href="/">Dance</a></li>
+			<li class="offcanvas-nav__item"><a class="offcanvas-nav__link" href="/venues/show/category/families">Families</a></li>
+			<li class="offcanvas-nav__item"><a class="offcanvas-nav__link" href="/">Fashion</a></li>
+			<li class="offcanvas-nav__item"><a class="offcanvas-nav__link" href="/venues/show/category/film">Film</a></li>
+			<li class="offcanvas-nav__item"><a class="offcanvas-nav__link" href="/venues/show/category/food-and-drink">Food &amp; Drink</a></li>
+			<li class="offcanvas-nav__item"><a class="offcanvas-nav__link" href="/venues/free">Free</a></li>
+			<li class="offcanvas-nav__item"><a class="offcanvas-nav__link" href="/">London Life</a></li>
+			<li class="offcanvas-nav__item"><a class="offcanvas-nav__link" href="/venues/show/category/music">Music</a></li>
+			<li class="offcanvas-nav__item"><a class="offcanvas-nav__link" href="/venues/show/category/museums">Museums &amp; Galleries</a></li>
+			<li class="offcanvas-nav__item"><a class="offcanvas-nav__link" href="/venues/show/category/theatre">Theatre</a></li>
+	  </ul>
+	</nav>
+	<div class="page-wrap" id="page-wrap">
+
 	<div id="fb-root"></div>
 	<script>
 		(function(d, s, id) {
@@ -90,24 +119,58 @@
 
 	<header class="page-header palm-pv-- lap-pv- desk-pv clearfix">
 		<div class="wrapper">
-			<a class="logo" href="/" title="{{ site.title }} - Home">
-				<img alt="London Calling - Your Essential Culture Edit" src="/assets/images/logo.svg">
-			</a>
-			<div class="banner">
-				{exp:switchee variable="{freebie_1}" parse="inward"} {case value="venues"} {if freebie_4} {embed="includes/.ads_venues" cat_id="{exp:freebie:category_id segment="4"}" size="728x90"} {if:else} {embed="includes/.ads_venues" cat_id="11" size="728x90"} {/if}
-				{/case} {case value="special-offers|affordable-art-fair-offer"} {embed="includes/.ads" ad_group="special-offers-728x90" size="728x90"} {/case} {case value="features"} {embed="includes/.ads" ad_group="features-728x90" size="728x90"} {/case} {case value="events"}
-				{embed="includes/.ads" ad_group="whats-on-728x90" size="728x90"} {/case} {case value="mylc|my-visit"} {embed="includes/.ads" ad_group="mylc-728x90" size="728x90"} {/case} {case default="Yes"} {if freebie_1} {embed="includes/.ads" ad_group="other-728x90"
-				size="728x90"} {if:else} {embed="includes/.ads" ad_group="home-728x90" size="728x90"} {/if} {/case} {/exp:switchee}
-			</div>
-			<div class="menu-toggle palm-mt">
-				<button id="menu-toggle" class="menu-toggle__button" type="button">
-					<span class="menu-toggle__icon--bar"></span>
-					<span class="menu-toggle__icon--bar"></span>
-					<span class="menu-toggle__icon--bar"></span>
-				</button>
+			<div class="layout">
+				<div class="layout__item u-1/3-lap u-1/4-desk">
+					<a class="logo" href="/" title="{{ site.title }} - Home">
+						<img alt="London Calling - Your Essential Culture Edit" src="/assets/images/logo.svg">
+					</a>
+					<div class="menu-toggle palm-mt">
+						<button id="menu-toggle" class="menu-toggle__button" type="button">
+							<span class="menu-toggle__icon--bar"></span>
+							<span class="menu-toggle__icon--bar"></span>
+							<span class="menu-toggle__icon--bar"></span>
+						</button>
+					</div>
+				</div><!--
+				--><div class="layout__item u-2/3-lap u-3/4-desk">
+					<div class="banner lap-mt--">
+						<!-- {exp:switchee variable="{freebie_1}" parse="inward"}
+							{case value="venues"}
+								{if freebie_4}
+									{embed="includes/.ads_venues" cat_id="{exp:freebie:category_id segment="4"}" size="728x90"}
+								{if:else}
+									{embed="includes/.ads_venues" cat_id="11" size="728x90"}
+								{/if}
+							{/case}
+							{case value="special-offers|affordable-art-fair-offer"}
+								{embed="includes/.ads" ad_group="special-offers-728x90" size="728x90"}
+							{/case}
+							{case value="features"}
+								{embed="includes/.ads" ad_group="features-728x90" size="728x90"}
+							{/case}
+							{case value="events"}
+								{embed="includes/.ads" ad_group="whats-on-728x90" size="728x90"}
+							{/case}
+							{case value="mylc|my-visit"}
+								{embed="includes/.ads" ad_group="mylc-728x90" size="728x90"}
+							{/case}
+							{case default="Yes"}
+								{if freebie_1}
+									{embed="includes/.ads" ad_group="other-728x90" size="728x90"}
+								{if:else}
+									{embed="includes/.ads" ad_group="home-728x90" size="728x90"}
+								{/if}
+							{/case}
+						{/exp:switchee} -->
+						{exp:adman:show limit="5" group="top-banner" order="RANDOM"}
+							<a href="{ad_url}" title="{ad_title}">
+								<img src="{ad_image}" border="0" alt="{ad_alt}" />
+							</a>
+						{/exp:adman:show}
+					</div>
+				</div>
 			</div>
 		</div>
-
 	</header>
 	<nav class="site-nav">
 		<div class="wrapper">
@@ -126,7 +189,7 @@
 					<a class="site-nav__link social-icon twitter" href="https://twitter.com/LondonCallingUK"></a>
 				</li>
 				<li class="site-nav__item site-nav__link--social-icon">
-					<a class="site-nav__link social-icon instagram" href=""></a>
+					<a class="site-nav__link social-icon instagram" href="https://www.instagram.com/londoncallingarts/?hl=en"></a>
 				</li>
 			</ul>
 		</div>
@@ -144,7 +207,7 @@
 				<li class="secondary-nav__item"><a class="secondary-nav__link" href="/">London Life</a></li>
 				<li class="secondary-nav__item"><a class="secondary-nav__link" href="/venues/show/category/music">Music</a></li>
 				<li class="secondary-nav__item"><a class="secondary-nav__link" href="/venues/show/category/museums">Museums &amp; Galleries</a></li>
-				<li class="secondary-nav__item"><a class="secondary-nav__link" href="//venues/show/category/theatre">Theatre</a></li>
+				<li class="secondary-nav__item"><a class="secondary-nav__link" href="/venues/show/category/theatre">Theatre</a></li>
 			</ul>
 		</div>
 	</nav>

@@ -1,11 +1,12 @@
 {exp:channel:entries entry_id="20" limit="1" dynamic="no"}
 
 {embed="includes/.header" seo_plugin="yes"}
+
 <div class="wrapper">
-	
+
 			<div class="panel">
 				<h1 class="block-heading pink-bg">
-					{title}
+					{title}{if freebie_3} - {exp:low_replace find="-" replace="SPACE"}{freebie_3}{/exp:low_replace}{/if}
 				</h1>
 				<div class="panel__content">
 					{if page_content}
@@ -20,5 +21,6 @@
 				page_content='{page_content}'}
 
 	</div>
+
 {embed="includes/.footer"}
 {/exp:channel:entries}

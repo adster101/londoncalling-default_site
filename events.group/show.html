@@ -7,7 +7,7 @@
 
 
 <div class="wrapper">
-	<h1 class="block-heading palm-mb-- lap-mb- desk-mb pink-bg">What's on in London?</h1>
+	<h1 class="block-heading palm-mb-- lap-mb- desk-mb pink-bg purple-bg">What's on in London?</h1>
 
 	<?php
 		$today = date('Ymd');
@@ -86,7 +86,7 @@ if(isset($_POST['endingsoon'])) {
 ?>
 
 				{embed="events/whatson2"
-					noofresults="{if post:noresults}{post:noresults}{if:else}8{/if}"
+					noofresults="{if post:noresults}{post:noresults}{if:else}16{/if}"
 					wherevalue="(<?php echo $subcats; ?>)"
 					start_date="<?php echo $startdate;?>"
 					end_date="<?php echo $enddate; ?>"

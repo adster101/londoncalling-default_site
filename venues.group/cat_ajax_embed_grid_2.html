@@ -2,22 +2,13 @@
 	ajax_container="ajax-container"
 	embed_template_url="{homepage}venues/cat_ajax_embed_grid_2"
 	process_indicator="process_indicator"
-	next_chunk_link="next_chunk_link"
+	next_chunk_link="morelink"
 	infinite_scroll_vars="{embed:infinite_scroll_vars}"
 	infinite_scroll_values="{embed:infinite_scroll_values}" parse="inward"}
 
 
 {infinite_scroll_container_top}
-
-
-{if post:postmark == 'postmark'}
-
-{if:else}
-
-		{embed="venues/.priority-listings"}
-
-{/if}
-
+	<div class="brick" id="ajax-container">
 {/infinite_scroll_container_top}
 
 <?php
@@ -40,7 +31,6 @@ $endingsoon = $ajax[10];
 $category = $ajax[11];
 }
 ?>
-<div class="brick" id="ajax-container">
 
 {exp:query paginate="bottom" limit="{infinite_scroll_embed_noofresults}" sql="
 SELECT * FROM (
@@ -114,12 +104,10 @@ GROUP BY a.title_entry_id
 	<?php } ?>
 
 "}
-{if no_results}{/if}
+
 {if no_results}
-	<p>No events match your selections. Please try again!</p>
+	<p>No events match your selections.</p>
 {/if}
-
-
 
 {exp:channel:entries entry_id="{title_entry_id}" dynamic="no" show_expired="yes" show_future_entries="yes"}
 	{exp:channel_images:images entry_id="{entry_id}" cover_only="no"}
@@ -194,16 +182,32 @@ GROUP BY a.title_entry_id
 						{paginate}
 							{exp:infinite_scroll:next_chunk_link}
 								{if next_page}
-									<a href="{auto_path}" class="next_chunk_link">More</a>
+								<div class="viewmore">
+									<a href="{auto_path}" class="btn next_chunk_link">View More</a>
+								</div>
 								{/if}
 							{/exp:infinite_scroll:next_chunk_link}
 						{/paginate}
 
 					{/exp:query}
-				</div>
+					<div class="process_indicator">
+						<div class="sk-cube-grid">
+							<div class="sk-cube sk-cube1"></div>
+							<div class="sk-cube sk-cube2"></div>
+							<div class="sk-cube sk-cube3"></div>
+							<div class="sk-cube sk-cube4"></div>
+							<div class="sk-cube sk-cube5"></div>
+							<div class="sk-cube sk-cube6"></div>
+							<div class="sk-cube sk-cube7"></div>
+							<div class="sk-cube sk-cube8"></div>
+							<div class="sk-cube sk-cube9"></div>
+						</div>
+					</div>
+
 
 {infinite_scroll_container_bottom}
 
+</div>
 
 {exp:query paginate="bottom" limit="1" sql="
 SELECT * FROM (
@@ -277,6 +281,7 @@ GROUP BY a.title_entry_id
 	<?php } ?>
 
 "}
+
 
 {/exp:query}
 

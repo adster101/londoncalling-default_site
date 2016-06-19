@@ -40,8 +40,8 @@
           <p class="lede">This event has expired!</p>
         {/if}
       {/if}
-      <h1 class="purple">{title}</h1>
-      <h3 class="purple">{event_sub_title}</h3>
+      <h1 class="">{title}</h1>
+      <h3 class="">{event_sub_title}</h3>
       {/exp:channel:entries}
 
         {exp:channel:entries show_expired="yes" show_future_entries="yes" channel="calendar_events" limit="1" require_entry="yes"}
@@ -78,7 +78,7 @@
 
 
       {if event_map}
-      <h4>Location</h4>
+
         {event_map:map mt_control_style="DROPDOWN_MENU" width="100%" height="240px" id="event-map"}
       {if:else}
         {exp:playa:children field="event_venue" limit="1"}

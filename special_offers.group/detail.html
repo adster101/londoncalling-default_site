@@ -93,16 +93,16 @@
       <p>This offer has expired.</p>
     {/if}
   {/if}
-
+  <div class="palm-mb-- lap-mb- desk-mb">
   <p>{special_offer_details}</p>
         {exp:channel:entries show_expired="yes" show_future_entries="yes" channel="special_offers" dynamic="no" status="open" url_title="{freebie_3}" track_views="one" require_entry="yes"}
         {if special_offer_map}
           {if special_offer_map}
-            <h4>Location</h4>
             {special_offer_map:map mt_control_style="DROPDOWN_MENU" width="100%" height="240px" id="event-map"}
           {/if}
         {/if}
         {/exp:channel:entries}
+      </div>
 
   <div id="so-form" class="green-border-thick palm-p-- lap-p- desk-p">
     {if special_offer_type == 'Survey'}
@@ -194,7 +194,7 @@
               <h5>
                 <strong>Terms and conditions:</strong>
               </h5>
-                <p>{special_offer_terms}</p>
+                <p class="small">{special_offer_terms}</p>
           </div>
           </div>
             <div id="comments" class="panel">

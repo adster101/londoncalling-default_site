@@ -2,9 +2,9 @@
 	ajax_container="ajax-container"
 	embed_template_url="{homepage}events/ajax_results"
 	process_indicator="process_indicator"
-	next_chunk_link="morelink" 
+	next_chunk_link="morelink"
 	parse="inward"
-	infinite_scroll_vars="{embed:infinite_scroll_vars}" 
+	infinite_scroll_vars="{embed:infinite_scroll_vars}"
 	infinite_scroll_values="{embed:infinite_scroll_values}"
 }
 
@@ -30,7 +30,7 @@
 	{infinite_scroll_embed_datestart}
 	{infinite_scroll_embed_days}
 	}
-							
+
 							{if no_results}
 							<div class="border-wrapper span-24 category-results-wrapper">
 								<div class="category-results">
@@ -38,47 +38,67 @@
 								</div>
 							</div>
 							{/if}
-										
-						
+
+
 						<div class="border-wrapper span-24 category-results-wrapper">
 							<div class="category-results">
-							
+
 								<div class="feature-list-image">
 
 												{embed="events/.embed_images" imageid="{entry_id}" url="{url_title}"}
-											
-												
+
+
 											</div>
 											<div class="span-19 last whatsonentry">
 												<h3 class="whatsontitle"><a href="/events/{url_title}" title="{title}">{title}</a></h3>
 												<p>{exp:eehive_hacksaw words="65" append="&hellip;"}{event_description}{/exp:eehive_hacksaw}<br /><a onClick="ga('send', 'event', 'WhatsOn_ReadMore', 'click', {'page': '/events/{url_title}'});" class="readmore" href="/events/{url_title}" title="Read More">Read More</a></p>
-												
+
 												<div class="selection-actions whatsonactions">
 											     {if '{event_prices:total_rows}' > 0}
 												 	{event_prices}
 												 		{if price_band == "Free"}<a href="/events/{url_title}" title="Free Entry!" class="freeentry tooltip-cat"></a>{/if}
 												 	{/event_prices}
 												 {/if}
-												 
-												
+
+
 											     {exp:playa:parents field="special_offer_related" dynamic="no" show_expired="no" show_future_entries="no" status="open" limit="1" orderby="date" sort="desc"}
 											     <a href="/special-offers/detail/{url_title}" title="Special Offer" class="relspecialoffer tooltip-cat"></a>
 											     {/exp:playa:parents}
-			     
-											     									
+
+
 
 											    </div>
-												
+
 											</div>
-							
+
 							</div>
 						</div>
-						
-					
-							    	{paginate}{exp:infinite_scroll:next_chunk_link}{if next_page}<div class="morelink"><a href="{auto_path}" class="next_chunk_link">More</a></div>{/if}{/exp:infinite_scroll:next_chunk_link}{/paginate}
-							    	
-							    	<div class="process_indicator"></div>
-							    	
+
+
+							    	{paginate}
+											{exp:infinite_scroll:next_chunk_link}
+												{if next_page}
+													<div class="viewmore">
+														<a href="{auto_path}" class="btn next_chunk_link">View More</a>
+													</div>
+												{/if}
+											{/exp:infinite_scroll:next_chunk_link}
+										{/paginate}
+
+										<div class="process_indicator">
+											<div class="sk-cube-grid">
+												<div class="sk-cube sk-cube1"></div>
+												<div class="sk-cube sk-cube2"></div>
+												<div class="sk-cube sk-cube3"></div>
+												<div class="sk-cube sk-cube4"></div>
+												<div class="sk-cube sk-cube5"></div>
+												<div class="sk-cube sk-cube6"></div>
+												<div class="sk-cube sk-cube7"></div>
+												<div class="sk-cube sk-cube8"></div>
+												<div class="sk-cube sk-cube9"></div>
+											</div>
+										</div>
+
 									{/exp:calendar:cal}
 
 {infinite_scroll_container_bottom}

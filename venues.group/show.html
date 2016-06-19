@@ -24,78 +24,102 @@
   </div>
 
 
-					<?php
-$today = date('Ymd');
-$todaytotime = strtotime('now');
+<?php
+  $today = date('Ymd');
+  $todaytotime = strtotime('now');
 
-if(isset($_POST['startdate']) && $_POST['startdate'] != '') {
-	$startdate = explode('/',$_POST['startdate']);
-	$startdate = $startdate[2].$startdate[1].$startdate[0];
-} else if(isset($_POST['keywords']) && $_POST['keywords'] != '') {
-	$startdate = $today;
-} else {
-	//$startdate = $today;
-	$startdate = '20110101';
-}
+  if(isset($_POST['startdate']) && $_POST['startdate'] != '') {
+  	$startdate = explode('/',$_POST['startdate']);
+  	$startdate = $startdate[2].$startdate[1].$startdate[0];
+  } else if(isset($_POST['keywords']) && $_POST['keywords'] != '') {
+  	$startdate = $today;
+  } else {
+  	//$startdate = $today;
+  	$startdate = '20110101';
+  }
 
-if(isset($_POST['enddate']) && $_POST['enddate'] != '') {
-	$enddate = explode('/',$_POST['enddate']);
-	$enddate = $enddate[2].$enddate[1].$enddate[0];
-} elseif(isset($_POST['endingsoon']) && $_POST['endingsoon'] != '') {
-    $futuredate = strtotime('+14 days'); // 5 days from today
-    $enddate = date('Ymd',$futuredate);
-} else {
-	//$enddate = $today;
-	$futuredate = strtotime('+4 month'); // 4 months from today
-    $enddate = date('Ymd',$futuredate);
-}
-
-
-if(isset($_POST['newdate'])) {
-   $entrydate = strtotime('-7 days'); // with last 7 days
-} else {
-    $entrydate = '';
-}
+  if(isset($_POST['enddate']) && $_POST['enddate'] != '') {
+  	$enddate = explode('/',$_POST['enddate']);
+  	$enddate = $enddate[2].$enddate[1].$enddate[0];
+  } elseif(isset($_POST['endingsoon']) && $_POST['endingsoon'] != '') {
+      $futuredate = strtotime('+14 days'); // 5 days from today
+      $enddate = date('Ymd',$futuredate);
+  } else {
+  	//$enddate = $today;
+  	$futuredate = strtotime('+4 month'); // 4 months from today
+      $enddate = date('Ymd',$futuredate);
+  }
 
 
+  if(isset($_POST['newdate'])) {
+     $entrydate = strtotime('-7 days'); // with last 7 days
+  } else {
+      $entrydate = '';
+  }
+  switch('{freebie_4}') {
+    case "attractions":
+    $subcats = '4';
+    break;
+    case "art":
+    $subcats = '5';
+    break;
+    case "entertainment":
+    $subcats = "6";
+    break;
+    case "families":
+    $subcats = "7";
+    break;
+    case "museums":
+    $subcats = "8";
+    break;
+    case "music":
+    $subcats = "9";
+    break;
+    case "theatre":
+    $subcats = "10";
+    break;
+    case "festivals":
+    $subcats = "94";
+    break;
+    case "film":
+    $subcats = "111";
+    break;
+    case "food-and-drink":
+    $subcats = "100";
+    break;
+    default:
+    $subcats = "";
+    break;
+  }
 
+  $keywords = '';
+  if(isset($_POST['keywords'])) {
+  	$keywords = str_replace('"','',$_POST['keywords']);
+  	$keywords = str_replace("'","",$keywords);
+  	$keywords = addslashes($keywords);
+  } else {
+      $keywords = '';
+  }
 
+  if(isset($_POST['free'])) {
 
-    switch('{freebie_4}') {
-        case "attractions":
-        $subcats = '4';
-        break;
-        case "art":
-        $subcats = '5';
-        break;
-        case "entertainment":
-        $subcats = "6";
-        break;
-        case "families":
-        $subcats = "7";
-        break;
-        case "museums":
-        $subcats = "8";
-        break;
-        case "music":
-        $subcats = "9";
-        break;
-        case "theatre":
-        $subcats = "10";
-        break;
-        case "festivals":
-        $subcats = "94";
-        break;
-        case "film":
-        $subcats = "111";
-        break;
-        case "food-and-drink":
-        $subcats = "100";
-        break;
-        default:
-        $subcats = "";
-        break;
-    }
+  	$free = 'Yes';
+  } else {
+  	$free = '';
+  }
+
+  if(isset($_POST['specialoffer'])) {
+  	$special = 'yes';
+  } else {
+  	$special = 'no';
+  }
+
+  if(isset($_POST['endingsoon'])) {
+  	$endingsoon = 'yes';
+  } else {
+  	$endingsoon = 'no';
+  }
+
 
 switch('{segment_4}') {
 	case "attractions":
