@@ -1,85 +1,93 @@
 {embed="includes/.header" page_title="{exp:channel:entries limit="1" channel="contact" dynamic="no"}{title}{/exp:channel:entries}" seo_plugin="yes"}
 
-<div class="span-24 fixed-header">
+{exp:channel:entries limit="1" channel="contact" dynamic="no"}
+<div class="wrapper">
 
-	<div class="border-wrapper">
+	<div class="panel">
+		<h1 class="block-heading pink-bg">
+			{title}
+		</h1>
+		<div class="panel__content">
+			<div class="layout">
+				<div class="layout__item u-3/5-lap-and-up">
 
-				<div class="span-24 append-bottom contact">
-				
-	
-					{exp:channel:entries limit="1" channel="contact" dynamic="no"}
-			
-					<h1 class="header-so">{title}</h1>
-					
-					<div class="contacttwoleft">
-					
-						{embed="pages/.contact_content"}
-						
-						
-						<div class="contactform">
-						
+					{embed="pages/.contact_content"}
+
+					<div class="layout">
+						<div class="layout__item u-1/2-lap-and-up">
+
 						{exp:email:contact_form user_recipients="no" recipients="{lv_email_address}" charset="utf-8"}
-						        <input type="text" id="contactname" name="name" size="40" value="" placeholder="Name" /><br />
-				                <input type="text" id="contactemail" name="from" size="40" maxlength="35" value="" placeholder="Email" /><br />
-				                <textarea id="message" name="message" rows="18" cols="40" placeholder="Message"></textarea><br />
-	
-						        <input type="hidden" name="subject" value="Contact from Website" />
-						         <input name="submit" type="submit" value="" />
-						         {exp:snaptcha:field}
-	
+
+							<input class="palm-mb-- lap-and-up-mb text" type="text" id="contactname" name="name" size="40" value="" placeholder="Name" />
+
+							<input class="palm-mb-- lap-and-up-mb text" type="text" id="contactemail" name="from" size="40" maxlength="35" value="" placeholder="Email" />
+
+							<textarea class="palm-mb-- lap-and-up-mb text" id="message" name="message" placeholder="Message"></textarea>
+
+						<input type="hidden" name="subject" value="Contact from Website" />
+						<input type="hidden" name="csrf_token" value="{csrf_token}">
+
+						<button class="btn btn--full">
+							Send message
+						</button>
+
+
 						{/exp:email:contact_form}
-	
+
 							 <div id="successmessage" class="success"></div>
 						       <div id="errormessage" class="error"></div>
-	
+
+
+
+
+						</div><!--
+						--><div class="layout__item u-1/2-lap-and-up">
+						<div class="lede palm-p-- lap-p- desk-p pink-bg">
+							<h3 class="palm-m0 lap-and-up-m0">
+								<a href="http://londoncallingarts.com" id="downloadmb" class="white">Visit our marketing services website</a>
+							</h3>
 						</div>
-						
-						<div id="contactmiddle">
-						
-							<!--<a onClick="ga('send', 'event', 'Contact_DownloadMediaPack', 'click', {'page': '/uploads/London-Calling-Media-Pack.pdf'});" href="/uploads/London-Calling-Media-Pack.pdf" id="downloadmp"></a>-->
-							<a onClick="ga('send', 'event', 'Contact_MarketingServices', 'click', {'page': 'http://londoncallingarts.com'});" href="http://londoncallingarts.com" id="downloadmb" target="_blank"></a>
-							
-							
-						
-						</div>
-						
 					</div>
-						
-					
-					<div id="contactright">
-					
-						<h2>London Calling Main Office</h2>
-						
+				</div>
+
+
+
+					</div><!--
+					--><div class="layout__item u-2/5-lap-and-up">
+
+						<h3 class="lap-and-up-mt0">London Calling Main Office</h3>
+
 						<p>{main_office_address}</p>
-						
+
 						<p><strong>Tel:</strong> {main_office_telep}<br />
 						<strong>Email:</strong> <a href="mailto:{main_office_email}">{main_office_email}</a><br />
 						<strong>Office hours:</strong> {main_office_hours}</p>
-						
+
 						<p><a href="{main_office_google_map_link}" class="gmap" target="_blank">View Google Map</a>
-						
-						
-						<h2>London Calling Warehouse</h2>
-						
+
+
+						<h3>London Calling Warehouse</h3>
+
 						<p>{warehouse_address}</p>
-						
+
 						<p><strong>Delivery hours:</strong> {warehouse_delivery_hours}</p>
-						
+
 						<p><a href="{warehouse_google_map_link}" class="gmap" target="_blank">View Google Map</a>
-						
-						<h2>Culture Calling Print Storage</h2>
-						
+
+						<h3>Culture Calling Print Storage</h3>
+
 						<p>{print_storage_address}</p>
-						
+
 						<p><a href="{print_storage_google_map}" class="gmap" target="_blank">View Google Map</a>
-					
+
 					</div>
 
 
-					{/exp:channel:entries}	
-				</div>
+	</div>
 	</div>
 </div>
+</div>
+{/exp:channel:entries}
 
 <script type="text/javascript">
 
@@ -88,16 +96,16 @@ $(document).ready(function() {
 	$('.contact-info').hide();
 
 	$("#contact_form").submit(function(e) {
-	  
+
 	  e.preventDefault();
-	  
+
 		  ga('send', 'event', 'Contact_SendMessage', 'click', {'page':'/contact'});
 		  $("#successmessage,#errormessage").hide();
-		  
+
 		  $.ajax({
 		  	url: "/",
 		  	type: "post",
-		  	dataType: "html",  
+		  	dataType: "html",
 		  	data: $(this).serialize(),
 		  	error: function(jqXHR, textStatus, errorThrown) {
 		   		$("#ajax-message").html("Sorry, there was an error submitting your form. Please try again. If the error continues please email us or give us a call!").fadeIn(1000);
@@ -124,7 +132,7 @@ $(document).ready(function() {
 					$("#successmessage").html("Thank you for your message.<br />Someone will be in touch shortly.").fadeIn(1000);
 				}
 		   }
-		
+
 		  });
 
 	});

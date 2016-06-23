@@ -1,128 +1,127 @@
 {embed="includes/.header" page_title="{structure:page:title}"}
 
 {exp:channel:entries channel="pages"}
-<div class="span-24 about fixed-header">
-	<h1>{structure:page:title}</h1>
-	<ul id="nav-sub">
-		<li><a href="#who">Who are we?</a></li>
-		<li><a href="#weekly">Weekly Newsletter</a></li>
-		<li><a href="#shoutout">Shout Out Packages</a></li>
-		<li><a href="#facebook">Facebook Apps</a></li>
-		<li><a href="#thisweekend">This Weekend Listing</a></li>
-		<li><a href="#banner">Banner Advertising</a></li>
-		<li><a href="#videobox">Videobox</a></li>
-		<li><a href="#clients">Our Clients</a></li>
-		<li class="last"><a href="#contact">Contact Us</a></li>
-	</ul>
-</div>
-
-
-
-<div class="span-24 append-bottom about-content about-1">
-	<a name="who"></a>
-	{embed="static/.about_content" content_id="6645"}
-</div>
-
-<div class="about-main">
-	{page_content}
-</div>
-
-<div class="span-24 append-bottom about-content about-2">
-	<a name="weekly"></a>
-	{embed="static/.about_content" content_id="6646"}
-</div>
-
-<div class="span-24 newsletter-stats">
-
-	<h2>Weekly Newsletter Stats</h2>
-	
-	<div class="about-left">
-	
-		<p><span>{lv_about_stats_subscribers}</span> Subscribers</p>
-		<p><span>{lv_about_stats_openrate}</span> Open Rate</p>
-
+<div class="wrapper">
+	<div class="panel">
+		<h1 class="block-heading pink-bg">{structure:page:title}</h1>
+			{if page_content}
+			<div class="panel__content">
+				{page_content}
+			</div>
+			{/if}
 	</div>
-	
-	<div class="about-right">
-	
-		<p><span>{lv_about_stats_engagement}</span> Mobile Engagement</p>
-		<p><span>{lv_about_stats_ctr}</span> Click Through Rate</p>
+	<div class="layout">
+		<div class="layout__item u-1/3-lap u-1/3-desk">
+			<div class="panel">
+				<div class="panel__content">
+					<ul class="palm-mt0 lap-and-up-mt0">
+						<li><a href="#who">Who are we?</a></li>
+						<li><a href="#weekly">Weekly Newsletter</a></li>
+						<li><a href="#shoutout">Shout Out Packages</a></li>
+						<li><a href="#facebook">Facebook Apps</a></li>
+						<li><a href="#thisweekend">This Weekend Listing</a></li>
+						<li><a href="#banner">Banner Advertising</a></li>
+						<li><a href="#videobox">Videobox</a></li>
+						<li><a href="#clients">Our Clients</a></li>
+						<li class="last"><a href="#contact">Contact Us</a></li>
+					</ul>
+				</div>
+			</div>
+		</div><!--
+		--><div class="layout__item u-2/3-lap u-2/3-desk">
 
+	{embed="static/.about_content" content_id="6645" color="pink" id="who"}
+
+	{embed="static/.about_content" content_id="6646" color="green" id="weekly"}
+
+	<div class="panel">
+		<h2 class="block-heading pink-bg">Weekly Newsletter Stats</h2>
+		<div class="panel__content">
+			<div class="layout">
+				<div class="layout__item u-1/2-lap-and-up">
+					<p class="lede palm-m0 lap-and-up-m0">
+						<strong>{lv_about_stats_subscribers}</strong>
+						Subscribers
+					</p>
+					<p class="lede palm-mb0 lap-and-up-mb0">
+						<strong>{lv_about_stats_openrate}</strong>
+						Open Rate
+					</p>
+				</div><!--
+				--><div class="layout__item u-1/2-lap-and-up">
+				<p class="lede palm-m0 lap-and-up-m0">
+						<strong>{lv_about_stats_engagement}</strong>
+						Mobile Engagement
+					</p>
+					<p class="lede palm-mb0 lap-and-up-mb0">
+						<strong>{lv_about_stats_ctr}</strong> Click Through Rate
+					</p>
+				</div>
+			</div>
 	</div>
-	
-	
+	</div>
+
+	{embed="static/.about_content" content_id="6648" color="green" id="shoutout"}
+
+	{embed="static/.about_content" content_id="6649" color="green" id="facebook"}
+
+	<div class="panel">
+		<h2 class="block-heading pink-bg">Social Marketing</h2>
+		<div class="panel__content">
+			<div class="layout">
+				<div class="layout__item u-1/2-lap-and-up">
+					<p class="lede palm-m0 lap-and-up-m0"><strong>{lv_about_stats_fbfans}</strong> Facebook Fans</p>
+				</div><!--
+				--><div class="layout__item u-1/2-lap-and-up">
+					<p class="lede palm-m0 lap-and-up-m0">
+						<strong>{lv_about_stats_twfollowers}</strong>Twitter Followers</p>
+
+				</div>
+			</div>
+	</div>
+	</div>
+
+	{embed="static/.about_content" content_id="6650" color="green" id="thisweekend"}
+
+	{embed="static/.about_content" content_id="6651" color="green" id="banner"}
+
+	{embed="static/.about_content" content_id="6652" color="green" id="videobox"}
+	<div class="panel">
+		<h2 class="block-heading pink-bg">LondonCalling.com</h2>
+		<div class="panel__content">
+			<div class="layout">
+				<div class="layout__item u-1/2-lap-and-up">
+					<p class="lede palm-m0 lap-and-up-m0">
+						<strong>{lv_about_stats_uniques}</strong>
+						Unique Site Visits
+					</p>
+				</div><!--
+				--><div class="layout__item u-1/2-lap-and-up">
+					<p class="lede palm-m0 lap-and-up-m0">
+						<strong>
+						{lv_about_stats_dwell}</strong>
+						Average Dwell Time
+					</p>
+
+				</div>
+			</div>
+	</div>
+	</div>
+	<div class="panel" id="clients">
+		<h2 class="block-heading pink-bg">Our Clients</h2>
+		<div class="panel__content">
+			<img src="/assets/images/about/clients.png" alt="Our Clients" />
+		</div>
+	</div>
+
+	<div class="panel" id="contact">
+		<div class="panel__content">
+			<p class="lede palm-m0 lap-and-up-m0">
+		Get in touch with the London Calling team today, call us on {lv_telephone_number} or email <a href="mailto:{lv_about_sales_email}">{lv_about_sales_email}</a></p>
+		</div>
+	</div>
+
 </div>
 
-<div class="span-24 append-bottom about-content about-3">
-	<a name="shoutout"></a>
-	{embed="static/.about_content" content_id="6648"}
-</div>
-
-<div class="span-24 append-bottom about-content about-4">
-	<a name="facebook"></a>
-	{embed="static/.about_content" content_id="6649"}
-</div>
-
-<div class="span-24 sm-stats">
-	<h2>Social Marketing</h2>
-	
-	<p><span class="smff">{lv_about_stats_fbfans}</span> Facebook Fans<span class="smtw">{lv_about_stats_twfollowers}</span> Twitter Followers</p>
-</div>
-
-<div class="span-24 append-bottom about-content about-5">
-	<a name="thisweekend"></a>
-	{embed="static/.about_content" content_id="6650"}
-</div>
-
-<div class="span-24 append-bottom about-content about-6">
-	<a name="banner"></a>
-	{embed="static/.about_content" content_id="6651"}
-</div>
-
-<div class="span-24 append-bottom about-content about-7">
-	<a name="videobox"></a>
-	{embed="static/.about_content" content_id="6652"}
-</div>
-
-<div class="lc-stats span-24">
-	<h2>LondonCalling.com</h2>
-	
-	<p><span>{lv_about_stats_uniques}</span> Unique Site Visits</p>
-	<p><span>{lv_about_stats_dwell}</span> Average Dwell Time</p>
-	
-</div>
-
-<div class="span-24 append-bottom about-content about-clients">
-	<a name="clients"></a>
-	<h2>Our Clients</h2>
-	<img src="/assets/images/about/clients.png" alt="Our Clients" />
-</div>
-
-<div class="span-24 append-bottom about-content about-contact">
-<a name="contact"></a>
-<p>Get in touch with the London Calling team today, call us on {lv_telephone_number} or email <a href="mailto:{lv_about_sales_email}">{lv_about_sales_email}</a></p>
-</div>
-						
-						
-<script>
-$(document).ready(function() {
-	$("#nav-sub li a").click(function(e) {
-		e.preventDefault();
-		var parts = this.href.split("#");
-        var anchorID = parts[1];
-	   scrollToAnchor(anchorID);
-	});
-	
-})
-
-function scrollToAnchor(aid){
-    var aTag = $("a[name='"+ aid +"']");
-    var toTop = aTag.offset().top - 200;
-    $('html,body').animate({scrollTop: toTop},'slow');
-}
-
-
-</script>				
-							
 {/exp:channel:entries}
 {embed="includes/.footer"}

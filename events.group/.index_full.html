@@ -37,7 +37,9 @@
       {exp:channel:entries show_expired="yes" show_future_entries="yes" channel="calendar_events" limit="1"}
       {if expiration_date > 0}
         {if expiration_date < current_time}
-          <p class="lede">This event has expired!</p>
+          <div class="box box--alert">
+            <p>This event has expired!</p>
+          </div>
         {/if}
       {/if}
       <h1 class="">{title}</h1>
