@@ -29,18 +29,20 @@
 	{exp:minimee:css}
 		<link media="screen, projection, print" rel="stylesheet" type="text/css" href="/assets/css/inuit/main.css" />
 	{/exp:minimee:css}
+	<link href='https://fonts.googleapis.com/css?family=Poppins:400,600' rel='stylesheet' type='text/css'>
 
 {if embed:page_title}
 	<link media="print" rel="stylesheet" type="text/css" href="/assets/css/print-favourites.css" />
 {/if}
 
 <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBj9IVUQqZeuFBxcSDjTw2NMvGDpyFR8Ls&sensor=false"></script>
+
 {exp:minimee:js}
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-	<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script> -->
-	<script type="text/javascript" src="/themes/third_party/mx_google_map/mxgooglemap.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
 {/exp:minimee:js}
 
+<script type="text/javascript" src="/themes/third_party/mx_google_map/mxgooglemap.js"></script>
 
 	<!-- Use this for critical path CSS -->
 	<style type="text/css">
@@ -76,6 +78,7 @@
 </head>
 
 <body>
+	<?php require( __DIR__ . '../../../../assets/images/symbol-defs.svg'); ?>
 	<nav class="offcanvas-nav" id="offcanvas-nav">
 	  <ul class="offcanvas-nav__items palm-pt palm-pl">
 			<li class="offcanvas-nav__item"><a class="offcanvas-nav__link" href="/whats-on-in-london">What's on</a></li>
@@ -162,7 +165,7 @@
 								{/if}
 							{/case}
 						{/exp:switchee} -->
-						{exp:adman:show limit="5" group="top-banner" order="RANDOM"}
+						{exp:adman:show limit="1" group="top-banner" order="RANDOM"}
 							<a href="{ad_url}" title="{ad_title}">
 								<img src="{ad_image}" border="0" alt="{ad_alt}" />
 							</a>

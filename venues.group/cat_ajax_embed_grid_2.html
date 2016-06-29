@@ -12,7 +12,7 @@
 {/infinite_scroll_container_top}
 
 <?php
-//print_r($_POST);
+//print_r($_POST);die;
 $today = date('Ymd');
 //get variables if ajax
 if(isset($_POST['ajax_pagination_values'])) {
@@ -104,30 +104,30 @@ GROUP BY a.title_entry_id
 	<?php } ?>
 
 "}
-
 {if no_results}
 	<p>No events match your selections.</p>
-{/if}
+
+{if:else}
 
 {exp:channel:entries entry_id="{title_entry_id}" dynamic="no" show_expired="yes" show_future_entries="yes"}
 	{exp:channel_images:images entry_id="{entry_id}" cover_only="no"}
 	<div class="brick__item">
 		<div class="block block--flush">
 			{if channel_short_name == "calendar_events"}
-			  <a class="block__img" href="/events/{url_title}">
-					<img src="{image:url:230x230}" />
+			  <a href="/events/{url_title}">
+					<img src="{image:url:230x230}" class="block__img palm-mb0 lap-and-up-mb0" />
 				</a>
 			{if:elseif channel_short_name == "venues"}
-				<a class="block__img" href="/venues/{url_title}">
-					<img src="{image:url:230x230}" />
+				<a class="" href="/venues/{url_title}">
+					<img src="{image:url:230x230}" class="block__img palm-mb0 lap-and-up-mb0" />
 				</a>
 			{if:elseif channel_short_name == "features"}
-				<a class="block__img" href="/features/{url_title}">
-					<img src="{image:url:230x230}" />
+				<a class="" href="/features/{url_title}">
+					<img src="{image:url:230x230}" class="block__img palm-mb0 lap-and-up-mb0" />
 				</a>
 			{if:elseif channel_short_name == "special_offers"}
-				<a class="block__img" href="/special-offers/detail/{url_title}">
-					<img src="{image:url:230x230}" />
+				<a class="" href="/special-offers/detail/{url_title}">
+					<img src="{image:url:230x230}" class="block__img palm-mb0 lap-and-up-mb0" />
 				</a>
 			{/if}
 			{if feature_category *= 'Top 5'}
@@ -290,5 +290,6 @@ GROUP BY a.title_entry_id
 
 {/infinite_scroll_container_bottom}
 
+{/if}
 
 {/exp:infinite_scroll:wrapper}

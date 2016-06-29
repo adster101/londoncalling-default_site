@@ -33,8 +33,12 @@
 
             <div class="panel">
               <div class="panel__content">
+                {exp:channel:entries show_expired="yes" show_future_entries="yes" channel="calendar_events" limit="1"}
 
-      {exp:channel:entries show_expired="yes" show_future_entries="yes" channel="calendar_events" limit="1"}
+                <!-- Start share buttons -->
+                {embed="includes/.share-buttons" title="{title}"}
+                <!-- End share buttons -->
+
       {if expiration_date > 0}
         {if expiration_date < current_time}
           <div class="box box--alert">
@@ -147,5 +151,7 @@
       {embed="events/.priority-listings-sidebar" entry_id="{entry_id}"}
     </div>
   </div>
+  {embed="includes/.sign-up-cta"}
+
 </div>
 {embed="includes/.footer"}

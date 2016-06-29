@@ -83,13 +83,16 @@
   {/if}
   <div class="panel">
     <div class="panel__content">
+      <!-- Start share buttons -->
+      {embed="includes/.share-buttons" title="{title}" url_title="{freebie_3}"}
+      <!-- End share buttons -->
   <h1 class="green">
     {special_offer_place} - {title}
   </h1>
   <p class="lede">{if special_offer_type == 'Competition'}Competition{if:elseif special_offer_type == 'Survey'}Survey{if:else}Offer{/if} Ends: {expiration_date format="%d/%m/%Y"}</p>
 
   {if expiration_date > 0}
-    {if '{expiration_date format="%Y%m%d"}' < '{current_time format="%Y%m%d"}'}
+    {if {expiration_date format="%Y%m%d"} < {current_time format="%Y%m%d"}}
       <p>This offer has expired.</p>
     {/if}
   {/if}
@@ -115,12 +118,13 @@
       </p>
       <p id="form_error" class="error" style="display: none;"></p>
     {if:else}
-      <div id="form_success" style="display:none">
-        <h2 class="speech-header">You're in with a chance to win</h2>
+      <div id="form_success" class="speech-wrapper" style="display:none">
+        <h2 class="green palm-mt0 lap-and-up-mt0">
+          You're in with a chance to win
+        </h2>
         {competition_successfully_entered}
       </div>
     {/if}
-    {if {current_time format="%Y%m%d"} <= {expiration_date format="%Y%m%d"}}
       <form action="/" method="post" id="main_form">
         <h2 class="green palm-mt0 lap-and-up-mt0">Simply enter your name and address below to enter this competition</h2>
         <p id="form_error" style="display:none" class="error">Unfortunately an error occurred. Please check that you have filled in all required fields.</p>
@@ -190,7 +194,6 @@
                 <textarea name="twitter_share" style="display: none;">{if special_offer_type == 'Competition'}I just entered this competition to win{if:else}I have just signed up to this offer for{/if} {twitter_share_link}</textarea>
               {/if}
               </form>
-              {/if}
               <h5>
                 <strong>Terms and conditions:</strong>
               </h5>
@@ -348,7 +351,10 @@
         </div><!-- End of you may also like...-->
       </div>
     </div>
+    {embed="includes/.sign-up-cta"}
     </div>
+
+  </div>
 
 
     {embed="includes/.footer"}

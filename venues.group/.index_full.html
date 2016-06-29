@@ -43,6 +43,9 @@
 				{/if}
 				<div class="panel">
 					<div class="panel__content">
+						<!-- Start share buttons -->
+						{embed="includes/.share-buttons" title="{title}"}
+						<!-- End share buttons -->
 						<h1>{title}</h1>
 						<h2>{venue_sub_title}</h2>
 							{!-- Venue description --}
@@ -125,5 +128,7 @@
 					{embed="includes/.related"}
 				</div>
 			</div>
+			{embed="includes/.sign-up-cta"}
+
 		</div>
 {embed="includes/.footer"}

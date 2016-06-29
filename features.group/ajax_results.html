@@ -25,10 +25,7 @@ parse="inward"}
 														{title}
 													</a>
 												</h3>
-									<div class="authordate">
-									{entry_date format="%j %F %Y"}  | <span class="blue"><a href="/features/show/{exp:low_replace find='SPACE' replace='-'}{lead_feature_category}{/exp:low_replace}" class="feature-list">{lead_feature_category}</a></span>
-
-									</div>
+									{entry_date format="%j %F %Y"}  | <a href="/features/show/{exp:low_replace find='SPACE' replace='-'}{lead_feature_category}{/exp:low_replace}">{lead_feature_category}</a>
 									<p>
 											{feature_sub_title}
 										</p>

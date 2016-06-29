@@ -52,11 +52,14 @@ seo_plugin="yes"}
 
         <div class="panel">
           <div class="panel__content">
-              <h1>
-                {exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
+            {exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
+            <!-- Start share buttons -->
+            {embed="includes/.share-buttons" title="{title}"}
+            <!-- End share buttons -->
+            <h1>
                   {title}
-                {/exp:channel:entries}
               </h1>
+              {/exp:channel:entries}
               <!-- This is the author bit that needs sorting out -->
               {exp:channel:entries channel="features" show_future_entries="yes" limit="1"}
               <p>
@@ -104,6 +107,8 @@ seo_plugin="yes"}
     {embed="features/.sidebar"}
   </div>
   </div>
+  {embed="includes/.sign-up-cta"}
 
+</div>
 
     {embed="includes/.footer"}
